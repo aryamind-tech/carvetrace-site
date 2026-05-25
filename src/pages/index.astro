@@ -6,30 +6,49 @@ import { routes } from '../i18n/routes';
   lang="en"
   pageId="home"
   title="CarveTrace — Provable evidence for high-stakes AI decisions"
-  description="When an AI decision is challenged, CarveTrace produces tamper-evident bundles your auditor, regulator, or counterparty can verify without trusting you."
+  description="Self-hosted, cryptographic evidence for AI decisions. When an audit or dispute happens, your auditor verifies the proof themselves — without trusting you."
 >
   <section class="hero">
-    <h1>[TODO copy: hero headline — problem-led, one sentence]</h1>
-    <p>[TODO copy: subline — tamper-evident bundles + independent verification + no trust required]</p>
+    <h1>When an AI decision is challenged, can you prove what happened?</h1>
     <p>
-      <a class="cta" href="https://verify.carvetrace.com" rel="noopener">[TODO copy: primary CTA — see verifier]</a>
+      CarveTrace seals every AI decision into a tamper-evident evidence bundle
+      that any auditor, regulator, or counterparty can verify themselves —
+      without trusting you, and without your data ever leaving your
+      infrastructure.
+    </p>
+    <p>
+      <a class="cta" href={routes.demo.en}>See the demo</a>
       &nbsp;
-      <a class="cta cta--ghost" href={routes.contact.en}>[TODO copy: secondary CTA — request pilot]</a>
+      <a class="cta cta--ghost" href={routes.contact.en}>Request a pilot</a>
     </p>
   </section>
 
   <section>
-    <h2>[TODO copy: panel 1 — the problem]</h2>
-    <p class="todo-copy">Disputed AI decision / contested evidence / audit you cannot answer.</p>
+    <h2>The day it gets challenged</h2>
+    <p>
+      An algorithmic decision is disputed. A regulator opens an inquiry. Your
+      logs cannot prove what the model saw, when it ran, or what it returned.
+      Your word is not evidence.
+    </p>
   </section>
 
   <section>
-    <h2>[TODO copy: panel 2 — the proof]</h2>
-    <p class="todo-copy">Signed bundle + RFC 3161 timestamp + independent verifier anyone can run.</p>
+    <h2>What you record, anyone can verify</h2>
+    <p>
+      CarveTrace captures every event your AI system emits, seals it into a
+      cryptographic chain, and timestamps it through an independent RFC 3161
+      timestamping authority. The result is an evidence bundle that opens in
+      an independent verifier — running in any browser.
+    </p>
   </section>
 
   <section>
-    <h2>[TODO copy: panel 3 — the control]</h2>
-    <p class="todo-copy">Self-hosted. No data leaves your perimeter. Sovereign by design.</p>
+    <h2>Your evidence stays yours</h2>
+    <p>
+      CarveTrace runs in your infrastructure. We do not host your data. We do
+      not see your logs. We do not gate your verifier behind our
+      infrastructure — it runs in your browser, on hardware you control, even
+      offline. The cryptography is the trust — not us.
+    </p>
   </section>
 </Base>
