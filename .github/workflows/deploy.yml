@@ -1,0 +1,61 @@
+# Deploy carvetrace.com to Cloudflare Pages.
+#
+# DORMANT BY DESIGN until operator wires the manual prerequisites:
+#
+#   1. Cloudflare Pages project `carvetrace-com` exists in the Aryamind
+#      account, linked to this repo (or configured for direct upload).
+#   2. DNS apex `carvetrace.com` (and `www.carvetrace.com`) point at
+#      `carvetrace-com.pages.dev` (Cloudflare DNS, proxied). The existing
+#      `verify.carvetrace.com` record MUST be left untouched.
+#   3. GitHub repository secrets are configured:
+#        - CLOUDFLARE_API_TOKEN  (scoped to Pages: Edit on carvetrace-com)
+#        - CLOUDFLARE_ACCOUNT_ID
+#
+# Until step 3 is in place, the cloudflare/pages-action step will fail
+# loudly — the right failure mode (no silent partial deploy).
+
+name: Deploy carvetrace.com
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'astro.config.mjs'
+      - 'tsconfig.json'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/deploy.yml'
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check (Astro)
+        run: npm run check
+
+      - name: Build static site
+        run: npm run build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: carvetrace-com
+          directory: dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

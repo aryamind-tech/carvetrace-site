@@ -1,0 +1,39 @@
+// UI strings used by Header / Footer / shared chrome.
+// Page-body copy lives in the .astro page files themselves (per-page review).
+
+import type { Locale } from './routes';
+
+export const ui = {
+  en: {
+    'nav.howItWorks': 'How it works',
+    'nav.demo':       'Demo',
+    'nav.pricing':    'Pricing',
+    'nav.contact':    'Contact',
+    'nav.verifier':   'Open the verifier',
+    'nav.langSwitch': 'FR',
+    'footer.tagline': 'Cryptographically verifiable event data for high-stakes AI systems.',
+    'footer.verifier': 'Independent verifier',
+    'footer.github':   'Source on GitHub',
+    'footer.contact':  'Contact',
+    'footer.legal':    'Aryamind SARL — all rights reserved',
+  },
+  fr: {
+    'nav.howItWorks': 'Comment ça marche',
+    'nav.demo':       'Démo',
+    'nav.pricing':    'Tarifs',
+    'nav.contact':    'Contact',
+    'nav.verifier':   'Ouvrir le vérificateur',
+    'nav.langSwitch': 'EN',
+    'footer.tagline': 'Données d’événements cryptographiquement vérifiables pour les systèmes d’IA à fort enjeu.',
+    'footer.verifier': 'Vérificateur indépendant',
+    'footer.github':   'Source sur GitHub',
+    'footer.contact':  'Contact',
+    'footer.legal':    'Aryamind SARL — tous droits réservés',
+  },
+} as const satisfies Record<Locale, Record<string, string>>;
+
+export type UIKey = keyof (typeof ui)['en'];
+
+export function t(locale: Locale, key: UIKey): string {
+  return ui[locale][key];
+}

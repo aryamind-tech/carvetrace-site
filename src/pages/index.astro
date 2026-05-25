@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import { routes } from '../i18n/routes';
+---
+<Base
+  lang="en"
+  pageId="home"
+  title="CarveTrace — Provable evidence for high-stakes AI decisions"
+  description="When an AI decision is challenged, CarveTrace produces tamper-evident bundles your auditor, regulator, or counterparty can verify without trusting you."
+>
+  <section class="hero">
+    <h1>[TODO copy: hero headline — problem-led, one sentence]</h1>
+    <p>[TODO copy: subline — tamper-evident bundles + independent verification + no trust required]</p>
+    <p>
+      <a class="cta" href="https://verify.carvetrace.com" rel="noopener">[TODO copy: primary CTA — see verifier]</a>
+      &nbsp;
+      <a class="cta cta--ghost" href={routes.contact.en}>[TODO copy: secondary CTA — request pilot]</a>
+    </p>
+  </section>
+
+  <section>
+    <h2>[TODO copy: panel 1 — the problem]</h2>
+    <p class="todo-copy">Disputed AI decision / contested evidence / audit you cannot answer.</p>
+  </section>
+
+  <section>
+    <h2>[TODO copy: panel 2 — the proof]</h2>
+    <p class="todo-copy">Signed bundle + RFC 3161 timestamp + independent verifier anyone can run.</p>
+  </section>
+
+  <section>
+    <h2>[TODO copy: panel 3 — the control]</h2>
+    <p class="todo-copy">Self-hosted. No data leaves your perimeter. Sovereign by design.</p>
+  </section>
+</Base>

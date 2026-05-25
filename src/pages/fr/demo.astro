@@ -1,0 +1,42 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base
+  lang="fr"
+  pageId="demo"
+  title="Voir CarveTrace vérifier un bundle réel"
+  description="Ouvrez un bundle de preuve CarveTrace réel dans le vérificateur indépendant. Modifiez un seul octet et regardez-le être rejeté."
+>
+  <h1>[TODO copy: H1 — accroche narrative avant le hand-off]</h1>
+
+  <section>
+    <h2>[TODO copy: Un bundle réel]</h2>
+    <p class="todo-copy">
+      Bundle généré par un workflow de conformité AI Act réel (placeholder en attendant le bundle de l'Objectif 1).
+      Ce qu'il contient : événements signés, horodatages RFC 3161, registre de schémas, métadonnées de vérification.
+    </p>
+  </section>
+
+  <section>
+    <h2>[TODO copy: Vérifiez par vous-même]</h2>
+    <p class="todo-copy">4–5 lignes : ce que le vérificateur contrôle, pourquoi vous n'avez pas besoin de nous faire confiance.</p>
+    <p>
+      <a class="cta" href="https://verify.carvetrace.com" rel="noopener" target="_blank">
+        [TODO copy: bouton — ouvrir le vérificateur]
+      </a>
+    </p>
+  </section>
+
+  <section>
+    <h2>[TODO copy: Le test d'altération]</h2>
+    <!--
+      GATE: ne pas promouvoir le sample altéré publiquement tant que
+      TD-WASM-VERDICT-LABEL n'est pas closed (WASM émet actuellement
+      "ERROR" au lieu de "FAILED" au rejet du byte-flip — se lit comme
+      "le vérificateur a planté", pas "la preuve a été rejetée").
+    -->
+    <p class="todo-copy">
+      [TODO copy: expliquer byte-flip → rejet. CTA désactivé jusqu'à fermeture de TD-WASM-VERDICT-LABEL.]
+    </p>
+  </section>
+</Base>

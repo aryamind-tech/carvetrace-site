@@ -1,0 +1,12 @@
+CarveTrace — Cryptographically verifiable event data
+Copyright 2026 Aryamind SARL
+
+This repository contains the public-facing website for CarveTrace,
+served from https://carvetrace.com.
+
+All site content (text, layout, styling) is proprietary to Aryamind
+SARL. The repository is public for transparency; making it public
+does not grant a license to copy, redistribute, or reuse the content.
+
+For the open-source CarveTrace verifier:
+  https://github.com/aryamind-tech/carvetrace-verify-wasm

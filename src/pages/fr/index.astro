@@ -1,0 +1,35 @@
+---
+import Base from '../../layouts/Base.astro';
+import { routes } from '../../i18n/routes';
+---
+<Base
+  lang="fr"
+  pageId="home"
+  title="CarveTrace — Preuve vérifiable pour les décisions IA à fort enjeu"
+  description="Quand une décision IA est contestée, CarveTrace produit des bundles infalsifiables que votre auditeur, régulateur ou contrepartie peut vérifier sans avoir à vous faire confiance."
+>
+  <section class="hero">
+    <h1>[TODO copy: hero — accroche menée par le problème, une phrase]</h1>
+    <p>[TODO copy: sous-titre — bundles infalsifiables + vérification indépendante + zéro trust requis]</p>
+    <p>
+      <a class="cta" href="https://verify.carvetrace.com" rel="noopener">[TODO copy: CTA primaire — voir le vérificateur]</a>
+      &nbsp;
+      <a class="cta cta--ghost" href={routes.contact.fr}>[TODO copy: CTA secondaire — demander un pilote]</a>
+    </p>
+  </section>
+
+  <section>
+    <h2>[TODO copy: panneau 1 — le problème]</h2>
+    <p class="todo-copy">Décision IA contestée / preuve contestable / audit auquel vous ne pouvez pas répondre.</p>
+  </section>
+
+  <section>
+    <h2>[TODO copy: panneau 2 — la preuve]</h2>
+    <p class="todo-copy">Bundle signé + horodatage RFC 3161 + vérificateur indépendant que n'importe qui peut exécuter.</p>
+  </section>
+
+  <section>
+    <h2>[TODO copy: panneau 3 — le contrôle]</h2>
+    <p class="todo-copy">Auto-hébergé. Aucune donnée ne quitte votre périmètre. Souverain par conception.</p>
+  </section>
+</Base>

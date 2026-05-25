@@ -1,0 +1,25 @@
+---
+import { routes, altLocaleHref } from '../i18n/routes';
+import type { Locale, PageId } from '../i18n/routes';
+import { t } from '../i18n/ui';
+
+interface Props {
+  lang: Locale;
+  pageId: PageId;
+}
+const { lang, pageId } = Astro.props;
+const home = routes.home[lang];
+const langHref = altLocaleHref(pageId, lang);
+---
+<header class="site-header">
+  <nav class="nav" aria-label={lang === 'fr' ? 'Navigation principale' : 'Main navigation'}>
+    <a href={home} class="nav-logo">CarveTrace</a>
+    <div class="nav-links">
+      <a href={routes['how-it-works'][lang]}>{t(lang, 'nav.howItWorks')}</a>
+      <a href={routes.demo[lang]}>{t(lang, 'nav.demo')}</a>
+      <a href={routes.pricing[lang]}>{t(lang, 'nav.pricing')}</a>
+      <a href={routes.contact[lang]}>{t(lang, 'nav.contact')}</a>
+      <a href={langHref} class="lang" hreflang={lang === 'en' ? 'fr' : 'en'}>{t(lang, 'nav.langSwitch')}</a>
+    </div>
+  </nav>
+</header>
