@@ -1,31 +1,74 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { routes } from '../../i18n/routes';
 ---
 <Base
   lang="fr"
   pageId="how-it-works"
   title="Comment fonctionne CarveTrace"
-  description="Événements capturés, scellés cryptographiquement, vérifiables indépendamment et mappés à des obligations lisibles — sans modifier votre système d'IA."
+  description="Capturez chaque décision IA sans modifier votre modèle. Scellez-la cryptographiquement. Remettez à vos auditeurs et régulateurs un bundle qu'ils peuvent vérifier eux-mêmes."
 >
-  <h1>[TODO copy: H1 — narratif, pas technique]</h1>
-
-  <section>
-    <h2>[TODO copy: 1. Votre système d'IA tourne]</h2>
-    <p class="todo-copy">Le SDK capture les événements. Aucun changement du modèle. Aucune exfiltration de données.</p>
+  <section class="hero">
+    <p class="eyebrow">Le parcours</p>
+    <h1>Comment une décision IA devient une preuve</h1>
+    <p>
+      Quatre étapes, du moment où votre modèle rend une décision jusqu'au
+      moment où un auditeur confirme indépendamment ce qui s'est passé.
+    </p>
   </section>
 
   <section>
-    <h2>[TODO copy: 2. Les événements sont scellés]</h2>
-    <p class="todo-copy">Chaîne cryptographique + horodatage RFC 3161. Une phrase sur l'autorité — pas de jargon Merkle/leaf-index.</p>
+    <p class="eyebrow">Étape 1 · Capturer</p>
+    <h2>Votre système d'IA tourne — sans changement</h2>
+    <p>
+      CarveTrace capture les événements via un SDK qui s'intègre dans votre
+      code existant. Le modèle lui-même ne change pas. Rien ne quitte votre
+      réseau : les événements sont mis en mémoire tampon et signés à
+      l'intérieur de votre périmètre, par vos clés, sur votre matériel.
+    </p>
   </section>
 
   <section>
-    <h2>[TODO copy: 3. N'importe qui peut vérifier]</h2>
-    <p class="todo-copy">Bundle exporté. Ouvert par le vérificateur indépendant. Hand-off vers verify.carvetrace.com.</p>
+    <p class="eyebrow">Étape 2 · Sceller</p>
+    <h2>Les événements sont scellés, localement et durablement</h2>
+    <p>
+      Chaque événement est ajouté à une chaîne cryptographique — chaque
+      entrée scelle celle qui la précède, de sorte qu'altérer un ancien
+      enregistrement casse tous ceux qui ont suivi. À intervalles réguliers,
+      la chaîne est horodatée par une autorité RFC 3161 indépendante,
+      ancrant le « c'est arrivé avant cette date » auprès d'un tiers que
+      vous n'avez pas payé.
+    </p>
   </section>
 
   <section>
-    <h2>[TODO copy: 4. Quand c'est contesté]</h2>
-    <p class="todo-copy">Rapport lisible mappant la preuve aux obligations de l'Article 12 de l'AI Act.</p>
+    <p class="eyebrow">Étape 3 · Vérifier</p>
+    <h2>N'importe qui peut vérifier ce que vous avez scellé</h2>
+    <p>
+      Quand vous devez démontrer la conformité — ou défendre une décision —
+      vous exportez un bundle de preuve. Il s'ouvre dans un vérificateur
+      open-source qui s'exécute entièrement dans un navigateur. Aucun upload
+      vers nos serveurs. Aucun login. Votre auditeur voit le même verdict
+      que verrait votre régulateur.
+    </p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Étape 4 · Défendre</p>
+    <h2>Quand l'audit arrive, remettez-leur un rapport lisible</h2>
+    <p>
+      Le bundle n'est pas qu'une collection de signatures cryptographiques —
+      il produit un rapport lisible par un humain, associant chaque pièce de
+      preuve à son obligation Article 12 de l'AI Act. Votre auditeur lit le
+      rapport. Votre régulateur lit le rapport. Vous n'avez pas à traduire
+      la cryptographie en langage de conformité ; CarveTrace l'a déjà fait.
+    </p>
+  </section>
+
+  <section>
+    <div class="hero__ctas">
+      <a class="cta cta--primary" href={routes.demo.fr}>Voir la démo</a>
+      <a class="cta cta--ghost" href={routes.contact.fr}>Demander un pilote</a>
+    </div>
   </section>
 </Base>

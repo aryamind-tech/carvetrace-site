@@ -205,6 +205,15 @@ main {
   padding: clamp(2rem, 6vw, 4rem) var(--page-padding) 4rem;
 }
 
+/* Vertical rhythm for narrative pages — first section (typically
+   .hero) carries no top margin; every subsequent section gets the
+   page-level breathing room. */
+main > section + section,
+main > .panels + section,
+main > section + .panels {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
 /* ----- Hero ---------------------------------------------- */
 .hero {
   margin-bottom: clamp(3rem, 8vw, 5rem);

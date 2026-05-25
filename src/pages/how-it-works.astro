@@ -1,31 +1,72 @@
 ---
 import Base from '../layouts/Base.astro';
+import { routes } from '../i18n/routes';
 ---
 <Base
   lang="en"
   pageId="how-it-works"
   title="How CarveTrace works"
-  description="Events captured, cryptographically sealed, independently verifiable, and mapped to readable obligations — without changing your AI system."
+  description="Capture every AI decision with no model changes. Seal it cryptographically. Hand auditors and regulators a bundle they can verify themselves."
 >
-  <h1>[TODO copy: H1 — narrative, not technical]</h1>
-
-  <section>
-    <h2>[TODO copy: 1. Your AI system runs]</h2>
-    <p class="todo-copy">SDK captures events. No model change. No data exfiltration.</p>
+  <section class="hero">
+    <p class="eyebrow">The lifecycle</p>
+    <h1>How an AI decision becomes evidence</h1>
+    <p>
+      Four steps, from the moment your model returns a decision to the moment
+      an auditor independently confirms what happened.
+    </p>
   </section>
 
   <section>
-    <h2>[TODO copy: 2. Events get sealed]</h2>
-    <p class="todo-copy">Cryptographic chain + RFC 3161 timestamping. One-liner on the authority — no Merkle/leaf-index jargon.</p>
+    <p class="eyebrow">Step 1 · Capture</p>
+    <h2>Your AI system runs — unchanged</h2>
+    <p>
+      CarveTrace captures events through an SDK that drops into your existing
+      code. The model itself does not change. Nothing leaves your network:
+      events are buffered and signed inside your perimeter, by your keys, on
+      your hardware.
+    </p>
   </section>
 
   <section>
-    <h2>[TODO copy: 3. Anyone can verify]</h2>
-    <p class="todo-copy">Bundle exported. Opened by the independent verifier. Hand-off to verify.carvetrace.com.</p>
+    <p class="eyebrow">Step 2 · Seal</p>
+    <h2>Events get sealed, locally and for good</h2>
+    <p>
+      Every event is added to a cryptographic chain — each entry binds the one
+      before it, so altering an old record breaks every record that came
+      after. At regular intervals, the chain is timestamped by an independent
+      RFC 3161 authority, anchoring "this happened by this date" to a third
+      party you didn't pay.
+    </p>
   </section>
 
   <section>
-    <h2>[TODO copy: 4. When it gets challenged]</h2>
-    <p class="todo-copy">Readable report mapping evidence to AI Act Article 12 obligations.</p>
+    <p class="eyebrow">Step 3 · Verify</p>
+    <h2>Anyone can verify what you sealed</h2>
+    <p>
+      When you need to demonstrate compliance — or defend a decision — you
+      export an evidence bundle. It opens in an open-source verifier that runs
+      entirely in a browser. No upload to our servers. No login. Your auditor
+      sees the same verdict your regulator would.
+    </p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Step 4 · Defend</p>
+    <h2>When the audit comes, hand them a readable report</h2>
+    <p>
+      The bundle is not just cryptographic signatures — it produces a
+      human-readable report mapping every piece of evidence to its AI Act
+      Article 12 obligation. Your auditor reads the report. Your regulator
+      reads the report. You do not have to translate cryptography into
+      compliance language; CarveTrace already did.
+    </p>
+  </section>
+
+  <section>
+    <div class="hero__ctas">
+      <a class="cta cta--primary" href={routes.demo.en}>See the demo</a>
+      <a class="cta cta--ghost" href={routes.contact.en}>Request a pilot</a>
+    </div>
   </section>
 </Base>
