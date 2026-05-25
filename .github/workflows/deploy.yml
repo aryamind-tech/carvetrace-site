@@ -51,6 +51,13 @@ jobs:
       - name: Build static site
         run: npm run build
 
+      # `gitHubToken` is intentionally omitted. Passing it makes
+      # cloudflare/pages-action@v1 attempt to create a GitHub Deployment
+      # record, which requires `deployments: write` on GITHUB_TOKEN — a
+      # permission the default workflow token does not grant. Cloudflare's
+      # dashboard tracks the deployment regardless; the missing GH
+      # Deployment / Environment record is cosmetic, not functional.
+      # Matches the deploy pattern in carvetrace-verify-wasm.
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
@@ -58,4 +65,3 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: carvetrace-com
           directory: dist
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
