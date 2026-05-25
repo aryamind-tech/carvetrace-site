@@ -6,29 +6,53 @@ import { routes } from '../../i18n/routes';
   lang="fr"
   pageId="pricing"
   title="Tarifs CarveTrace"
-  description="Auto-hébergé uniquement. Trois niveaux — Community, Pro, Enterprise. Toute conversation commerciale commence par un pilote."
+  description="Auto-hébergé uniquement. Trois niveaux de déploiement — Core, Pro, Enterprise. Toute conversation commerciale commence par un pilote."
 >
-  <h1>[TODO copy: H1 — tarifs, auto-hébergé uniquement]</h1>
-  <p class="todo-copy">Auto-hébergé uniquement — pas de SaaS, pas d'offre managée. Vos données ne quittent jamais votre périmètre.</p>
-
-  <section>
-    <h2>[TODO copy: Community]</h2>
-    <p class="todo-copy">Cœur OSS. Une équipe. Support communautaire. Gratuit.</p>
+  <section class="hero">
+    <p class="eyebrow">Tarifs</p>
+    <h1>Trois manières de déployer</h1>
+    <p>Auto-hébergé. Vos données ne quittent jamais votre infrastructure.</p>
   </section>
 
-  <section>
-    <h2>[TODO copy: Pro]</h2>
-    <p class="todo-copy">Licence commerciale. Une organisation. Support email. Prix : TBD (afficher ou "Contactez-nous" ?).</p>
-  </section>
+  <div class="panels">
+    <article class="card">
+      <h2>Core</h2>
+      <p>Pour une équipe qui exécute CarveTrace dans une seule organisation.</p>
+      <ul>
+        <li>Plateforme de preuve complète (chaîne, horodatages, export de bundle)</li>
+        <li>Vérificateur indépendant — auto-hébergeable</li>
+        <li>SDK + CLI</li>
+        <li>Licence commerciale standard, une seule organisation</li>
+        <li>Support communautaire</li>
+      </ul>
+      <a class="cta cta--primary" href={routes.contact.fr}>Demander un pilote</a>
+    </article>
 
-  <section>
-    <h2>[TODO copy: Enterprise]</h2>
-    <p class="todo-copy">Multi-organisations. SLA. Intégrations sur mesure. Support mapping AI Act. Prix sur demande.</p>
-  </section>
+    <article class="card">
+      <h2>Pro</h2>
+      <p>Pour les organisations qui placent CarveTrace au cœur de leur conformité AI Act.</p>
+      <ul>
+        <li>Tout ce qui est inclus dans Core</li>
+        <li>Support email avec réponse en horaires ouvrés</li>
+        <li>Aide à la création de schémas pour votre mapping Article 12</li>
+        <li>Accompagnement sur les montées de version</li>
+        <li>Revue annuelle de votre pipeline de preuve</li>
+      </ul>
+      <a class="cta cta--primary" href={routes.contact.fr}>Demander un pilote</a>
+    </article>
 
-  <section>
-    <p>
-      <a class="cta" href={routes.contact.fr}>[TODO copy: CTA universel — demander un pilote]</a>
-    </p>
-  </section>
+    <article class="card">
+      <h2>Enterprise</h2>
+      <p>Pour les déploiements multi-organisations, les industries régulées et les déploiements accompagnés.</p>
+      <ul>
+        <li>Tout ce qui est inclus dans Pro</li>
+        <li>Contact support nommé + SLA d'astreinte</li>
+        <li>Déploiement accompagné — nous vous aidons à passer en production</li>
+        <li>Mapping Article 12 personnalisé pour vos processus métier</li>
+        <li>Licence multi-organisations</li>
+        <li>Conditions DPA + contrat sur mesure</li>
+      </ul>
+      <a class="cta cta--primary" href={routes.contact.fr}>Contactez-nous</a>
+    </article>
+  </div>
 </Base>

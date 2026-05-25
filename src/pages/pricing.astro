@@ -6,29 +6,53 @@ import { routes } from '../i18n/routes';
   lang="en"
   pageId="pricing"
   title="CarveTrace pricing"
-  description="Self-hosted only. Three tiers — Community, Pro, Enterprise. All commercial conversations start with a pilot."
+  description="Self-hosted only. Three deployment tiers — Core, Pro, Enterprise. Every commercial conversation starts with a pilot."
 >
-  <h1>[TODO copy: H1 — pricing, self-hosted only]</h1>
-  <p class="todo-copy">Self-hosted only — no SaaS, no managed tier. Your data never leaves your perimeter.</p>
-
-  <section>
-    <h2>[TODO copy: Community]</h2>
-    <p class="todo-copy">OSS-licensed core. Single team. Community support. Free.</p>
+  <section class="hero">
+    <p class="eyebrow">Pricing</p>
+    <h1>Three ways to deploy</h1>
+    <p>Self-hosted. Your data never leaves your infrastructure.</p>
   </section>
 
-  <section>
-    <h2>[TODO copy: Pro]</h2>
-    <p class="todo-copy">Commercial license. Single org. Email support. Price: TBD (display or "Talk to us"?).</p>
-  </section>
+  <div class="panels">
+    <article class="card">
+      <h2>Core</h2>
+      <p>For one team running CarveTrace inside one organization.</p>
+      <ul>
+        <li>Full evidence platform (chain, timestamps, bundle export)</li>
+        <li>Independent verifier — self-hostable</li>
+        <li>SDK + CLI</li>
+        <li>Standard commercial license, single organization</li>
+        <li>Community support</li>
+      </ul>
+      <a class="cta cta--primary" href={routes.contact.en}>Request a pilot</a>
+    </article>
 
-  <section>
-    <h2>[TODO copy: Enterprise]</h2>
-    <p class="todo-copy">Multi-org. SLA. Custom integrations. AI Act mapping support. Price on request.</p>
-  </section>
+    <article class="card">
+      <h2>Pro</h2>
+      <p>For organizations placing CarveTrace at the centre of their AI Act compliance.</p>
+      <ul>
+        <li>Everything in Core</li>
+        <li>Email support with business-hours response</li>
+        <li>Schema authoring help for your Article 12 mapping</li>
+        <li>Version upgrade guidance</li>
+        <li>Annual review of your evidence pipeline</li>
+      </ul>
+      <a class="cta cta--primary" href={routes.contact.en}>Request a pilot</a>
+    </article>
 
-  <section>
-    <p>
-      <a class="cta" href={routes.contact.en}>[TODO copy: universal CTA — request pilot]</a>
-    </p>
-  </section>
+    <article class="card">
+      <h2>Enterprise</h2>
+      <p>For multi-org deployments, regulated industries, and accompanied rollouts.</p>
+      <ul>
+        <li>Everything in Pro</li>
+        <li>Named support contact + on-call SLA</li>
+        <li>Accompanied deployment — we help you ship to production</li>
+        <li>Custom Article 12 mapping for your business processes</li>
+        <li>Multi-organization license</li>
+        <li>DPA + custom contract terms</li>
+      </ul>
+      <a class="cta cta--primary" href={routes.contact.en}>Talk to us</a>
+    </article>
+  </div>
 </Base>

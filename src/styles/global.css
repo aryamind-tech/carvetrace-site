@@ -240,8 +240,41 @@ main > section + .panels {
   border-color: var(--edge-default);
   box-shadow: var(--shadow-card-hover);
 }
+.card { display: flex; flex-direction: column; }
 .card h2 { font-size: 1.25rem; margin-bottom: 0.75rem; }
 .card p  { font-size: 0.9375rem; color: var(--ink-secondary); margin-bottom: 0; }
+.card p:not(:last-child) { margin-bottom: 1rem; }
+
+/* Feature list used inside pricing tier cards. Emerald square dots
+   (geometric, carvetrace tone) rather than checkmarks (too SaaS-y). */
+.card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+.card li {
+  position: relative;
+  padding-left: 1.25rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--ink-secondary);
+}
+.card li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--brand-600);
+  opacity: 0.9;
+}
+
+/* Push the per-tier CTA to the card's bottom edge so CTAs align
+   across tiers even when bullet counts differ. */
+.card > .cta { margin-top: auto; align-self: flex-start; }
 
 /* ----- Buttons ------------------------------------------- */
 .cta {
