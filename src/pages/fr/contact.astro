@@ -1,25 +1,26 @@
 ---
 import Base from '../../layouts/Base.astro';
+
+const email = 'contact@carvetrace.com';
+const subject = 'CarveTrace — [votre organisation]';
+const mailto = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
 ---
 <Base
   lang="fr"
   pageId="contact"
   title="Contacter CarveTrace"
-  description="Parlons d'un pilote. Déploiements auto-hébergés uniquement — conversation d'abord, pas de checkout."
+  description="Décrivez-nous votre cas d'usage et nous vous montrerons comment la preuve fonctionne. Email uniquement, pas de formulaire, pas de tracking."
 >
-  <h1>[TODO copy: H1 — contact, B2B faible friction]</h1>
-  <p class="todo-copy">
-    Recommandé : mailto + lien Calendly. Pas de formulaire = pas de backend = pas de honeypot =
-    pas de tracking RGPD. Cohérent avec le positionnement souverain. À confirmer avec l'opérateur.
-  </p>
-
-  <section>
-    <h2>[TODO copy: Email]</h2>
-    <p class="todo-copy">[TODO opérateur : quel email de contact ? hello@carvetrace.com / contact@aryamind.ma / autre ?]</p>
-  </section>
-
-  <section>
-    <h2>[TODO copy: Planifier un appel]</h2>
-    <p class="todo-copy">[TODO opérateur : lien Calendly ? Ou rester email-only ?]</p>
+  <section class="hero">
+    <p class="eyebrow">Nous contacter</p>
+    <h1>Parlons-en</h1>
+    <p>
+      CarveTrace est conçu pour les organisations qui doivent prouver leurs
+      décisions IA en cas de contestation. Décrivez-nous votre cas d'usage et
+      nous vous montrerons comment la preuve fonctionne.
+    </p>
+    <div class="hero__ctas">
+      <a class="cta cta--primary" href={mailto}>{email}</a>
+    </div>
   </section>
 </Base>
