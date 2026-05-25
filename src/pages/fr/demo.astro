@@ -1,42 +1,101 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { routes } from '../../i18n/routes';
 ---
 <Base
   lang="fr"
   pageId="demo"
   title="Voir CarveTrace vérifier un bundle réel"
-  description="Ouvrez un bundle de preuve CarveTrace réel dans le vérificateur indépendant. Modifiez un seul octet et regardez-le être rejeté."
+  description="Un déroulé de ce que CarveTrace enregistre, de ce que dit son vérificateur, et de ce qui se passe quand quelqu'un tente de modifier l'enregistrement après coup."
 >
-  <h1>[TODO copy: H1 — accroche narrative avant le hand-off]</h1>
-
-  <section>
-    <h2>[TODO copy: Un bundle réel]</h2>
-    <p class="todo-copy">
-      Bundle généré par un workflow de conformité AI Act réel (placeholder en attendant le bundle de l'Objectif 1).
-      Ce qu'il contient : événements signés, horodatages RFC 3161, registre de schémas, métadonnées de vérification.
-    </p>
-  </section>
-
-  <section>
-    <h2>[TODO copy: Vérifiez par vous-même]</h2>
-    <p class="todo-copy">4–5 lignes : ce que le vérificateur contrôle, pourquoi vous n'avez pas besoin de nous faire confiance.</p>
+  <section class="hero">
+    <p class="eyebrow">La démo</p>
+    <h1>Voir un bundle de preuve résister à l'altération</h1>
     <p>
-      <a class="cta" href="https://verify.carvetrace.com" rel="noopener" target="_blank">
-        [TODO copy: bouton — ouvrir le vérificateur]
-      </a>
+      Un déroulé de ce que CarveTrace enregistre, de ce que dit son
+      vérificateur, et de ce qui se passe quand quelqu'un tente de modifier
+      l'enregistrement après coup.
     </p>
   </section>
 
   <section>
-    <h2>[TODO copy: Le test d'altération]</h2>
-    <!--
-      GATE: ne pas promouvoir le sample altéré publiquement tant que
-      TD-WASM-VERDICT-LABEL n'est pas closed (WASM émet actuellement
-      "ERROR" au lieu de "FAILED" au rejet du byte-flip — se lit comme
-      "le vérificateur a planté", pas "la preuve a été rejetée").
-    -->
-    <p class="todo-copy">
-      [TODO copy: expliquer byte-flip → rejet. CTA désactivé jusqu'à fermeture de TD-WASM-VERDICT-LABEL.]
+    <p class="eyebrow">Moment 1 · La situation</p>
+    <h2>Une décision est contestée</h2>
+    <p>
+      Il y a six mois, un système d'IA de présélection a examiné le CV d'un
+      candidat et l'a écarté de la shortlist pour un poste senior en
+      ingénierie. Le candidat a depuis déposé une plainte pour
+      discrimination. L'autorité compétente veut voir exactement quel texte
+      le modèle a reçu, quelles catégories il scorait, quelle version du
+      modèle s'exécutait, et ce qu'il a retourné — pour ce CV-là, pour ce
+      poste-là.
     </p>
+  </section>
+
+  <!--
+    Moment 2 · L'enregistrement — placeholder bundle download.
+    Le bundle Objectif-1 (workflow AI Act réel, scénario recrutement
+    matchant la pipeline bart-mnli) n'est pas encore généré. Quand il
+    le sera, ajouter un lien "Télécharger ce bundle" dans cette section
+    pour que le visiteur puisse le déposer dans verify.carvetrace.com
+    lui-même. Jusque-là, le récit porte la section.
+  -->
+  <section>
+    <p class="eyebrow">Moment 2 · L'enregistrement</p>
+    <h2>Voici ce que CarveTrace a enregistré</h2>
+    <p>
+      Un bundle de preuve du système de présélection. Il contient chaque
+      étape par laquelle cette décision est passée : le texte du CV reçu par
+      le modèle, les catégories qu'il scorait, le modèle et la version qui
+      s'exécutait, le résultat de l'inférence, et les horodatages d'une
+      autorité RFC 3161 indépendante — tous reliés dans une chaîne
+      cryptographique, chaque événement signé. Le bundle est prêt à être
+      inspecté.
+    </p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Moment 3 · Le verdict</p>
+    <h2>Le vérificateur dit : VERIFIED</h2>
+    <p>
+      Déposez le bundle dans le vérificateur — qui s'exécute entièrement dans
+      un navigateur, pas sur nos serveurs — et vous voyez : VERIFIED. Chaque
+      signature est validée. Chaque horodatage remonte à une autorité de
+      confiance. Chaque événement de la chaîne référence celui qui le
+      précède. Le bundle est exactement ce qu'il prétend être : la trace de
+      cette décision, scellée au moment où elle s'est produite.
+    </p>
+  </section>
+
+  <!--
+    Moment 4 · Le test d'altération — CTA placeholder.
+    Le texte ci-dessous dit "le vérificateur dit : FAILED". Le WASM émet
+    actuellement "ERROR" au lieu de "FAILED" sur les rejets byte-flip
+    (TD-WASM-VERDICT-LABEL). NE PAS ajouter de CTA "Essayer le test
+    d'altération" tant que ce TD n'est pas fermé — si le texte dit
+    FAILED et le visiteur clique pour voir ERROR, la démo se contredit
+    à son point culminant. Une fois que le WASM émet FAILED, ajouter un
+    CTA pointant vers le sample tampered de verify.carvetrace.com (ou
+    URL pré-chargée) dans cette section.
+  -->
+  <section>
+    <p class="eyebrow">Moment 4 · Le test d'altération</p>
+    <h2>Changez un octet. Regardez le vérificateur le rejeter.</h2>
+    <p>
+      Maintenant imaginez que quelqu'un tente d'altérer le raisonnement
+      enregistré après coup — change un seul caractère dans le texte du CV
+      reçu par le modèle, ou dans les catégories qu'il scorait. Déposez le
+      bundle modifié. Le vérificateur dit : FAILED. La chaîne cryptographique
+      se brise au niveau de l'enregistrement altéré, et tous ceux qui ont
+      suivi échouent avec lui. Vous ne pouvez pas changer l'histoire sans
+      laisser une trace que le vérificateur verra.
+    </p>
+  </section>
+
+  <section>
+    <div class="hero__ctas">
+      <a class="cta cta--primary" href="https://verify.carvetrace.com" rel="noopener" target="_blank">Ouvrir le vérificateur</a>
+      <a class="cta cta--ghost" href={routes.contact.fr}>Demander un pilote</a>
+    </div>
   </section>
 </Base>
