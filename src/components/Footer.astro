@@ -9,15 +9,17 @@ const { lang } = Astro.props;
 const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
-  <div class="row">
-    <span>{t(lang, 'footer.tagline')}</span>
-    <span>
-      <a href="https://verify.carvetrace.com" rel="noopener">{t(lang, 'footer.verifier')}</a>
-      &nbsp;·&nbsp;
-      <a href="https://github.com/aryamind-tech" rel="noopener">{t(lang, 'footer.github')}</a>
-    </span>
-  </div>
-  <div class="row">
-    <small>© {year} {t(lang, 'footer.legal')}</small>
+  <div class="site-footer__inner">
+    <div class="site-footer__row">
+      <span>{t(lang, 'footer.tagline')}</span>
+      <span>
+        <a href="https://verify.carvetrace.com" rel="noopener">{t(lang, 'footer.verifier')}</a>
+        <span class="site-footer__sep">·</span>
+        <a href="https://github.com/aryamind-tech" rel="noopener">{t(lang, 'footer.github')}</a>
+      </span>
+    </div>
+    <div class="site-footer__row">
+      <small>© {year} {t(lang, 'footer.legal')}</small>
+    </div>
   </div>
 </footer>

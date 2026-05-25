@@ -1,8 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import type { Locale } from '../i18n/routes';
-import type { PageId } from '../i18n/routes';
+import type { Locale, PageId } from '../i18n/routes';
 import '../styles/global.css';
 
 interface Props {
@@ -21,8 +20,15 @@ const { lang, pageId, title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="referrer" content="no-referrer" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'" />
     <title>{title}</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- Preload the most-used font weight to avoid FOUT.
+         Inter-SemiBold (used by H1/H2/wordmark__trace) is more visually
+         critical on first paint than Regular. -->
+    <link rel="preload" href="/fonts/Inter-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
   </head>
   <body>
     <Header lang={lang} pageId={pageId} />

@@ -9,6 +9,7 @@ import { routes } from '../i18n/routes';
   description="Self-hosted, cryptographic evidence for AI decisions. When an audit or dispute happens, your auditor verifies the proof themselves — without trusting you."
 >
   <section class="hero">
+    <p class="eyebrow">AI Act compliance · Article 12 evidence</p>
     <h1>When an AI decision is challenged, can you prove what happened?</h1>
     <p>
       CarveTrace seals every AI decision into a tamper-evident evidence bundle
@@ -16,39 +17,43 @@ import { routes } from '../i18n/routes';
       without trusting you, and without your data ever leaving your
       infrastructure.
     </p>
-    <p>
-      <a class="cta" href={routes.demo.en}>See the demo</a>
-      &nbsp;
+    <div class="hero__ctas">
+      <a class="cta cta--primary" href={routes.demo.en}>See the demo</a>
       <a class="cta cta--ghost" href={routes.contact.en}>Request a pilot</a>
-    </p>
+    </div>
   </section>
 
-  <section>
-    <h2>The day it gets challenged</h2>
-    <p>
-      An algorithmic decision is disputed. A regulator opens an inquiry. Your
-      logs cannot prove what the model saw, when it ran, or what it returned.
-      Your word is not evidence.
-    </p>
-  </section>
+  <div class="panels">
+    <article class="card">
+      <p class="eyebrow">The problem</p>
+      <h2>The day it gets challenged</h2>
+      <p>
+        An algorithmic decision is disputed. A regulator opens an inquiry. Your
+        logs cannot prove what the model saw, when it ran, or what it returned.
+        Your word is not evidence.
+      </p>
+    </article>
 
-  <section>
-    <h2>What you record, anyone can verify</h2>
-    <p>
-      CarveTrace captures every event your AI system emits, seals it into a
-      cryptographic chain, and timestamps it through an independent RFC 3161
-      timestamping authority. The result is an evidence bundle that opens in
-      an independent verifier — running in any browser.
-    </p>
-  </section>
+    <article class="card">
+      <p class="eyebrow">The proof</p>
+      <h2>What you record, anyone can verify</h2>
+      <p>
+        CarveTrace captures every event your AI system emits, seals it into a
+        cryptographic chain, and timestamps it through an independent RFC 3161
+        timestamping authority. The result is an evidence bundle that opens in
+        an independent verifier — running in any browser.
+      </p>
+    </article>
 
-  <section>
-    <h2>Your evidence stays yours</h2>
-    <p>
-      CarveTrace runs in your infrastructure. We do not host your data. We do
-      not see your logs. We do not gate your verifier behind our
-      infrastructure — it runs in your browser, on hardware you control, even
-      offline. The cryptography is the trust — not us.
-    </p>
-  </section>
+    <article class="card">
+      <p class="eyebrow">The control</p>
+      <h2>Your evidence stays yours</h2>
+      <p>
+        CarveTrace runs in your infrastructure. We do not host your data. We do
+        not see your logs. We do not gate your verifier behind our
+        infrastructure — it runs in your browser, on hardware you control, even
+        offline. The cryptography is the trust — not us.
+      </p>
+    </article>
+  </div>
 </Base>

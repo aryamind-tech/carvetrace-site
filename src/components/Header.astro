@@ -12,14 +12,16 @@ const home = routes.home[lang];
 const langHref = altLocaleHref(pageId, lang);
 ---
 <header class="site-header">
-  <nav class="nav" aria-label={lang === 'fr' ? 'Navigation principale' : 'Main navigation'}>
-    <a href={home} class="nav-logo">CarveTrace</a>
-    <div class="nav-links">
+  <div class="site-header__inner">
+    <a href={home} class="brand-wordmark" aria-label="CarveTrace">
+      <span class="brand-wordmark__carve">Carve</span><span class="brand-wordmark__trace">Trace</span>
+    </a>
+    <nav class="site-nav" aria-label={lang === 'fr' ? 'Navigation principale' : 'Main navigation'}>
       <a href={routes['how-it-works'][lang]}>{t(lang, 'nav.howItWorks')}</a>
       <a href={routes.demo[lang]}>{t(lang, 'nav.demo')}</a>
       <a href={routes.pricing[lang]}>{t(lang, 'nav.pricing')}</a>
       <a href={routes.contact[lang]}>{t(lang, 'nav.contact')}</a>
-      <a href={langHref} class="lang" hreflang={lang === 'en' ? 'fr' : 'en'}>{t(lang, 'nav.langSwitch')}</a>
-    </div>
-  </nav>
+      <a href={langHref} class="site-nav__lang" hreflang={lang === 'en' ? 'fr' : 'en'}>{t(lang, 'nav.langSwitch')}</a>
+    </nav>
+  </div>
 </header>

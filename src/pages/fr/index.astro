@@ -9,6 +9,7 @@ import { routes } from '../../i18n/routes';
   description="Preuve cryptographique auto-hébergée pour les décisions IA. Quand un audit ou une contestation survient, votre auditeur vérifie la preuve lui-même — sans avoir à vous faire confiance."
 >
   <section class="hero">
+    <p class="eyebrow">Conformité AI Act · Preuve Article 12</p>
     <h1>Quand une décision IA est contestée, pouvez-vous prouver ce qui s'est passé ?</h1>
     <p>
       CarveTrace scelle chaque décision IA dans un bundle de preuve
@@ -16,42 +17,46 @@ import { routes } from '../../i18n/routes';
       peut vérifier par lui-même — sans avoir à vous faire confiance, et sans
       que vos données ne quittent jamais votre infrastructure.
     </p>
-    <p>
-      <a class="cta" href={routes.demo.fr}>Voir la démo</a>
-      &nbsp;
+    <div class="hero__ctas">
+      <a class="cta cta--primary" href={routes.demo.fr}>Voir la démo</a>
       <a class="cta cta--ghost" href={routes.contact.fr}>Demander un pilote</a>
-    </p>
+    </div>
   </section>
 
-  <section>
-    <h2>Le jour où c'est contesté</h2>
-    <p>
-      Une décision algorithmique est contestée. Un régulateur ouvre une
-      enquête. Vos logs ne prouvent pas ce que le modèle a vu, à quel moment
-      il s'est exécuté, ni ce qu'il a retourné. Votre parole ne fait pas
-      preuve.
-    </p>
-  </section>
+  <div class="panels">
+    <article class="card">
+      <p class="eyebrow">Le problème</p>
+      <h2>Le jour où c'est contesté</h2>
+      <p>
+        Une décision algorithmique est contestée. Un régulateur ouvre une
+        enquête. Vos logs ne prouvent pas ce que le modèle a vu, à quel moment
+        il s'est exécuté, ni ce qu'il a retourné. Votre parole ne fait pas
+        preuve.
+      </p>
+    </article>
 
-  <section>
-    <h2>Ce que vous enregistrez, n'importe qui peut le vérifier</h2>
-    <p>
-      CarveTrace capture chaque événement émis par votre système d'IA, le
-      scelle dans une chaîne cryptographique et l'horodate via une autorité
-      d'horodatage RFC 3161 indépendante. Le résultat : un bundle de preuve
-      qui s'ouvre dans un vérificateur indépendant — exécutable dans n'importe
-      quel navigateur.
-    </p>
-  </section>
+    <article class="card">
+      <p class="eyebrow">La preuve</p>
+      <h2>Ce que vous enregistrez, n'importe qui peut le vérifier</h2>
+      <p>
+        CarveTrace capture chaque événement émis par votre système d'IA, le
+        scelle dans une chaîne cryptographique et l'horodate via une autorité
+        d'horodatage RFC 3161 indépendante. Le résultat : un bundle de preuve
+        qui s'ouvre dans un vérificateur indépendant — exécutable dans
+        n'importe quel navigateur.
+      </p>
+    </article>
 
-  <section>
-    <h2>Votre preuve vous appartient</h2>
-    <p>
-      CarveTrace s'exécute dans votre infrastructure. Nous n'hébergeons pas
-      vos données. Nous ne voyons pas vos logs. Nous ne mettons pas votre
-      vérificateur derrière nos serveurs — il s'exécute dans votre navigateur,
-      sur votre matériel, même hors-ligne. C'est la cryptographie qui fait foi
-      — pas nous.
-    </p>
-  </section>
+    <article class="card">
+      <p class="eyebrow">Le contrôle</p>
+      <h2>Votre preuve vous appartient</h2>
+      <p>
+        CarveTrace s'exécute dans votre infrastructure. Nous n'hébergeons pas
+        vos données. Nous ne voyons pas vos logs. Nous ne mettons pas votre
+        vérificateur derrière nos serveurs — il s'exécute dans votre
+        navigateur, sur votre matériel, même hors-ligne. C'est la cryptographie
+        qui fait foi — pas nous.
+      </p>
+    </article>
+  </div>
 </Base>
