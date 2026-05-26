@@ -33,6 +33,12 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      # Opt out of Astro's anonymous build-time telemetry. The site itself
+      # promises no analytics / no tracking to visitors ; matching that
+      # posture in the build pipeline is coherent. Also removes the
+      # "Astro collects anonymous usage data" notice from the CI logs.
+      ASTRO_TELEMETRY_DISABLED: "1"
     steps:
       - uses: actions/checkout@v4
 
