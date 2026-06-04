@@ -64,14 +64,14 @@ import { routes } from '../i18n/routes';
   </section>
 
   <!--
-    Moment 4 · The tamper test — CTA placeholder.
-    The text below says "the verifier says: FAILED". Currently the WASM
-    verifier emits "ERROR" instead of "FAILED" on byte-flip rejections
-    (TD-WASM-VERDICT-LABEL). Do NOT add a "Try the tamper test" CTA here
-    until that TD closes — if the text says FAILED and the visitor clicks
-    to see ERROR, the demo contradicts itself at its climax. Once WASM
-    emits FAILED, add a CTA pointing at verify.carvetrace.com's tampered
-    sample (or a pre-loaded URL) in this section.
+    Moment 4 · The tamper test.
+    TD-WASM-VERDICT-LABEL closed 2026-05-26 — verify-wasm/src/report.rs:225-238
+    confirms the verifier now collapses all proof-invalid rejections to
+    "Failed" (the demo text below is consistent with what the verifier emits).
+    A "Try the tamper test" CTA pointing at https://verify.carvetrace.com with
+    a pre-loaded link to sample-evidence-bundle-tampered.zip is now safe to
+    add, gated on RUNTIME-CHECK RC3 (manual confirmation the live demo emits
+    FAILED end-to-end). Until RC3 is run, the narrative carries this section.
   -->
   <section>
     <p class="eyebrow">Moment 4 · The tamper test</p>
