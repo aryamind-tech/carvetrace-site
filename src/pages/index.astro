@@ -5,55 +5,281 @@ import { routes } from '../i18n/routes';
 <Base
   lang="en"
   pageId="home"
-  title="CarveTrace — Provable evidence for high-stakes AI decisions"
-  description="Self-hosted, cryptographic evidence for AI decisions. When an audit or dispute happens, your auditor verifies the proof themselves — without trusting you."
+  title="CarveTrace — Cryptographic EU AI Act evidence your auditor can re-verify without trusting us"
+  description="Self-hosted Article 12 + 14 evidence platform. Every AI decision and human-oversight event bound at write-time as a single signed atom. Your auditor verifies the bundle in their browser without an account. Verifier free + open-source ; Starter from €15K/yr."
 >
-  <section class="hero">
-    <p class="eyebrow">AI Act compliance · Article 12 evidence</p>
-    <h1>When an AI decision is challenged, can you prove what happened?</h1>
-    <p>
-      CarveTrace seals every AI decision into a tamper-evident evidence bundle
-      that any auditor, regulator, or counterparty can verify themselves —
-      without trusting you, and without your data ever leaving your
-      infrastructure.
+  <section class="hero hero--home">
+    <p class="eyebrow">EU AI Act · Article 12 + 14 evidence</p>
+    <h1>Evidence your auditor can re-verify — without trusting us.</h1>
+    <p class="hero__lead">
+      CarveTrace is the only EU AI Act evidence layer whose verdict survives
+      the vendor. Every AI decision and the human oversight that reviewed it
+      are bound at write-time as a single signed atom. Your auditor opens
+      <a href="https://verify.carvetrace.com" rel="noopener">verify.carvetrace.com</a>,
+      drops your bundle, and gets VERIFIED in seconds — open-source verifier,
+      no account, no CarveTrace involvement.
     </p>
     <div class="hero__ctas">
-      <a class="cta cta--primary" href={routes.demo.en}>See the demo</a>
-      <a class="cta cta--ghost" href={routes.contact.en}>Request a pilot</a>
+      <a class="cta cta--primary" href="https://verify.carvetrace.com" rel="noopener">Open the verifier (free, no signup)</a>
+      <a class="cta cta--ghost" href={routes.demo.en}>See the demo</a>
+      <a class="cta cta--ghost" href={routes.contact.en}>Talk to us</a>
+    </div>
+  </section>
+
+  <!-- Deadlines strip — turns the rest of the page from "interesting" to
+       "now". 47 days from June 17 to Aug 2 ; 175 days to Dec 9. -->
+  <section class="home-deadlines">
+    <h2 class="home-section__lead">Two deadlines moving 2026 AI compliance budget</h2>
+    <div class="home-deadlines__grid">
+      <article class="home-deadline">
+        <p class="home-deadline__date">Aug 2, 2026</p>
+        <h3>EU AI Act high-risk bind</h3>
+        <p>
+          Article 12 (record-keeping) and Article 14 (human oversight) enforceable.
+          Fines up to €35M / 7% global turnover.
+        </p>
+      </article>
+      <article class="home-deadline">
+        <p class="home-deadline__date">Dec 9, 2026</p>
+        <h3>PLD applies to AI</h3>
+        <p>
+          Product Liability Directive 2024/2853 extends strict liability +
+          defect presumption to AI. The burden of disclosure shifts to the
+          producer.
+        </p>
+      </article>
     </div>
   </section>
 
   <div class="panels">
     <article class="card">
       <p class="eyebrow">The problem</p>
-      <h2>The day it gets challenged</h2>
+      <h2>Most evidence dies with the vendor</h2>
       <p>
-        An algorithmic decision is disputed. A regulator opens an inquiry. Your
-        logs cannot prove what the model saw, when it ran, or what it returned.
-        Your word is not evidence.
+        Every AI governance platform — CredoAI, OneTrust, IBM watsonx.governance,
+        Holistic AI — stores your evidence in their database and shows it to your
+        auditor via their dashboard. If they go bankrupt, get subpoenaed, or
+        suffer a tenant breach, your AI Act compliance defense goes with them.
       </p>
     </article>
 
     <article class="card">
-      <p class="eyebrow">The proof</p>
-      <h2>What you record, anyone can verify</h2>
+      <p class="eyebrow">The wedge</p>
+      <h2>Cryptographic binding, your custody</h2>
       <p>
-        CarveTrace captures every event your AI system emits, seals it into a
-        cryptographic chain, and timestamps it through an independent RFC 3161
-        timestamping authority. The result is an evidence bundle that opens in
-        an independent verifier — running in any browser.
+        CarveTrace is the only EU AI Act tool whose verifier runs in the
+        auditor's browser, Apache 2.0, no account, no API key. The Article 12
+        record and the Article 14 oversight event are bound by cryptographic
+        hash at write-time — a single signed atom. <a href={routes.why.en}>Read the
+        comparison ↗</a>
       </p>
     </article>
 
     <article class="card">
       <p class="eyebrow">The control</p>
-      <h2>Your evidence stays yours</h2>
+      <h2>Self-hosted, EU-domiciled, your keys</h2>
       <p>
-        CarveTrace runs in your infrastructure. We do not host your data. We do
-        not see your logs. We do not gate your verifier behind our
-        infrastructure — it runs in your browser, on hardware you control, even
-        offline. The cryptography is the trust — not us.
+        CarveTrace runs on your infrastructure across every tier. We never see
+        your data. Aryamind SARL is a French company — native EU residency, signed
+        DPA + SCCs Module 2 + EU sub-processors. Your producer signing keys stay
+        with you. The cryptography is the trust, not us.
       </p>
     </article>
   </div>
+
+  <!-- Pricing snippet ; self-qualification matters for a founder-led ABM
+       motion. Prospects know if they're at "Starter" vs "Enterprise"
+       without a sales call. -->
+  <section class="home-pricing">
+    <h2 class="home-section__lead">Priced by the unit the regulation regulates</h2>
+    <p class="home-section__sublead">
+      Per high-risk AI system × decision volume. Self-hosted across every
+      tier. EUR, excluding VAT.
+    </p>
+    <div class="home-pricing__grid">
+      <article class="home-pricing__tier">
+        <h3>Verifier</h3>
+        <p class="home-pricing__price"><strong>€0</strong>/forever</p>
+        <p>Public WASM verifier, open-source. Try it now.</p>
+      </article>
+      <article class="home-pricing__tier">
+        <h3>Starter</h3>
+        <p class="home-pricing__price"><strong>€15K</strong>/year</p>
+        <p>1 high-risk system, ≤500K decisions/yr.</p>
+      </article>
+      <article class="home-pricing__tier home-pricing__tier--featured">
+        <h3>Growth</h3>
+        <p class="home-pricing__price"><strong>€45K</strong>/year</p>
+        <p>Up to 5 systems, ≤5M decisions/yr, SSO, DPA + EU residency.</p>
+      </article>
+      <article class="home-pricing__tier">
+        <h3>Enterprise</h3>
+        <p class="home-pricing__price"><strong>From €90K</strong></p>
+        <p>Unlimited systems, ISO 42001 pack, dedicated CSM, DORA fit.</p>
+      </article>
+    </div>
+    <div class="hero__ctas">
+      <a class="cta cta--primary" href={routes.pricing.en}>See pricing detail</a>
+      <a class="cta cta--ghost" href={routes.deck.en}>Read the 10-slide pitch</a>
+    </div>
+  </section>
+
+  <!-- Trust signals row — reads-mounted from the trust + status + docs work. -->
+  <section class="home-trust">
+    <h2 class="home-section__lead">Everything procurement asks for, pre-published</h2>
+    <div class="home-trust__grid">
+      <a class="home-trust__card" href={routes.trust.en}>
+        <h3>Trust center →</h3>
+        <p>Security, status, privacy, terms, DPA, license matrix, vendor questionnaires.</p>
+      </a>
+      <a class="home-trust__card" href={routes.dpa.en}>
+        <h3>DPA pre-signed →</h3>
+        <p>SCCs Module 2 incorporated. 48-hour breach notice. Sub-processor list.</p>
+      </a>
+      <a class="home-trust__card" href={routes.docs.en}>
+        <h3>30+ docs →</h3>
+        <p>Architecture, AI Act mapping, threat model, deployment guides — versioned with the code.</p>
+      </a>
+      <a class="home-trust__card" href={routes.blog.en}>
+        <h3>Long reads →</h3>
+        <p>Article 12 line-by-line. Article 14 evidence gaps. PLD burden-shift in 2026.</p>
+      </a>
+    </div>
+  </section>
 </Base>
+
+<style>
+  .hero--home { padding-bottom: 1.5rem; }
+  .hero__lead {
+    font-size: 1.125rem;
+    line-height: 1.65;
+    color: var(--ink-secondary);
+    max-width: 48rem;
+  }
+  .hero__lead a {
+    color: var(--brand-600);
+    text-decoration: underline;
+  }
+  .hero__ctas { margin-top: 1.5rem; gap: 0.75rem; flex-wrap: wrap; }
+
+  .home-section__lead {
+    font-size: 1.375rem;
+    margin: 0 0 0.75rem 0;
+    color: var(--ink-default);
+  }
+  .home-section__sublead {
+    color: var(--ink-secondary);
+    line-height: 1.6;
+    max-width: 50rem;
+    margin: 0 0 1.5rem 0;
+  }
+
+  /* Deadlines strip */
+  .home-deadlines {
+    margin: 2.5rem 0;
+  }
+  .home-deadlines__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: 1rem;
+  }
+  .home-deadline {
+    padding: 1.25rem 1.5rem;
+    background: linear-gradient(180deg, #fafafa 0%, #f4f4f5 100%);
+    border: 1px solid var(--edge-subtle);
+    border-radius: var(--radius-xl);
+    border-left: 3px solid var(--brand-600);
+  }
+  .home-deadline__date {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--brand-600);
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+  }
+  .home-deadline h3 {
+    font-size: 1rem;
+    margin: 0 0 0.5rem 0;
+  }
+  .home-deadline p {
+    font-size: 0.9375rem;
+    color: var(--ink-secondary);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* Pricing snippet */
+  .home-pricing { margin: 3rem 0; }
+  .home-pricing__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .home-pricing__tier {
+    padding: 1rem 1.25rem;
+    background: #fff;
+    border: 1px solid var(--edge-subtle);
+    border-radius: var(--radius-lg);
+  }
+  .home-pricing__tier--featured {
+    border-color: var(--brand-600);
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.08);
+  }
+  .home-pricing__tier h3 {
+    font-size: 1rem;
+    margin: 0 0 0.4rem 0;
+    color: var(--ink-default);
+  }
+  .home-pricing__price {
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    margin: 0 0 0.4rem 0;
+  }
+  .home-pricing__price strong {
+    font-size: 1.25rem;
+    color: var(--ink-default);
+    font-weight: 700;
+  }
+  .home-pricing__tier p:last-child {
+    font-size: 0.8125rem;
+    color: var(--ink-secondary);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* Trust signals */
+  .home-trust { margin: 3rem 0 1.5rem; }
+  .home-trust__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: 0.75rem;
+  }
+  .home-trust__card {
+    display: block;
+    padding: 1rem 1.25rem;
+    background: #fff;
+    border: 1px solid var(--edge-subtle);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+  }
+  .home-trust__card:hover {
+    border-color: var(--brand-600);
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.08);
+  }
+  .home-trust__card h3 {
+    font-size: 0.9375rem;
+    margin: 0 0 0.4rem 0;
+    color: var(--ink-default);
+  }
+  .home-trust__card p {
+    font-size: 0.8125rem;
+    color: var(--ink-secondary);
+    line-height: 1.5;
+    margin: 0;
+  }
+</style>
