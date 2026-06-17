@@ -30,24 +30,24 @@ import { routes } from '../i18n/routes';
     </p>
   </section>
 
-  <!--
-    Moment 2 · The recording — bundle download placeholder.
-    The Objectif-1 bundle (real AI Act workflow, recruitment scenario
-    matching the bart-mnli pipeline) is not yet generated. When it is,
-    add a "Download this bundle" link in this section so the visitor
-    can drop the real bundle into verify.carvetrace.com themselves.
-    Until then, the narrative carries the section.
-  -->
   <section>
     <p class="eyebrow">Moment 2 · The recording</p>
     <h2>Here is what CarveTrace recorded</h2>
     <p>
-      An evidence bundle from the CV-screening system. It contains every step
-      that decision went through: the CV text the model received, the
-      categories it was asked to score against, the model and version that
-      ran, the inference output, and the timestamps from an independent
-      RFC 3161 authority — all linked into a cryptographic chain, each event
-      signed. The bundle is ready to be inspected.
+      Below is a real CarveTrace evidence bundle from a CV-screening pipeline.
+      Seven candidates over five working days, three reviewers — three approvals,
+      two overrides, two escalates. The bundle contains every step each decision
+      went through: the input fingerprint, the categories the model scored, the
+      model + version that ran, the AI verdict, the human reviewer's verbatim
+      rationale, the timestamps from an independent RFC 3161 authority, all linked
+      into a cryptographic chain, each event signed.
+    </p>
+    <div class="demo-bundle__actions">
+      <a class="cta cta--primary" href="https://verify.carvetrace.com/sample-evidence-bundle.zip" rel="noopener" download>Download the valid bundle (≈530 KB)</a>
+      <a class="cta cta--ghost" href="https://verify.carvetrace.com/sample-evidence-bundle-tampered.zip" rel="noopener" download>Download the tampered bundle</a>
+    </div>
+    <p class="demo-bundle__hint">
+      <small>Both bundles ship inside the verifier itself if you'd rather pull them from there.</small>
     </p>
   </section>
 
@@ -55,41 +55,69 @@ import { routes } from '../i18n/routes';
     <p class="eyebrow">Moment 3 · The verdict</p>
     <h2>The verifier says: VERIFIED</h2>
     <p>
-      Drop the bundle into the verifier — running entirely in a browser, not
-      on our servers — and you see: VERIFIED. Every signature checks out.
-      Every timestamp resolves to a trusted authority. Every event in the
-      chain references its predecessor. The bundle is exactly what it claims
-      to be: the trace of that decision, sealed at the moment it happened.
+      Open <a href="https://verify.carvetrace.com" rel="noopener">verify.carvetrace.com</a>
+      in any modern browser — Chrome, Firefox, Safari — and drag the valid
+      bundle onto the page. The verifier runs entirely in your browser, not on
+      our servers, and reports: VERIFIED. Every signature checks out. Every
+      timestamp resolves to a trusted authority. Every event references its
+      predecessor by hash. The included report is human-readable : one
+      "dossier" per decision, with the AI verdict, the human rationale, and
+      the cryptographic binding side-by-side.
     </p>
   </section>
 
-  <!--
-    Moment 4 · The tamper test.
-    TD-WASM-VERDICT-LABEL closed 2026-05-26 — verify-wasm/src/report.rs:225-238
-    confirms the verifier now collapses all proof-invalid rejections to
-    "Failed" (the demo text below is consistent with what the verifier emits).
-    A "Try the tamper test" CTA pointing at https://verify.carvetrace.com with
-    a pre-loaded link to sample-evidence-bundle-tampered.zip is now safe to
-    add, gated on RUNTIME-CHECK RC3 (manual confirmation the live demo emits
-    FAILED end-to-end). Until RC3 is run, the narrative carries this section.
-  -->
   <section>
     <p class="eyebrow">Moment 4 · The tamper test</p>
     <h2>Flip one byte. Watch the verifier reject it.</h2>
     <p>
-      Now imagine someone tried to alter the recorded reasoning after the
-      fact — change one character in the CV text the model received, or in
-      the categories it scored against. Drop the modified bundle. The
-      verifier says: FAILED. The cryptographic chain breaks at the altered
-      record, and every record that came after fails with it. You cannot
-      change history without leaving a trace the verifier will see.
+      Now drop the tampered bundle. It is byte-identical to the valid one
+      except for a single bit flipped inside the signed report — the kind of
+      change someone might make to rewrite history after the fact. The
+      verifier says: FAILED. The signature no longer matches the report
+      content ; the manifest no longer matches the file's SHA-256. You cannot
+      change a CarveTrace bundle without leaving a trace any third party can
+      see in seconds.
     </p>
   </section>
 
-  <section>
+  <section class="demo-bottom">
+    <h2>What this means for your AI Act program</h2>
+    <p>
+      Every AI decision your high-risk system makes can be wrapped in a
+      bundle like this — yours to keep, yours to hand to your auditor, yours
+      to defend in front of the EU AI Office or a claimant under the Product
+      Liability Directive. The verifier we just used is the same verifier
+      they will use. The verdict you see is the verdict they will see.
+    </p>
     <div class="hero__ctas">
       <a class="cta cta--primary" href="https://verify.carvetrace.com" rel="noopener" target="_blank">Open the verifier</a>
-      <a class="cta cta--ghost" href={routes.contact.en}>Request a pilot</a>
+      <a class="cta cta--primary" href={routes.contact.en}>Request a pilot</a>
+      <a class="cta cta--ghost" href={routes.pricing.en}>See pricing</a>
     </div>
   </section>
 </Base>
+
+<style>
+  .demo-bundle__actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin: 1rem 0 0.5rem;
+  }
+  .demo-bundle__hint {
+    margin: 0.25rem 0 0 !important;
+    color: var(--ink-muted);
+  }
+  .demo-bottom {
+    margin: 3rem 0 1rem;
+    padding: 1.75rem;
+    background: #fafafa;
+    border-radius: var(--radius-xl);
+  }
+  .demo-bottom h2 { margin-top: 0; font-size: 1.25rem; }
+  .demo-bottom p {
+    color: var(--ink-secondary);
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+  }
+</style>

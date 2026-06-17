@@ -32,25 +32,25 @@ import { routes } from '../../i18n/routes';
     </p>
   </section>
 
-  <!--
-    Moment 2 · L'enregistrement — placeholder bundle download.
-    Le bundle Objectif-1 (workflow AI Act réel, scénario recrutement
-    matchant la pipeline bart-mnli) n'est pas encore généré. Quand il
-    le sera, ajouter un lien "Télécharger ce bundle" dans cette section
-    pour que le visiteur puisse le déposer dans verify.carvetrace.com
-    lui-même. Jusque-là, le récit porte la section.
-  -->
   <section>
     <p class="eyebrow">Moment 2 · L'enregistrement</p>
     <h2>Voici ce que CarveTrace a enregistré</h2>
     <p>
-      Un bundle de preuve du système de présélection. Il contient chaque
-      étape par laquelle cette décision est passée : le texte du CV reçu par
-      le modèle, les catégories qu'il scorait, le modèle et la version qui
-      s'exécutait, le résultat de l'inférence, et les horodatages d'une
-      autorité RFC 3161 indépendante — tous reliés dans une chaîne
-      cryptographique, chaque événement signé. Le bundle est prêt à être
-      inspecté.
+      Voici un vrai bundle de preuve CarveTrace, issu d'un pipeline de présélection
+      de CV. Sept candidats sur cinq jours ouvrés, trois recruteurs — trois
+      validations, deux overrides, deux escalades. Le bundle contient chaque étape
+      par laquelle chaque décision est passée : l'empreinte de l'entrée, les
+      catégories scorées par le modèle, le modèle + sa version, le verdict de
+      l'IA, le justificatif verbatim du recruteur, les horodatages d'une autorité
+      RFC 3161 indépendante, le tout relié en chaîne cryptographique, chaque
+      événement signé.
+    </p>
+    <div class="demo-bundle__actions">
+      <a class="cta cta--primary" href="https://verify.carvetrace.com/sample-evidence-bundle.zip" rel="noopener" download>Télécharger le bundle valide (≈530 Ko)</a>
+      <a class="cta cta--ghost" href="https://verify.carvetrace.com/sample-evidence-bundle-tampered.zip" rel="noopener" download>Télécharger le bundle altéré</a>
+    </div>
+    <p class="demo-bundle__hint">
+      <small>Les deux bundles sont aussi embarqués dans le vérificateur lui-même.</small>
     </p>
   </section>
 
@@ -58,44 +58,70 @@ import { routes } from '../../i18n/routes';
     <p class="eyebrow">Moment 3 · Le verdict</p>
     <h2>Le vérificateur dit : VERIFIED</h2>
     <p>
-      Déposez le bundle dans le vérificateur — qui s'exécute entièrement dans
-      un navigateur, pas sur nos serveurs — et vous voyez : VERIFIED. Chaque
-      signature est validée. Chaque horodatage remonte à une autorité de
-      confiance. Chaque événement de la chaîne référence celui qui le
-      précède. Le bundle est exactement ce qu'il prétend être : la trace de
-      cette décision, scellée au moment où elle s'est produite.
+      Ouvrez <a href="https://verify.carvetrace.com" rel="noopener">verify.carvetrace.com</a>
+      dans n'importe quel navigateur moderne — Chrome, Firefox, Safari — et
+      glissez-déposez le bundle valide sur la page. Le vérificateur s'exécute
+      entièrement dans votre navigateur, pas sur nos serveurs, et affiche :
+      VERIFIED. Chaque signature est validée. Chaque horodatage remonte à une
+      autorité de confiance. Chaque événement référence son prédécesseur par hash.
+      Le rapport inclus est lisible : un « dossier » par décision, avec le verdict
+      IA, le justificatif humain, et la liaison cryptographique côte à côte.
     </p>
   </section>
 
-  <!--
-    Moment 4 · Le test d'altération — CTA placeholder.
-    Le texte ci-dessous dit "le vérificateur dit : FAILED". Le WASM émet
-    actuellement "ERROR" au lieu de "FAILED" sur les rejets byte-flip
-    (TD-WASM-VERDICT-LABEL). NE PAS ajouter de CTA "Essayer le test
-    d'altération" tant que ce TD n'est pas fermé — si le texte dit
-    FAILED et le visiteur clique pour voir ERROR, la démo se contredit
-    à son point culminant. Une fois que le WASM émet FAILED, ajouter un
-    CTA pointant vers le sample tampered de verify.carvetrace.com (ou
-    URL pré-chargée) dans cette section.
-  -->
   <section>
     <p class="eyebrow">Moment 4 · Le test d'altération</p>
     <h2>Changez un octet. Regardez le vérificateur le rejeter.</h2>
     <p>
-      Maintenant imaginez que quelqu'un tente d'altérer le raisonnement
-      enregistré après coup — change un seul caractère dans le texte du CV
-      reçu par le modèle, ou dans les catégories qu'il scorait. Déposez le
-      bundle modifié. Le vérificateur dit : FAILED. La chaîne cryptographique
-      se brise au niveau de l'enregistrement altéré, et tous ceux qui ont
-      suivi échouent avec lui. Vous ne pouvez pas changer l'histoire sans
-      laisser une trace que le vérificateur verra.
+      Maintenant déposez le bundle altéré. Il est byte-à-byte identique au bundle
+      valide à un seul bit près, à l'intérieur du rapport signé — le type
+      d'altération que quelqu'un essaierait pour réécrire l'histoire après coup.
+      Le vérificateur dit : FAILED. La signature ne correspond plus au contenu du
+      rapport ; le manifeste ne correspond plus au SHA-256 du fichier. Vous ne
+      pouvez pas modifier un bundle CarveTrace sans laisser une trace que
+      n'importe quel tiers détecte en quelques secondes.
     </p>
   </section>
 
-  <section>
+  <section class="demo-bottom">
+    <h2>Ce que cela signifie pour votre programme AI Act</h2>
+    <p>
+      Chaque décision IA de votre système à haut risque peut être emballée dans un
+      bundle comme celui-ci — à vous, à conserver, à remettre à votre auditeur, à
+      défendre devant le bureau européen de l'IA ou un requérant au titre de la
+      Directive Responsabilité du Fait des Produits. Le vérificateur que vous
+      venez d'utiliser est le même que celui qu'ils utiliseront. Le verdict que
+      vous voyez est le verdict qu'ils verront.
+    </p>
     <div class="hero__ctas">
       <a class="cta cta--primary" href="https://verify.carvetrace.com" rel="noopener" target="_blank">Ouvrir le vérificateur</a>
-      <a class="cta cta--ghost" href={routes.contact.fr}>Demander un pilote</a>
+      <a class="cta cta--primary" href={routes.contact.fr}>Demander un pilote</a>
+      <a class="cta cta--ghost" href={routes.pricing.fr}>Voir les tarifs</a>
     </div>
   </section>
 </Base>
+
+<style>
+  .demo-bundle__actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin: 1rem 0 0.5rem;
+  }
+  .demo-bundle__hint {
+    margin: 0.25rem 0 0 !important;
+    color: var(--ink-muted);
+  }
+  .demo-bottom {
+    margin: 3rem 0 1rem;
+    padding: 1.75rem;
+    background: #fafafa;
+    border-radius: var(--radius-xl);
+  }
+  .demo-bottom h2 { margin-top: 0; font-size: 1.25rem; }
+  .demo-bottom p {
+    color: var(--ink-secondary);
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+  }
+</style>
