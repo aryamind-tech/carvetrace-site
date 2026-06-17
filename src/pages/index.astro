@@ -8,22 +8,38 @@ import { routes } from '../i18n/routes';
   title="CarveTrace — Cryptographic EU AI Act evidence your auditor can re-verify without trusting us"
   description="Self-hosted Article 12 + 14 evidence platform. Every AI decision and human-oversight event bound at write-time as a single signed atom. Your auditor verifies the bundle in their browser without an account. Verifier free + open-source ; Starter from €15K/yr."
 >
-  <section class="hero hero--home">
-    <p class="eyebrow">EU AI Act · Article 12 + 14 evidence</p>
-    <h1>Evidence your auditor can re-verify — without trusting us.</h1>
-    <p class="hero__lead">
-      CarveTrace is the only EU AI Act evidence layer whose verdict survives
-      the vendor. Every AI decision and the human oversight that reviewed it
-      are bound at write-time as a single signed atom. Your auditor opens
-      <a href="https://verify.carvetrace.com" rel="noopener">verify.carvetrace.com</a>,
-      drops your bundle, and gets VERIFIED in seconds — open-source verifier,
-      no account, no CarveTrace involvement.
-    </p>
-    <div class="hero__ctas">
-      <a class="cta cta--primary" href="https://verify.carvetrace.com" rel="noopener">Open the verifier (free, no signup)</a>
-      <a class="cta cta--ghost" href={routes.demo.en}>See the demo</a>
-      <a class="cta cta--ghost" href={routes.contact.en}>Talk to us</a>
+  <section class="hero hero--home hero--split">
+    <div class="hero--split__text">
+      <p class="eyebrow">EU AI Act · Article 12 + 14 evidence</p>
+      <h1>Evidence your auditor can re-verify — without trusting us.</h1>
+      <p class="hero__lead">
+        CarveTrace is the only EU AI Act evidence layer whose verdict survives
+        the vendor. Every AI decision and the human oversight that reviewed it
+        are bound at write-time as a single signed atom. Your auditor opens
+        <a href="https://verify.carvetrace.com" rel="noopener">verify.carvetrace.com</a>,
+        drops your bundle, and gets VERIFIED in seconds — open-source verifier,
+        no account, no CarveTrace involvement.
+      </p>
+      <div class="hero__ctas">
+        <a class="cta cta--primary" href="https://verify.carvetrace.com" rel="noopener">Open the verifier (free, no signup)</a>
+        <a class="cta cta--ghost" href={routes.demo.en}>See the demo</a>
+        <a class="cta cta--ghost" href={routes.contact.en}>Talk to us</a>
+      </div>
     </div>
+    <figure class="hero--split__art">
+      <a href={routes.demo.en} aria-label="See the evidence report">
+        <img
+          src="/img/audit-report-preview.png"
+          alt="CarveTrace AI Evidence Coverage Report — PARTIAL verdict, executive layer, decisions reviewed with verbatim reviewer rationale"
+          width="892"
+          height="1262"
+          loading="eager"
+        />
+      </a>
+      <figcaption>
+        The audit report a regulator opens — <a href={routes.demo.en}>walk the dossier ↗</a>
+      </figcaption>
+    </figure>
   </section>
 
   <!-- Deadlines strip — turns the rest of the page from "interesting" to
@@ -96,26 +112,38 @@ import { routes } from '../i18n/routes';
       Per high-risk AI system × decision volume. Self-hosted across every
       tier. EUR, excluding VAT.
     </p>
+    <p class="home-pricing__free-note">
+      <a href="https://verify.carvetrace.com" rel="noopener">The public verifier stays free, forever — try it now ↗</a>
+    </p>
     <div class="home-pricing__grid">
       <article class="home-pricing__tier">
-        <h3>Verifier</h3>
-        <p class="home-pricing__price"><strong>€0</strong>/forever</p>
-        <p>Public WASM verifier, open-source. Try it now.</p>
-      </article>
-      <article class="home-pricing__tier">
-        <h3>Starter</h3>
-        <p class="home-pricing__price"><strong>€15K</strong>/year</p>
-        <p>1 high-risk system, ≤500K decisions/yr.</p>
+        <p class="home-pricing__tier-name">Starter</p>
+        <p class="home-pricing__price"><strong>€15K</strong><span>/year</span></p>
+        <ul class="home-pricing__bullets">
+          <li>1 high-risk AI system</li>
+          <li>≤500K decisions / year</li>
+          <li>Email support</li>
+        </ul>
       </article>
       <article class="home-pricing__tier home-pricing__tier--featured">
-        <h3>Growth</h3>
-        <p class="home-pricing__price"><strong>€45K</strong>/year</p>
-        <p>Up to 5 systems, ≤5M decisions/yr, SSO, DPA + EU residency.</p>
+        <span class="home-pricing__ribbon">Most fit for AI Act program leads</span>
+        <p class="home-pricing__tier-name">Growth</p>
+        <p class="home-pricing__price"><strong>€45K</strong><span>/year</span></p>
+        <ul class="home-pricing__bullets">
+          <li>Up to 5 high-risk AI systems</li>
+          <li>≤5M decisions / year</li>
+          <li>SSO + DPA + EU residency</li>
+          <li>Schema-authoring help for Article 12 mapping</li>
+        </ul>
       </article>
       <article class="home-pricing__tier">
-        <h3>Enterprise</h3>
+        <p class="home-pricing__tier-name">Enterprise</p>
         <p class="home-pricing__price"><strong>From €90K</strong></p>
-        <p>Unlimited systems, ISO 42001 pack, dedicated CSM, DORA fit.</p>
+        <ul class="home-pricing__bullets">
+          <li>Unlimited systems</li>
+          <li>ISO 42001 attestation pack</li>
+          <li>Dedicated CSM + DORA fit</li>
+        </ul>
       </article>
     </div>
     <div class="hero__ctas">
@@ -150,6 +178,62 @@ import { routes } from '../i18n/routes';
 
 <style>
   .hero--home { padding-bottom: 1.5rem; }
+  .hero--split {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .hero--split__text { min-width: 0; }
+  .hero--split__art {
+    margin: 0;
+    position: relative;
+  }
+  .hero--split__art a {
+    display: block;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--edge-subtle);
+    box-shadow:
+      0 1px 2px rgba(24, 24, 27, 0.04),
+      0 10px 24px -8px rgba(24, 24, 27, 0.10);
+    transition: box-shadow 200ms ease;
+  }
+  .hero--split__art a:hover {
+    box-shadow:
+      0 1px 2px rgba(24, 24, 27, 0.04),
+      0 14px 28px -8px rgba(16, 185, 129, 0.18);
+  }
+  .hero--split__art img {
+    display: block;
+    width: 100%;
+    height: auto;
+    /* Crop the bottom — the screenshot has more content than we want to show.
+       Keeping the header + verdict + executive section + at-a-glance + the
+       first dossier card breadcrumb. */
+    aspect-ratio: 892 / 1050;
+    object-fit: cover;
+    object-position: top center;
+  }
+  .hero--split__art figcaption {
+    margin-top: 0.75rem;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-muted);
+    text-align: center;
+  }
+  .hero--split__art figcaption a {
+    color: var(--brand-700);
+    text-decoration: underline;
+  }
+  @media (max-width: 900px) {
+    .hero--split { grid-template-columns: 1fr; gap: 2rem; }
+    .hero--split__art { order: 2; max-width: 28rem; margin: 0 auto; }
+  }
+
   .hero__lead {
     font-size: 1.125rem;
     line-height: 1.65;
@@ -212,42 +296,101 @@ import { routes } from '../i18n/routes';
 
   /* Pricing snippet */
   .home-pricing { margin: 3rem 0; }
+  .home-pricing__free-note {
+    margin: 0 0 1.25rem !important;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+  }
+  .home-pricing__free-note a { color: var(--brand-700); text-decoration: underline; }
   .home-pricing__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
-    gap: 0.75rem;
+    grid-template-columns: 1fr 1.15fr 1fr;
+    gap: 1rem;
     margin-bottom: 1.5rem;
+    align-items: stretch;
   }
   .home-pricing__tier {
-    padding: 1rem 1.25rem;
+    padding: 1.5rem 1.5rem;
     background: #fff;
     border: 1px solid var(--edge-subtle);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
+    position: relative;
+    display: flex;
+    flex-direction: column;
   }
   .home-pricing__tier--featured {
     border-color: var(--brand-600);
-    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.08);
+    border-width: 1.5px;
+    box-shadow: 0 10px 24px -8px rgba(16, 185, 129, 0.18);
   }
-  .home-pricing__tier h3 {
-    font-size: 1rem;
-    margin: 0 0 0.4rem 0;
+  .home-pricing__ribbon {
+    position: absolute;
+    top: -0.7rem;
+    left: 1.25rem;
+    background: var(--brand-600);
+    color: #fff;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  .home-pricing__tier-name {
+    font-size: 0.8125rem;
+    font-weight: 600;
     color: var(--ink-default);
+    margin: 0 0 0.5rem 0 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
   .home-pricing__price {
     font-size: 0.875rem;
     color: var(--ink-muted);
-    margin: 0 0 0.4rem 0;
+    margin: 0 0 1rem 0;
   }
   .home-pricing__price strong {
-    font-size: 1.25rem;
+    font-size: 1.875rem;
     color: var(--ink-default);
     font-weight: 700;
+    letter-spacing: -0.02em;
   }
-  .home-pricing__tier p:last-child {
-    font-size: 0.8125rem;
-    color: var(--ink-secondary);
-    line-height: 1.5;
+  .home-pricing__price span {
+    color: var(--ink-muted);
+    font-weight: 400;
+    margin-left: 0.1rem;
+  }
+  .home-pricing__bullets {
+    list-style: none;
+    padding: 0;
     margin: 0;
+    flex: 1;
+  }
+  .home-pricing__bullets li {
+    position: relative;
+    padding-left: 1rem;
+    font-size: 0.875rem;
+    color: var(--ink-secondary);
+    line-height: 1.55;
+    margin-bottom: 0.4rem;
+  }
+  .home-pricing__bullets li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    width: 5px;
+    height: 5px;
+    border-radius: 2px;
+    background: var(--brand-600);
+    opacity: 0.7;
+  }
+  @media (max-width: 800px) {
+    .home-pricing__grid { grid-template-columns: 1fr; gap: 1rem; }
   }
 
   /* Trust signals */

@@ -283,30 +283,111 @@ import { routes } from '../i18n/routes';
   }
   .why-versus__table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     font-size: 0.875rem;
     min-width: 56rem;
+    background: #fff;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(24, 24, 27, 0.04);
   }
   .why-versus__table th,
   .why-versus__table td {
-    border: 1px solid #e4e4e7;
-    padding: 0.625rem 0.75rem;
+    padding: 0.7rem 0.85rem;
     vertical-align: top;
     text-align: left;
+    border-bottom: 1px solid #e4e4e7;
   }
   .why-versus__table thead th {
-    background: #f4f4f5;
+    background: #18181b;
+    color: #fafafa;
     font-weight: 600;
     font-size: 0.8125rem;
+    position: sticky;
+    top: 0;
   }
+  .why-versus__table thead th:first-child {
+    background: #27272a;
+  }
+  .why-versus__table tbody tr:nth-child(odd) td,
+  .why-versus__table tbody tr:nth-child(odd) th { background: #fafafa; }
+  .why-versus__table tbody tr:nth-child(even) td,
+  .why-versus__table tbody tr:nth-child(even) th { background: #ffffff; }
+  .why-versus__table tbody tr:hover td,
+  .why-versus__table tbody tr:hover th { background: #f0fdf4 !important; }
+  .why-versus__table tbody tr:last-child td,
+  .why-versus__table tbody tr:last-child th { border-bottom: none; }
   .why-versus__table tbody th {
-    background: #fafafa;
     text-align: left;
     font-weight: 600;
+    color: var(--ink-default);
+    border-right: 2px solid var(--brand-700);
+    min-width: 14rem;
   }
-  .why-versus__table td.yes { color: #14532d; background: #f0fdf4; }
-  .why-versus__table td.partial { color: #713f12; background: #fefce8; }
-  .why-versus__table td.no { color: #7f1d1d; background: #fef2f2; }
+  /* CarveTrace column gets a subtle emerald wash so the eye anchors on it. */
+  .why-versus__table thead th:nth-child(2) {
+    background: var(--brand-700);
+    color: #fff;
+  }
+  .why-versus__table tbody td:nth-child(2) {
+    background: #f0fdf4 !important;
+    font-weight: 600;
+    color: #14532d;
+    border-right: 2px solid var(--brand-700);
+  }
+  .why-versus__table td.yes::before { content: "● "; color: #16a34a; font-weight: 700; }
+  .why-versus__table td.partial::before { content: "◐ "; color: #ca8a04; font-weight: 700; }
+  .why-versus__table td.no::before { content: "○ "; color: #b91c1c; font-weight: 700; }
+  .why-versus__table td.yes { color: #14532d; }
+  .why-versus__table td.partial { color: #713f12; }
+  .why-versus__table td.no { color: #7f1d1d; }
+
+  /* Mobile : the 5-column comparison becomes unreadable below ~720px.
+     Convert to per-row spec cards : each row collapses into a stacked
+     card showing the dimension + one cell per competitor with explicit
+     labels. */
+  @media (max-width: 720px) {
+    .why-versus__table-wrap { overflow-x: visible; }
+    .why-versus__table { min-width: 0; box-shadow: none; }
+    .why-versus__table thead { display: none; }
+    .why-versus__table,
+    .why-versus__table tbody,
+    .why-versus__table tr,
+    .why-versus__table th,
+    .why-versus__table td { display: block; width: 100%; }
+    .why-versus__table tr {
+      background: #fff;
+      border: 1px solid var(--edge-subtle);
+      border-radius: var(--radius-lg);
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+    }
+    .why-versus__table tbody tr:nth-child(odd) td,
+    .why-versus__table tbody tr:nth-child(odd) th,
+    .why-versus__table tbody tr:nth-child(even) td,
+    .why-versus__table tbody tr:nth-child(even) th { background: transparent !important; }
+    .why-versus__table tbody th {
+      font-size: 0.9375rem;
+      border: none;
+      border-bottom: 1px solid var(--edge-subtle);
+      padding: 0 0 0.5rem 0;
+      margin-bottom: 0.5rem;
+      min-width: 0;
+    }
+    .why-versus__table tbody td {
+      border: none;
+      padding: 0.4rem 0;
+      font-size: 0.8125rem;
+    }
+    .why-versus__table tbody td:nth-child(2) {
+      border: none;
+      background: #f0fdf4 !important;
+      padding: 0.4rem 0.5rem;
+      border-radius: 4px;
+      margin: 0.3rem 0;
+    }
+  }
   .why-versus__honest {
     background: #fafafa;
     padding: 1.25rem 1.5rem;
