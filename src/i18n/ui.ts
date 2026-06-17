@@ -5,9 +5,11 @@ import type { Locale } from './routes';
 
 export const ui = {
   en: {
+    'nav.why':        'Why',
     'nav.howItWorks': 'How it works',
     'nav.demo':       'Demo',
     'nav.pricing':    'Pricing',
+    'nav.docs':       'Docs',
     'nav.contact':    'Contact',
     'nav.verifier':   'Open the verifier',
     'nav.langSwitch': 'FR',
@@ -22,9 +24,11 @@ export const ui = {
     'footer.dpa':      'DPA',
   },
   fr: {
+    'nav.why':        'Pourquoi',
     'nav.howItWorks': 'Comment ça marche',
     'nav.demo':       'Démo',
     'nav.pricing':    'Tarifs',
+    'nav.docs':       'Docs',
     'nav.contact':    'Contact',
     'nav.verifier':   'Ouvrir le vérificateur',
     'nav.langSwitch': 'EN',

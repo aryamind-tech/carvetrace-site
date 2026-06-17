@@ -1,0 +1,198 @@
+---
+import Base from '../../layouts/Base.astro';
+import { routes } from '../../i18n/routes';
+
+const ghBase = 'https://github.com/aryamind-tech/carvetrace/blob/main/docs';
+
+interface DocLink {
+  title: string;
+  blurb: string;
+  href: string;
+}
+interface DocSection {
+  heading: string;
+  blurb: string;
+  links: DocLink[];
+}
+
+const sections: DocSection[] = [
+  {
+    heading: 'Get oriented',
+    blurb: 'Start here if you have ten minutes and want to understand what CarveTrace is.',
+    links: [
+      { title: 'What CarveTrace proves',          blurb: 'The properties our evidence guarantees, in plain language.',          href: `${ghBase}/what-carvetrace-proves.md` },
+      { title: 'Architecture',                    blurb: 'How the pieces fit together : SDK, chain, TSA, verifier.',          href: `${ghBase}/architecture.md` },
+      { title: 'Threat model',                    blurb: 'What we defend against and what we explicitly don\'t.',           href: `${ghBase}/threat-model.md` },
+      { title: 'Capabilities inventory',          blurb: 'A flat list of what the product does today, per module.',         href: `${ghBase}/capabilities-inventory.md` },
+    ],
+  },
+  {
+    heading: 'AI Act mapping',
+    blurb: 'How CarveTrace evidence maps to specific EU AI Act articles and ISO 42001 controls.',
+    links: [
+      { title: 'AI Act events overview',          blurb: 'The events CarveTrace ships and which AI Act obligation each addresses.', href: `${ghBase}/ai-act-events.md` },
+      { title: 'Article 12 mapping (record-keeping)', blurb: 'Article 12 subsections → CarveTrace events → verifier checks.',     href: `${ghBase}/article-12-mapping.md` },
+      { title: 'Article 12.2(a) — operator identification', blurb: 'How operator-session integrity is established and proved.',     href: `${ghBase}/article-12-2a-operator-identification.md` },
+      { title: 'Article 12.2(c) + 12.4 — biometric matching', blurb: 'Biometric input data + match-traceability evidence.',         href: `${ghBase}/article-12-2c-12-4-biometric.md` },
+      { title: 'Article 12.3 — retention',        blurb: 'Retention policy declaration, enforcement, and proof.',            href: `${ghBase}/article-12-3-retention.md` },
+      { title: 'Annex IV supplement',             blurb: 'The signed, schema-versioned reporting-period summary package.', href: `${ghBase}/ai-act-annex-iv-supplement.md` },
+      { title: 'ISO 42001 mapping',               blurb: 'CarveTrace evidence → ISO/IEC 42001:2023 controls.',               href: `${ghBase}/iso-42001-mapping.md` },
+    ],
+  },
+  {
+    heading: 'Build with CarveTrace',
+    blurb: 'For engineers integrating the SDK or operating the platform.',
+    links: [
+      { title: 'AI evidence guide',               blurb: 'End-to-end walkthrough : instrument, sign, verify.',               href: `${ghBase}/ai-evidence-guide.md` },
+      { title: 'CLI reference',                   blurb: 'Every carvetrace subcommand with flags and examples.',             href: `${ghBase}/cli-reference.md` },
+      { title: 'Protocol reference',              blurb: 'The wire formats, schema hashes, and canonical encodings.',        href: `${ghBase}/protocol-reference.md` },
+      { title: 'SDK feature matrix',              blurb: 'What every SDK + adapter combination supports.',                   href: `${ghBase}/sdk-feature-matrix.md` },
+      { title: 'Cloud deployment guide',          blurb: 'AWS / GCP / Azure / OVHcloud deployment patterns.',                href: `${ghBase}/cloud-deployment-guide.md` },
+      { title: 'Auth deployment guide',           blurb: 'OIDC / SAML SSO setup, reverse-proxy auth, RBAC.',                 href: `${ghBase}/auth-deployment-guide.md` },
+    ],
+  },
+  {
+    heading: 'Operate and verify',
+    blurb: 'For SREs, compliance officers, and auditors using the product day-to-day.',
+    links: [
+      { title: 'Evidence report guide',           blurb: 'Generate, customize, and interpret the coverage report.',          href: `${ghBase}/evidence-report-guide.md` },
+      { title: 'Verifier guide',                  blurb: 'How to verify a bundle locally, in browser, or via CLI.',          href: `${ghBase}/verifier-guide.md` },
+      { title: 'Cross-implementation harness',    blurb: 'How Java ↔ WASM ↔ Python verdict parity is proven in CI.',         href: `${ghBase}/cross-impl-harness.md` },
+      { title: 'Tamper report guide',             blurb: 'What a failed verification looks like and how to read it.',        href: `${ghBase}/tamper-report-guide.md` },
+      { title: 'Integrity checking',              blurb: 'Continuous chain-integrity validation in production.',             href: `${ghBase}/integrity-checking.md` },
+      { title: 'TSA anchoring guide',             blurb: 'How RFC 3161 anchoring works and which TSAs to use.',              href: `${ghBase}/tsa-anchoring-guide.md` },
+      { title: 'TSA cadence configuration',       blurb: 'Tuning anchor frequency to your retention + cost profile.',        href: `${ghBase}/tsa-cadence-configuration.md` },
+      { title: 'QTSP selection',                  blurb: 'Picking an eIDAS-qualified Trusted Service Provider.',             href: `${ghBase}/qtsp-selection.md` },
+      { title: 'Anchor publisher guide',          blurb: 'Publishing chain anchors via OpenTimestamps and Bitcoin.',         href: `${ghBase}/anchor-publisher-guide.md` },
+      { title: 'Compliance officer workflow',     blurb: 'Day-in-the-life walkthrough for a CCO using CarveTrace.',          href: `${ghBase}/compliance-officer-workflow.md` },
+      { title: 'Multiparty verification guide',   blurb: 'Independent verification by auditor + regulator + customer.',      href: `${ghBase}/multiparty-verification-guide.md` },
+    ],
+  },
+  {
+    heading: 'Security + posture',
+    blurb: 'For security review and procurement due diligence.',
+    links: [
+      { title: 'Security overview',               blurb: 'Crypto choices, supply chain, ops posture.',                       href: `${ghBase}/security-overview.md` },
+      { title: 'Security known limitations',      blurb: 'Honest accounting of what is and isn\'t mitigated today.',         href: `${ghBase}/security-known-limitations.md` },
+      { title: 'Timestamping model',              blurb: 'The trust + threat model behind RFC 3161 + OpenTimestamps.',       href: `${ghBase}/timestamping-model.md` },
+      { title: 'Threat model',                    blurb: 'Adversaries we defend against ; what we explicitly don\'t.',       href: `${ghBase}/threat-model.md` },
+      { title: 'Security page on this site',      blurb: 'Public-facing security posture summary.',                          href: '/security/' },
+    ],
+  },
+];
+---
+<Base
+  lang="en"
+  pageId="docs"
+  title="Documentation — CarveTrace"
+  description="Architecture, AI Act mapping, integration guides, security posture. Everything an engineer, compliance officer, or auditor needs to evaluate and deploy CarveTrace."
+>
+  <section class="hero">
+    <p class="eyebrow">Documentation</p>
+    <h1>The whole product, written down</h1>
+    <p>
+      Every guide CarveTrace ships, organized by what you're trying to do.
+      The canonical source is the GitHub repository ; this page is the index.
+      Specs and references are versioned with the code — open the GitHub link
+      to see the exact text against a tagged release.
+    </p>
+    <div class="hero__ctas">
+      <a class="cta cta--primary" href={routes.demo.en}>See the demo</a>
+      <a class="cta cta--ghost" href={routes.contact.en}>Talk to us</a>
+    </div>
+  </section>
+
+  {sections.map(section => (
+    <section class="docs-section">
+      <h2>{section.heading}</h2>
+      <p class="docs-section__blurb">{section.blurb}</p>
+      <div class="docs-grid">
+        {section.links.map(link => (
+          <a class="docs-card" href={link.href} rel="noopener">
+            <h3>{link.title}</h3>
+            <p>{link.blurb}</p>
+            <span class="docs-card__source">
+              {link.href.startsWith('http') ? 'github.com →' : 'on this site →'}
+            </span>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <section class="docs-fallback">
+    <h2>Don't see what you need?</h2>
+    <p>
+      Drop us a line at <a href="mailto:contact@carvetrace.com">contact@carvetrace.com</a>
+      with what you're trying to evaluate. If the answer is in our docs and just
+      isn't surfaced here, we'll add it. If it isn't, we'll write the doc and ship
+      it.
+    </p>
+  </section>
+</Base>
+
+<style>
+  .docs-section { margin: 2.5rem 0; }
+  .docs-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .docs-section__blurb {
+    color: var(--ink-secondary);
+    line-height: 1.6;
+    margin: 0 0 1.25rem 0;
+    max-width: 50rem;
+  }
+  .docs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+    gap: 1rem;
+  }
+  .docs-card {
+    display: block;
+    padding: 1rem 1.25rem;
+    background: #fff;
+    border: 1px solid var(--edge-subtle);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+  }
+  .docs-card:hover {
+    border-color: var(--brand-600);
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.08);
+    transform: translateY(-1px);
+  }
+  .docs-card h3 {
+    font-size: 0.95rem;
+    margin: 0 0 0.4rem 0;
+    color: var(--ink-default);
+  }
+  .docs-card p {
+    margin: 0 0 0.5rem 0 !important;
+    font-size: 0.875rem;
+    color: var(--ink-secondary);
+    line-height: 1.5;
+  }
+  .docs-card__source {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.6875rem;
+    color: var(--brand-600);
+    text-transform: lowercase;
+    letter-spacing: 0.03em;
+  }
+  .docs-fallback {
+    margin: 3rem 0 2rem;
+    padding: 1.5rem 1.75rem;
+    background: #fafafa;
+    border-radius: var(--radius-xl);
+  }
+  .docs-fallback h2 { font-size: 1.25rem; margin: 0 0 0.5rem 0; }
+  .docs-fallback p {
+    color: var(--ink-secondary);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 50rem;
+  }
+  .docs-fallback a { color: var(--brand-600); text-decoration: underline; }
+</style>

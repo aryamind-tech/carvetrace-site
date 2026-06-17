@@ -2,14 +2,12 @@
 import Base from '../../layouts/Base.astro';
 
 const email = 'contact@carvetrace.com';
-const subject = 'CarveTrace — [votre organisation]';
-const mailto = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
 ---
 <Base
   lang="fr"
   pageId="contact"
   title="Contacter CarveTrace"
-  description="Décrivez-nous votre cas d'usage et nous vous montrerons comment la preuve fonctionne. Email uniquement, pas de formulaire, pas de tracking."
+  description="Décrivez-nous votre cas d'usage et nous vous montrerons comment la preuve fonctionne. SARL européenne, pas d'automatisation marketing, pas de tracking — juste l'email."
 >
   <section class="hero">
     <p class="eyebrow">Nous contacter</p>
@@ -19,8 +17,168 @@ const mailto = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
       décisions IA en cas de contestation. Décrivez-nous votre cas d'usage et
       nous vous montrerons comment la preuve fonctionne.
     </p>
-    <div class="hero__ctas">
-      <a class="cta cta--primary" href={mailto}>{email}</a>
-    </div>
+    <p class="contact__honest">
+      <small>
+        Pas de CRM, pas d'automatisation email, pas de pixel de tracking. Cette
+        page construit un email structuré à partir des champs ci-dessous et
+        l'ouvre dans votre client mail. La réponse arrive dans notre boîte
+        <strong>{email}</strong>. Tous les champs sont optionnels — collez ce
+        que vous avez.
+      </small>
+    </p>
   </section>
+
+  <form class="contact-form" id="contact-form" novalidate>
+    <div class="contact-form__row">
+      <label>
+        <span>Votre nom</span>
+        <input type="text" name="name" autocomplete="name" />
+      </label>
+      <label>
+        <span>Votre email</span>
+        <input type="email" name="email" autocomplete="email" />
+      </label>
+    </div>
+    <div class="contact-form__row">
+      <label>
+        <span>Organisation</span>
+        <input type="text" name="org" autocomplete="organization" />
+      </label>
+      <label>
+        <span>Pays</span>
+        <input type="text" name="country" autocomplete="country-name" />
+      </label>
+    </div>
+    <div class="contact-form__row">
+      <label>
+        <span>Votre fonction</span>
+        <select name="role">
+          <option value="">—</option>
+          <option>Conformité / Risque</option>
+          <option>Responsable IA / IA Responsable</option>
+          <option>Lead IA / ML engineering</option>
+          <option>Juridique / DPO</option>
+          <option>Sécurité / CISO</option>
+          <option>Achats / Procurement</option>
+          <option>Fondateur / CEO</option>
+          <option>Auditeur / Consultant</option>
+          <option>Chercheur</option>
+          <option>Autre</option>
+        </select>
+      </label>
+      <label>
+        <span>Ce qui vous amène</span>
+        <select name="intent">
+          <option value="">—</option>
+          <option>Échéance IA Act haut risque (2 août 2026)</option>
+          <option>Échéance PLD (9 décembre 2026)</option>
+          <option>Évaluation fournisseur / RFP</option>
+          <option>Programme interne de gouvernance IA</option>
+          <option>Audit externe / demande régulateur</option>
+          <option>Curiosité / recherche</option>
+          <option>Partenariat</option>
+          <option>Autre</option>
+        </select>
+      </label>
+    </div>
+    <label class="contact-form__full">
+      <span>Décrivez votre cas d'usage</span>
+      <textarea name="message" rows="6" placeholder="Un workflow d'IA à haut risque, pourquoi vous regardez la preuve maintenant, et tout ce qui rendrait utile un appel de 30 minutes."></textarea>
+    </label>
+    <div class="contact-form__cta">
+      <button type="submit" class="cta cta--primary">Ouvrir le client mail avec ce brouillon</button>
+      <a class="cta cta--ghost" href={`mailto:${email}`}>Ou écrivez-nous directement</a>
+    </div>
+  </form>
+
+  <section class="contact-meta">
+    <h2>Et après ?</h2>
+    <ul>
+      <li>Vous cliquez sur Envoyer. Votre client mail s'ouvre avec l'email rédigé et adressé à <strong>{email}</strong>.</li>
+      <li>Vous relisez, modifiez, envoyez. Nous voyons ce que vous avez envoyé ; pas ce que vous avez effacé avant.</li>
+      <li>Nous répondons dans la journée ouvrée depuis la même adresse. Pour sauter le formulaire, écrivez-nous directement.</li>
+    </ul>
+    <p class="contact-meta__small">
+      <small>
+        Aryamind SARL est établie en France. Notre <a href="/legal/privacy/">Politique
+        de confidentialité</a> et notre <a href="/legal/dpa/">DPA</a> décrivent comment
+        nous traitons le contenu de votre message. Nous n'utilisons pas vos informations
+        pour de la prospection à froid.
+      </small>
+    </p>
+  </section>
+
+  <script is:inline src="/scripts/contact-form.js"></script>
 </Base>
+
+<style>
+  .contact__honest {
+    color: var(--ink-muted);
+    margin-top: 1rem !important;
+    max-width: 38rem;
+    line-height: 1.5;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 48rem;
+    margin: 2rem 0;
+    padding: 1.75rem;
+    background: #fafafa;
+    border: 1px solid var(--edge-subtle);
+    border-radius: var(--radius-xl);
+  }
+  .contact-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  @media (max-width: 600px) {
+    .contact-form__row { grid-template-columns: 1fr; }
+  }
+  .contact-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    color: var(--ink-secondary);
+  }
+  .contact-form input,
+  .contact-form select,
+  .contact-form textarea {
+    padding: 0.5rem 0.625rem;
+    font-size: 0.9375rem;
+    font-family: inherit;
+    color: var(--ink-default);
+    border: 1px solid var(--edge-default);
+    border-radius: var(--radius-md);
+    background: #fff;
+  }
+  .contact-form input:focus,
+  .contact-form select:focus,
+  .contact-form textarea:focus {
+    outline: none;
+    border-color: var(--brand-600);
+    box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12);
+  }
+  .contact-form textarea { resize: vertical; min-height: 6rem; font-family: inherit; }
+  .contact-form__cta { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.5rem; }
+
+  .contact-meta { max-width: 48rem; margin: 2rem 0 0; }
+  .contact-meta h2 { font-size: 1.125rem; margin-bottom: 0.5rem; }
+  .contact-meta ul { list-style: none; padding: 0; margin: 0 0 1rem 0; }
+  .contact-meta li {
+    padding-left: 1.25rem; position: relative;
+    color: var(--ink-secondary);
+    font-size: 0.9375rem; line-height: 1.55; margin-bottom: 0.5rem;
+  }
+  .contact-meta li::before {
+    content: ""; position: absolute; left: 0; top: 0.55rem;
+    width: 6px; height: 6px; border-radius: 2px;
+    background: var(--brand-600); opacity: 0.7;
+  }
+  .contact-meta__small { color: var(--ink-muted); line-height: 1.5; }
+  .contact-meta a { color: var(--brand-600); text-decoration: underline; }
+</style>

@@ -10,10 +10,12 @@ export const defaultLocale: Locale = 'en';
 
 export type PageId =
   | 'home'
+  | 'why'
   | 'how-it-works'
   | 'demo'
   | 'pricing'
   | 'contact'
+  | 'docs'
   // Legal / trust surface — EN-only for now. Procurement-grade English is the
   // accepted standard for B2B legal in EU deals ; FR translations layer in later.
   | 'privacy'
@@ -23,10 +25,12 @@ export type PageId =
 
 export const routes: Record<PageId, Record<Locale, string>> = {
   home:           { en: '/',                fr: '/fr/' },
+  why:            { en: '/why/',            fr: '/why/' },
   'how-it-works': { en: '/how-it-works/',   fr: '/fr/comment-ca-marche/' },
   demo:           { en: '/demo/',           fr: '/fr/demo/' },
   pricing:        { en: '/pricing/',        fr: '/fr/tarifs/' },
   contact:        { en: '/contact/',        fr: '/fr/contact/' },
+  docs:           { en: '/docs/',           fr: '/docs/' },
   privacy:        { en: '/legal/privacy/',  fr: '/legal/privacy/' },
   terms:          { en: '/legal/terms/',    fr: '/legal/terms/' },
   dpa:            { en: '/legal/dpa/',      fr: '/legal/dpa/' },
@@ -40,5 +44,5 @@ export function altLocaleHref(currentPageId: PageId, currentLocale: Locale): str
 
 /** Page IDs that have an EN-only canonical surface and should hide the lang switch. */
 export const enOnlyPages: ReadonlySet<PageId> = new Set([
-  'privacy', 'terms', 'dpa', 'security',
+  'why', 'docs', 'privacy', 'terms', 'dpa', 'security',
 ]);

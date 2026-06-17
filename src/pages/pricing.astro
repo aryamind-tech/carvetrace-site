@@ -6,53 +6,308 @@ import { routes } from '../i18n/routes';
   lang="en"
   pageId="pricing"
   title="CarveTrace pricing"
-  description="Self-hosted only. Three deployment tiers — Core, Pro, Enterprise. Every commercial conversation starts with a pilot."
+  description="Self-hosted. Priced per high-risk AI system × decision volume — the unit the EU AI Act regulates. Free verifier, paid Starter from €15K/yr, Growth €45K/yr, Enterprise custom."
 >
   <section class="hero">
     <p class="eyebrow">Pricing</p>
-    <h1>Three ways to deploy</h1>
-    <p>Self-hosted. Your data never leaves your infrastructure.</p>
+    <h1>Priced by the unit the AI Act regulates</h1>
+    <p>
+      One high-risk AI system, one decision-volume band. Self-hosted —
+      your data never leaves your infrastructure. Annual subscription, EUR,
+      excluding VAT.
+    </p>
+  </section>
+
+  <!-- Free tier sits above the paid grid : it's the trust handle, not just
+       a tier. Anyone can verify a CarveTrace bundle in their browser
+       without signing up for anything. -->
+  <section class="pricing-free">
+    <article class="pricing-free__card">
+      <div class="pricing-free__left">
+        <h2>Verifier</h2>
+        <p class="pricing-free__price"><strong>€0</strong> <span>· free, forever</span></p>
+        <p>
+          Anyone can open <a href="https://verify.carvetrace.com">verify.carvetrace.com</a>
+          and verify any CarveTrace bundle in their browser, with no account, no
+          telemetry, and no rate cap. The verifier libraries (Java, Rust/WASM, Python
+          for v0.2) are open-source under Apache 2.0 — fork, audit, or self-host.
+        </p>
+        <p class="pricing-free__why">
+          This is the differentiator, not a teaser. Anyone with the producer's public
+          key re-derives every binding without trusting CarveTrace.
+        </p>
+      </div>
+      <div class="pricing-free__right">
+        <a class="cta cta--primary" href="https://verify.carvetrace.com" rel="noopener">Open the verifier</a>
+        <a class="cta cta--secondary" href="https://github.com/aryamind-tech" rel="noopener">Source on GitHub</a>
+      </div>
+    </article>
   </section>
 
   <div class="panels">
     <article class="card">
-      <h2>Core</h2>
-      <p>For one team running CarveTrace inside one organization.</p>
+      <h2>Starter</h2>
+      <p class="card__price"><strong>€15,000</strong> <span>/ year</span></p>
+      <p>One high-risk AI system. For teams crossing the August 2026 deadline with one production workflow to evidence.</p>
       <ul>
-        <li>Full evidence platform (chain, timestamps, bundle export)</li>
-        <li>Independent verifier — self-hostable</li>
-        <li>SDK + CLI</li>
+        <li>1 high-risk AI system</li>
+        <li>Up to 500,000 decisions per year</li>
+        <li>1-year evidence retention</li>
+        <li>Full SDK + CLI + self-hosted operator UI</li>
+        <li>RFC 3161 TSA timestamping</li>
+        <li>Self-hostable independent verifier</li>
         <li>Standard commercial license, single organization</li>
-        <li>Community support</li>
+        <li>Email support, 2-business-day response</li>
+        <li>Quarterly version upgrades</li>
       </ul>
       <a class="cta cta--primary" href={routes.contact.en}>Request a pilot</a>
     </article>
 
-    <article class="card">
-      <h2>Pro</h2>
-      <p>For organizations placing CarveTrace at the centre of their AI Act compliance.</p>
+    <article class="card card--featured">
+      <span class="card__ribbon">Most fit for AI Act program leads</span>
+      <h2>Growth</h2>
+      <p class="card__price"><strong>€45,000</strong> <span>/ year</span></p>
+      <p>Up to 5 high-risk AI systems. For organizations with several production AI workflows and a documented AI governance program.</p>
       <ul>
-        <li>Everything in Core</li>
-        <li>Email support with business-hours response</li>
+        <li>Up to 5 high-risk AI systems</li>
+        <li>Up to 5 million decisions per year</li>
+        <li>3-year evidence retention</li>
+        <li>Everything in Starter</li>
+        <li>SSO (OIDC / SAML)</li>
+        <li>Signed DPA + EU data residency commitment</li>
+        <li>Business-hours support, 1-business-day response</li>
         <li>Schema authoring help for your Article 12 mapping</li>
-        <li>Version upgrade guidance</li>
         <li>Annual review of your evidence pipeline</li>
+        <li>OpenTimestamps / Bitcoin anchoring (opt-in)</li>
       </ul>
       <a class="cta cta--primary" href={routes.contact.en}>Request a pilot</a>
     </article>
 
     <article class="card">
       <h2>Enterprise</h2>
-      <p>For multi-org deployments, regulated industries, and accompanied rollouts.</p>
+      <p class="card__price"><strong>Custom</strong> <span>· from €90,000</span></p>
+      <p>Unlimited high-risk systems. For multi-organization deployments, regulated industries, and DORA-covered entities.</p>
       <ul>
-        <li>Everything in Pro</li>
-        <li>Named support contact + on-call SLA</li>
-        <li>Accompanied deployment — we help you ship to production</li>
-        <li>Custom Article 12 mapping for your business processes</li>
-        <li>Multi-organization license</li>
-        <li>DPA + custom contract terms</li>
+        <li>Unlimited high-risk AI systems</li>
+        <li>Custom decision-volume scaling</li>
+        <li>Custom retention (10+ years)</li>
+        <li>Everything in Growth</li>
+        <li>Article 14 human-oversight workflows</li>
+        <li>Multi-organization / group-of-companies license</li>
+        <li>Named CSM + on-call SLA</li>
+        <li>Accompanied deployment, custom Article 12 mapping</li>
+        <li>ISO 42001 attestation pack (once we hold it)</li>
+        <li>DORA ICT third-party register fit, exit-plan documentation</li>
+        <li>Custom contract terms</li>
       </ul>
       <a class="cta cta--primary" href={routes.contact.en}>Talk to us</a>
     </article>
   </div>
+
+  <!-- Anchor sentence : per high-risk system × decision volume is THE
+       pricing anchor in the AI Governance Platform category in 2026. -->
+  <section class="pricing-anchor">
+    <p>
+      <strong>One unit, one mental model.</strong> A "high-risk AI system" in
+      CarveTrace pricing corresponds to one production AI workflow you would
+      list in your Article 16 obligations as a deployer or provider — one
+      résumé-screener, one credit-decisioning model, one biometric matcher.
+      The decision-volume band is the count of <em>signed AI inference events</em>
+      written to the CarveTrace chain over a 12-month subscription term. We
+      meter on what the regulator regulates, not on how many people on your
+      compliance team log in.
+    </p>
+  </section>
+
+  <section class="pricing-faq">
+    <h2>Common questions</h2>
+
+    <h3>Do we ever host your data?</h3>
+    <p>
+      No. CarveTrace is self-hosted in every tier. The signing keys, the chain,
+      the bundles, and the subjects all stay on your infrastructure. We see
+      only what you choose to share during a support session — and we delete
+      it after the issue is closed.
+    </p>
+
+    <h3>What if we exceed our decision volume?</h3>
+    <p>
+      We don't break the chain or block writes mid-year. You'll get a
+      friendly notice when you cross the band, and we'll right-size your
+      next renewal to match what you're actually emitting. No surprise
+      overage invoices in-term.
+    </p>
+
+    <h3>Pilot terms?</h3>
+    <p>
+      Every commercial conversation starts with a 60-day technical pilot
+      against your real chain (or a staging chain). The pilot fee is
+      modest and credited back against your first annual subscription if
+      you convert. Pilots include direct access to the engineering team.
+    </p>
+
+    <h3>Multi-year discount?</h3>
+    <p>
+      Yes. 2-year prepaid commits land a 10% reduction ; 3-year prepaid
+      commits land 15%. We are an EU SARL, not a private-equity-backed
+      vendor under quarterly bookings pressure — pricing predictability is
+      a feature.
+    </p>
+
+    <h3>How do you handle DORA's ICT third-party register?</h3>
+    <p>
+      Self-hosting means CarveTrace is rarely a Critical ICT Third-Party
+      Service Provider in the formal DORA sense — but your DORA team will
+      still want documentation. The Enterprise tier ships with a DORA-fit
+      pack : risk profile, sub-processor list, exit-plan documentation,
+      and the contractual fields the register expects.
+    </p>
+
+    <h3>Open source posture?</h3>
+    <p>
+      The verifier libraries (carvetrace-verify, carvetrace-verify-wasm,
+      carvetrace-protocol, carvetrace-trust-roots) and reference Python
+      verifier are <strong>Apache 2.0</strong>. The producer-side SDKs,
+      adapters, CLI, server, and operator UI are <strong>commercial</strong>
+      under the proprietary license. Full matrix on
+      <a href="https://github.com/aryamind-tech/carvetrace/blob/main/LICENSING.md" rel="noopener">LICENSING.md</a>.
+    </p>
+
+    <h3>What about US buyers?</h3>
+    <p>
+      We sell to non-EU organizations on the same EUR price card. EU AI Act
+      compliance under <em>Art. 2</em> reaches non-EU providers whose AI
+      output is used in the EU ; many US-based AI builders are in scope
+      whether or not they choose to deploy in the EU.
+    </p>
+  </section>
+
+  <section class="pricing-cta">
+    <p>Ready to put cryptographic re-verifiability under your AI program?</p>
+    <a class="cta cta--primary cta--large" href={routes.contact.en}>Talk to us</a>
+  </section>
 </Base>
+
+<style>
+  .pricing-free {
+    margin: 2rem 0 1.5rem;
+  }
+  .pricing-free__card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    background: linear-gradient(180deg, #f0fdf4 0%, #ecfdf5 100%);
+    border: 1px solid #86efac;
+    border-radius: var(--radius-xl);
+    padding: 1.75rem 2rem;
+    align-items: center;
+  }
+  .pricing-free__left h2 {
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem 0;
+  }
+  .pricing-free__price {
+    font-size: 1.1rem;
+    color: #14532d;
+    margin: 0 0 0.75rem 0;
+  }
+  .pricing-free__price strong { font-size: 1.5rem; font-weight: 700; }
+  .pricing-free__price span { color: #15803d; font-weight: 400; }
+  .pricing-free__left p { color: #166534; margin: 0 0 0.5rem 0; font-size: 0.95rem; line-height: 1.55; }
+  .pricing-free__why { font-style: italic; color: #15803d !important; }
+  .pricing-free__left a { color: #047857; text-decoration: underline; }
+  .pricing-free__right {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 12rem;
+  }
+
+  .card__price {
+    font-size: 0.95rem;
+    margin: 0 0 1rem 0 !important;
+    color: var(--ink-secondary);
+  }
+  .card__price strong { font-size: 1.75rem; font-weight: 700; color: var(--ink-default); }
+  .card__price span { color: var(--ink-secondary); font-weight: 400; }
+
+  .card--featured {
+    position: relative;
+    border-color: var(--brand-600) !important;
+    box-shadow: 0 8px 24px rgba(5, 150, 105, 0.12);
+  }
+  .card__ribbon {
+    position: absolute;
+    top: -0.75rem;
+    left: 1.5rem;
+    background: var(--brand-600);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+  }
+
+  .pricing-anchor {
+    margin: 3rem auto;
+    max-width: 56rem;
+    padding: 1.5rem 1.75rem;
+    background: #fafafa;
+    border-left: 3px solid var(--brand-600);
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--ink-secondary);
+  }
+  .pricing-anchor strong { color: var(--ink-default); }
+
+  .pricing-faq {
+    max-width: 56rem;
+    margin: 3rem auto;
+  }
+  .pricing-faq h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .pricing-faq h3 {
+    font-size: 1.1rem;
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .pricing-faq p {
+    color: var(--ink-secondary);
+    line-height: 1.65;
+    font-size: 0.95rem;
+    margin-bottom: 0;
+  }
+  .pricing-faq a {
+    color: var(--brand-600);
+    text-decoration: underline;
+  }
+
+  .pricing-cta {
+    text-align: center;
+    margin: 3rem auto 1.5rem;
+  }
+  .pricing-cta p {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+    color: var(--ink-secondary);
+  }
+  .cta--large {
+    padding: 0.9rem 1.75rem;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 720px) {
+    .pricing-free__card {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .pricing-free__right {
+      min-width: 0;
+    }
+  }
+</style>
