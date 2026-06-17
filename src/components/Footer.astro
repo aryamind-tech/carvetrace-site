@@ -18,7 +18,16 @@ const year = new Date().getFullYear();
         <a href="https://github.com/aryamind-tech" rel="noopener">{t(lang, 'footer.github')}</a>
       </span>
     </div>
-    <div class="site-footer__row">
+    <div class="site-footer__row site-footer__legal-row">
+      <span>
+        <a href="/security/">{t(lang, 'footer.security')}</a>
+        <span class="site-footer__sep">·</span>
+        <a href="/legal/privacy/">{t(lang, 'footer.privacy')}</a>
+        <span class="site-footer__sep">·</span>
+        <a href="/legal/terms/">{t(lang, 'footer.terms')}</a>
+        <span class="site-footer__sep">·</span>
+        <a href="/legal/dpa/">{t(lang, 'footer.dpa')}</a>
+      </span>
       <small>© {year} {t(lang, 'footer.legal')}</small>
     </div>
   </div>

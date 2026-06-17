@@ -1,0 +1,49 @@
+CARVETRACE.COM — SITE LICENSE
+
+Copyright (c) 2026 Aryamind SARL. All rights reserved.
+
+This repository contains two kinds of materials under different licenses :
+
+----------------------------------------------------------------------
+1. SITE CONTENT (prose, copy, page text, blog posts, documentation
+   content rendered on carvetrace.com and its subdomains)
+
+   Licensed under the Creative Commons Attribution 4.0 International
+   License (CC-BY-4.0).
+
+   https://creativecommons.org/licenses/by/4.0/
+
+   You may share and adapt the content for any purpose, including
+   commercially, provided you give appropriate credit, indicate
+   if changes were made, and do not suggest the licensor endorses
+   you or your use.
+
+----------------------------------------------------------------------
+2. SITE BRANDING (the "CarveTrace" name, the Carve/Trace wordmark, the
+   monogram-C favicon and logo, the visual identity tokens, and any
+   files inside /public/brand or referenced from the site's brand
+   guide)
+
+   ALL RIGHTS RESERVED — proprietary trademark and trade-dress of
+   Aryamind SARL.
+
+   You may NOT use the CarveTrace name or wordmark to identify or
+   imply affiliation with your own product, service, organization,
+   or content without prior written authorization from Aryamind
+   SARL. Attribution under CC-BY-4.0 (item 1 above) is permitted
+   and does not require separate authorization.
+
+----------------------------------------------------------------------
+3. SITE SOURCE CODE (Astro components, build scripts, deployment
+   workflows, configuration files)
+
+   Licensed under the same proprietary commercial terms as the rest of
+   the CarveTrace commercial software stack — see the matrix at
+   https://github.com/aryamind-tech/carvetrace/blob/main/LICENSING.md
+
+   Source kept in this repo for reproducibility ; not licensed for
+   redistribution.
+
+----------------------------------------------------------------------
+
+Questions : legal@aryamind.com

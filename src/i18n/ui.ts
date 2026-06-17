@@ -16,6 +16,10 @@ export const ui = {
     'footer.github':   'Source on GitHub',
     'footer.contact':  'Contact',
     'footer.legal':    'Aryamind SARL — all rights reserved',
+    'footer.security': 'Security',
+    'footer.privacy':  'Privacy',
+    'footer.terms':    'Terms',
+    'footer.dpa':      'DPA',
   },
   fr: {
     'nav.howItWorks': 'Comment ça marche',
@@ -29,6 +33,10 @@ export const ui = {
     'footer.github':   'Source sur GitHub',
     'footer.contact':  'Contact',
     'footer.legal':    'Aryamind SARL — tous droits réservés',
+    'footer.security': 'Sécurité',
+    'footer.privacy':  'Confidentialité',
+    'footer.terms':    'Conditions',
+    'footer.dpa':      'DPA',
   },
 } as const satisfies Record<Locale, Record<string, string>>;
 

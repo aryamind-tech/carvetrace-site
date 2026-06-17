@@ -1,0 +1,229 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const lastUpdated = '2026-06-17';
+const contactEmail = 'privacy@aryamind.com';
+---
+<Base
+  lang="en"
+  pageId="privacy"
+  title="Privacy Policy — CarveTrace"
+  description="How Aryamind SARL handles personal data on carvetrace.com, verify.carvetrace.com, and in CarveTrace commercial relationships. EU-based, no analytics, no trackers."
+>
+  <section class="legal">
+    <p class="eyebrow">Legal</p>
+    <h1>Privacy Policy</h1>
+    <p class="legal__meta">
+      <strong>Controller:</strong> Aryamind SARL, a company registered in France.
+      <br/>
+      <strong>Contact:</strong> <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+      <br/>
+      <strong>Last updated:</strong> {lastUpdated}
+    </p>
+
+    <h2>1. Summary in one paragraph</h2>
+    <p>
+      CarveTrace is built so that personal data <em>does not need to flow to us</em>.
+      Our marketing site has no analytics and no third-party trackers. Our
+      independent verifier at <a href="https://verify.carvetrace.com">verify.carvetrace.com</a>
+      runs entirely in your browser and never sends your evidence files anywhere. Our
+      commercial product is self-hosted on your own infrastructure — we never touch your
+      AI decisions or your subjects' data. The only personal data we process is what
+      you voluntarily send us by email (your name, organization, and whatever you put
+      in the message). This policy explains all of that in detail, the legal bases
+      under the GDPR, and how to exercise your rights.
+    </p>
+
+    <h2>2. What this policy covers</h2>
+    <ul>
+      <li>The marketing website <a href="https://carvetrace.com">carvetrace.com</a> (and its French version <a href="https://carvetrace.com/fr/">/fr</a>).</li>
+      <li>The independent in-browser verifier at <a href="https://verify.carvetrace.com">verify.carvetrace.com</a>.</li>
+      <li>Direct commercial interactions with Aryamind SARL — pre-sales emails, demo sessions, contracts, ongoing support of CarveTrace deployments.</li>
+    </ul>
+    <p>
+      This policy does <strong>not</strong> cover the personal data that you, as a
+      CarveTrace customer, process inside your own self-hosted CarveTrace deployment.
+      Under the GDPR you are the controller for that processing ; Aryamind SARL only
+      acts as your processor when explicitly contracted to do so under our Data
+      Processing Agreement (DPA — see <a href="/legal/dpa/">/legal/dpa</a>).
+    </p>
+
+    <h2>3. The marketing site — what we collect</h2>
+    <p>
+      We deliberately operate the marketing site without analytics. Specifically :
+    </p>
+    <ul>
+      <li><strong>No cookies are set</strong> beyond what your browser's language preference does automatically. We do not set any persistent identifier.</li>
+      <li><strong>No analytics or tag managers</strong> — no Google Analytics, no Plausible, no Fathom, no Hotjar, no Meta Pixel, no LinkedIn Insight Tag, no internal counters.</li>
+      <li><strong>No third-party scripts</strong> — the page-level Content-Security-Policy enforces this technically (script-src 'self').</li>
+      <li><strong>No embedded social widgets, fonts loaded from CDNs, or pixel trackers.</strong> The fonts ship self-hosted.</li>
+    </ul>
+    <p>
+      Our hosting provider — Cloudflare, Inc. — necessarily processes your IP address
+      to deliver the page to you. Cloudflare's processing is governed by their own
+      <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener">privacy policy</a>.
+      We have a Data Processing Addendum in place with Cloudflare ; they act as our
+      processor under the GDPR for hosting, and their EU-Customer Data Protection
+      Addendum applies. We selected the EU jurisdiction option where available. We do
+      not receive your IP address from Cloudflare and we do not consult Cloudflare's
+      access logs.
+    </p>
+
+    <h2>4. The independent verifier — what we collect</h2>
+    <p>
+      The verifier at verify.carvetrace.com is a static page that loads a WebAssembly
+      module into your browser. When you drop an evidence bundle onto the page, the
+      file is read, parsed, and verified <em>locally in your browser</em>. <strong>The
+      bundle, your verdict, and any of its contents never leave your machine.</strong>
+      The page is enforced as zero-network-after-load by a strict Content-Security-Policy
+      (connect-src 'none').
+    </p>
+    <p>
+      As with the marketing site, we operate the verifier without analytics. Cloudflare
+      delivers the static assets and necessarily processes your IP address for delivery
+      ; we do not consume those logs.
+    </p>
+
+    <h2>5. Commercial interactions — what we collect and why</h2>
+    <p>
+      When you contact us through the email address shown on our contact page, send us
+      an RFP response, sign a pilot or commercial agreement, or open a support ticket,
+      we process :
+    </p>
+    <ul>
+      <li>Your professional contact details (name, business email, job title, organization, country) — provided directly by you.</li>
+      <li>The content of your message and any attachments you choose to include.</li>
+      <li>Contract metadata for executed agreements (signature date, signatory, scope, term, fee schedule).</li>
+      <li>Support-session details when you grant us screen-sharing or log-sharing access to triage a deployment issue — strictly time-bounded to the session, deleted after resolution unless you ask us to retain them for follow-up.</li>
+    </ul>
+    <p>
+      <strong>Legal basis (Art. 6 GDPR) :</strong>
+    </p>
+    <ul>
+      <li><strong>Contract performance</strong> (Art. 6(1)(b)) — to provide pre-sales, contracting, and support to your organization.</li>
+      <li><strong>Legitimate interest</strong> (Art. 6(1)(f)) — to respond to your inbound inquiry, maintain commercial records, and protect Aryamind SARL's contractual rights. We balanced this against your privacy by collecting only the minimum necessary fields.</li>
+      <li><strong>Legal obligation</strong> (Art. 6(1)(c)) — to retain executed contracts and invoices for the periods required by French commercial and tax law.</li>
+    </ul>
+    <p>
+      We do not engage in profiling, do not run marketing automation, and do not
+      enrich your contact details from third-party data brokers.
+    </p>
+
+    <h2>6. Sub-processors</h2>
+    <p>
+      We use the following sub-processors for the activities described above. We
+      maintain executed Data Processing Addenda (or equivalent contractual safeguards)
+      with each. The list is the authoritative one — there are no others.
+    </p>
+    <table class="legal__table">
+      <thead><tr><th>Sub-processor</th><th>Purpose</th><th>Data location</th></tr></thead>
+      <tbody>
+        <tr><td>Cloudflare, Inc.</td><td>Static hosting of carvetrace.com and verify.carvetrace.com (Pages + CDN)</td><td>Global edge ; EU-resident processing where available</td></tr>
+        <tr><td>OVHcloud SAS</td><td>Inbound business email (contact@, privacy@, security@, legal@, licensing@ aryamind.com)</td><td>France</td></tr>
+        <tr><td>GitHub, Inc.</td><td>Source-code hosting and CI for the open-source verifier components ; commercial code held in private repositories</td><td>US ; SCCs Module 2 in place</td></tr>
+      </tbody>
+    </table>
+    <p>
+      If we add a sub-processor, customers with an active CarveTrace agreement receive
+      notice at least 30 days in advance per the DPA, with a right to object.
+    </p>
+
+    <h2>7. International transfers</h2>
+    <p>
+      Aryamind SARL is established in the European Union. We host the marketing site
+      and verifier on EU edge nodes where supported by the underlying CDN, and process
+      business email on EU-located servers (OVHcloud, France). Where a sub-processor
+      necessarily processes data outside the EU — at this writing, GitHub for source
+      hosting — we rely on the European Commission's 2021 Standard Contractual Clauses
+      (Module 2, controller-to-processor) and conduct a Transfer Impact Assessment
+      consistent with the EDPB's Schrems II guidance. We do not transfer personal data
+      to jurisdictions without an adequacy decision unless covered by appropriate
+      safeguards.
+    </p>
+
+    <h2>8. Retention</h2>
+    <ul>
+      <li>Inbound emails with no contractual follow-up : up to 18 months from last response, then deleted.</li>
+      <li>Pre-sales records of qualified opportunities : up to 36 months from last contact, then deleted, to comply with French commercial-record obligations and to honor reasonable post-engagement support questions.</li>
+      <li>Executed contracts, invoices, and other accounting records : 10 years per French Commercial Code Art. L123-22 / Tax Code Art. L102 B.</li>
+      <li>Support session recordings or shared logs : deleted after issue closure unless you ask us to retain them.</li>
+    </ul>
+
+    <h2>9. Your rights under the GDPR</h2>
+    <p>
+      You have the right to access your personal data, to request rectification or
+      erasure, to restrict or object to processing, to data portability, and to lodge
+      a complaint with your local supervisory authority — for French residents that
+      is the <a href="https://www.cnil.fr/" rel="noopener">CNIL</a>. Send any request
+      to <a href={`mailto:${contactEmail}`}>{contactEmail}</a>. We answer within one
+      month of receipt (Art. 12(3) GDPR).
+    </p>
+    <p>
+      Where you are also a Customer's data subject and CarveTrace is acting as
+      Aryamind SARL's processor on behalf of your employer or service provider, the
+      Customer is your primary point of contact ; we will forward your request to
+      them within 5 business days per our DPA.
+    </p>
+
+    <h2>10. Security</h2>
+    <p>
+      We describe our security posture, cryptographic choices, and active certifications
+      on the <a href="/security/">Security</a> page. Vulnerability reports go to
+      <a href="mailto:security@aryamind.com">security@aryamind.com</a>.
+    </p>
+
+    <h2>11. Changes to this policy</h2>
+    <p>
+      We post material changes here with an updated <em>Last updated</em> date and
+      notify customers with an active CarveTrace agreement by email at least 30 days
+      before the change takes effect. The current version is always the one published
+      at this URL.
+    </p>
+  </section>
+</Base>
+
+<style>
+  .legal {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px;
+    font-size: 16px;
+    line-height: 1.65;
+    color: #18181b;
+  }
+  .legal h1 {
+    font-size: 36px;
+    margin-bottom: 8px;
+  }
+  .legal h2 {
+    font-size: 22px;
+    margin-top: 36px;
+    margin-bottom: 8px;
+  }
+  .legal .legal__meta {
+    color: #52525b;
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+  .legal .legal__table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 24px;
+    font-size: 14px;
+  }
+  .legal .legal__table th,
+  .legal .legal__table td {
+    border: 1px solid #e4e4e7;
+    padding: 8px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  .legal .legal__table th {
+    background: #f4f4f5;
+    font-weight: 600;
+  }
+  .legal a {
+    color: #047857;
+    text-decoration: underline;
+  }
+</style>

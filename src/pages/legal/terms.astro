@@ -1,0 +1,230 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const lastUpdated = '2026-06-17';
+const contactEmail = 'legal@aryamind.com';
+---
+<Base
+  lang="en"
+  pageId="terms"
+  title="Terms of Service — CarveTrace"
+  description="Master terms governing use of the CarveTrace marketing site, public verifier, and any CarveTrace commercial software licensed from Aryamind SARL. EU-jurisdiction."
+>
+  <section class="legal">
+    <p class="eyebrow">Legal</p>
+    <h1>Terms of Service</h1>
+    <p class="legal__meta">
+      <strong>Provider:</strong> Aryamind SARL, France.
+      <br/>
+      <strong>Contact:</strong> <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+      <br/>
+      <strong>Last updated:</strong> {lastUpdated}
+    </p>
+
+    <h2>1. Acceptance</h2>
+    <p>
+      These Terms of Service ("<strong>Terms</strong>") govern your access to and use
+      of <a href="https://carvetrace.com">carvetrace.com</a> (the "<strong>Site</strong>"),
+      the in-browser verifier at <a href="https://verify.carvetrace.com">verify.carvetrace.com</a>
+      (the "<strong>Public Verifier</strong>"), and the open-source verifier libraries we
+      publish under permissive licenses (collectively, the "<strong>Free Services</strong>").
+      By using any Free Service you accept these Terms. If you do not accept them, do
+      not use the Free Services.
+    </p>
+    <p>
+      Use of <strong>CarveTrace commercial software</strong> — the CLI, server, SDKs,
+      adapters, and operator UI distributed under our proprietary commercial license —
+      is governed primarily by the executed <strong>Order Form</strong> and
+      <strong>Master Subscription Agreement</strong> between Aryamind SARL and your
+      organization, supplemented by the <a href="/legal/dpa/">Data Processing Agreement</a>
+      where personal data is involved. Where a conflict arises between an executed
+      Order Form / MSA and these Terms, the Order Form / MSA controls.
+    </p>
+
+    <h2>2. Aryamind SARL</h2>
+    <p>
+      The Free Services are operated by Aryamind SARL, a French Société à Responsabilité
+      Limitée. You can reach our legal team at <a href={`mailto:${contactEmail}`}>{contactEmail}</a>.
+    </p>
+
+    <h2>3. The Free Services — what you can and cannot do</h2>
+    <h3>3.1 What you can do</h3>
+    <ul>
+      <li>Read, share, and adapt the content of the Site under the Creative Commons Attribution 4.0 license (CC-BY-4.0) — attribution to "Aryamind SARL / CarveTrace" required, no implication of endorsement.</li>
+      <li>Use the Public Verifier to verify any CarveTrace evidence bundle, including bundles produced by another organization. There is no per-use cap and no signup required.</li>
+      <li>Use, modify, fork, and redistribute the open-source verifier libraries (carvetrace-verify, carvetrace-verify-wasm, carvetrace-protocol, carvetrace-trust-roots, carvetrace-verify-python) under their published Apache 2.0 license, in compliance with that license's terms.</li>
+    </ul>
+    <h3>3.2 What you cannot do</h3>
+    <ul>
+      <li>Use the CarveTrace name or Carve/Trace wordmark to imply affiliation with your own product, service, or content without prior written authorization. Attribution under CC-BY-4.0 is permitted and does not require separate authorization.</li>
+      <li>Attempt to circumvent the technical controls on the Site or the Public Verifier (Content-Security-Policy, integrity checks, rate-limit headers).</li>
+      <li>Use the Free Services to commit, abet, or facilitate any unlawful act, to infringe third-party rights, or to misrepresent the verifier's verdict.</li>
+      <li>Falsely represent that an organization or evidence bundle has been "verified by CarveTrace" outside the literal output of the verifier on a specific input.</li>
+    </ul>
+
+    <h2>4. No warranty on the Free Services</h2>
+    <p>
+      The Free Services are provided "<strong>as is</strong>" and "<strong>as available</strong>"
+      to the maximum extent permitted by applicable law. We make no warranty that the
+      Site or the Public Verifier will be uninterrupted, error-free, fit for a particular
+      purpose, or that the verifier's verdict will be accepted by any specific regulator,
+      auditor, or court. The Public Verifier is offered as a convenience — for compliance
+      use you should run the equivalent verifier locally (the open-source libraries
+      produce byte-identical verdicts).
+    </p>
+
+    <h2>5. Limitation of liability for Free Services</h2>
+    <p>
+      To the maximum extent permitted by applicable law, Aryamind SARL's aggregate
+      liability arising out of or relating to your use of the Free Services — including
+      direct, indirect, incidental, consequential, exemplary, or punitive damages, lost
+      profits, lost data, business interruption, or substitute-service costs — is
+      limited to <strong>€100 EUR</strong>. This limitation applies regardless of the
+      legal theory under which the liability arises. Nothing in these Terms excludes or
+      limits liability for gross negligence, willful misconduct, death or personal
+      injury, or any other liability that French law does not permit to be excluded.
+    </p>
+
+    <h2>6. The CarveTrace commercial software</h2>
+    <p>
+      The CarveTrace commercial software is licensed, not sold, under the terms of the
+      Order Form and MSA executed between your organization and Aryamind SARL. The
+      headline points :
+    </p>
+    <ul>
+      <li><strong>Self-hosted.</strong> The commercial software runs on your own infrastructure. We do not host customer data. The annual subscription grants a license to deploy CarveTrace within your organization's perimeter for the licensed scope (number of high-risk AI systems and approximate annual decision volume, as specified on the Order Form).</li>
+      <li><strong>Single legal entity per license, unless otherwise specified.</strong> Enterprise tiers permit multi-organization or group-of-companies use ; the scope is specified on the Order Form.</li>
+      <li><strong>Subscription term.</strong> Default 12 months from the Effective Date, auto-renewing for successive 12-month terms unless either party gives written notice of non-renewal at least 60 days before the end of the then-current term. Fees for renewal terms may be adjusted by up to the higher of (i) French INSEE-published inflation for the preceding year or (ii) 5%, with notice on renewal.</li>
+      <li><strong>Updates.</strong> While your subscription is active and paid current, you receive all bug-fix and security updates, all minor-version feature updates, and any major-version updates released during your term, at no additional charge.</li>
+      <li><strong>Support.</strong> The support tier purchased on the Order Form (Core, Pro, Enterprise) sets response and resolution targets. See the <a href="/security/">Security</a> page and the SLA exhibit to the MSA for current targets.</li>
+      <li><strong>Audit.</strong> We may, on no less than 30 days' prior written notice and no more than once per 12-month term, request reasonable evidence that your deployment scope matches the Order Form. We will not access customer data in any such audit ; we may only review configuration metadata sufficient to confirm scope.</li>
+      <li><strong>Data processing.</strong> Where the commercial software processes personal data on your behalf — chiefly during support sessions when you choose to share logs or screen — Aryamind SARL acts as your processor under the Data Processing Agreement at <a href="/legal/dpa/">/legal/dpa</a>, executed in addition to the Order Form.</li>
+    </ul>
+
+    <h2>7. Fees and payment</h2>
+    <p>
+      Subscription fees are stated on the Order Form, exclusive of value-added tax,
+      withholding tax, or any other tax applicable to your jurisdiction, all of which
+      are your responsibility. Invoices are issued in EUR by default, on commencement
+      of the term and annually thereafter. Net 30 days from invoice date unless the
+      Order Form specifies otherwise. Late payments accrue interest at the higher of
+      the European Central Bank refinancing rate plus 10 percentage points, or the rate
+      set by French Commercial Code Art. L441-10. Any disputed amount must be raised
+      in writing within 30 days of the invoice ; undisputed portions remain payable on
+      the original due date.
+    </p>
+
+    <h2>8. Confidentiality</h2>
+    <p>
+      Each party agrees to treat the other party's non-public information disclosed in
+      connection with the commercial relationship as confidential, to use it only to
+      perform under the MSA, and to protect it with at least the same degree of care
+      it uses for its own confidential information of similar sensitivity, but in no
+      case less than reasonable care. This obligation survives termination by 5 years
+      ; for trade secrets, it survives indefinitely while the information retains
+      trade-secret character. The DPA contains specific confidentiality terms for
+      personal data ; in case of conflict the DPA controls for that subject matter.
+    </p>
+
+    <h2>9. Intellectual property</h2>
+    <p>
+      Aryamind SARL retains all right, title, and interest in and to the CarveTrace
+      commercial software, the CarveTrace name and Carve/Trace wordmark, the Site
+      design system, and all related intellectual property. You retain all right,
+      title, and interest in and to your data, your AI systems, and the configuration
+      you create using the commercial software. Feedback you voluntarily provide is
+      licensed to Aryamind SARL on a non-exclusive, royalty-free, perpetual basis to
+      use in improving the product, with no obligation of attribution and no obligation
+      to implement.
+    </p>
+
+    <h2>10. Warranty and liability for commercial software</h2>
+    <p>
+      Aryamind SARL warrants that the commercial software will, during the subscription
+      term, materially perform in accordance with its then-current documentation when
+      deployed within its supported environment. Your sole and exclusive remedy for
+      breach of this warranty is, at Aryamind SARL's option, (i) correction of the
+      non-conformity within a reasonable period, (ii) replacement with software of
+      equivalent functionality, or (iii) refund of the fees paid for the affected
+      period. Outside this warranty, the commercial software is provided "as is" to
+      the maximum extent permitted by law.
+    </p>
+    <p>
+      Aryamind SARL's aggregate liability under the commercial relationship in any
+      12-month period is limited to <strong>the fees paid by your organization in the
+      12 months preceding the event giving rise to the liability</strong>. This cap
+      does not apply to liability for gross negligence, willful misconduct, death or
+      personal injury, infringement of a party's intellectual property rights, or any
+      other liability that applicable law does not permit to be excluded.
+    </p>
+
+    <h2>11. Acceptable Use</h2>
+    <p>
+      You will not use the Free Services or the commercial software (a) for any unlawful
+      purpose ; (b) to infringe third-party rights ; (c) to interfere with the security,
+      integrity, or availability of the Service or any third party's systems ; (d) to
+      attempt to reverse-engineer, decompile, or derive the source of the commercial
+      software except to the extent applicable law expressly authorizes such
+      reverse-engineering notwithstanding contractual restriction.
+    </p>
+
+    <h2>12. Termination</h2>
+    <p>
+      Either party may terminate the commercial relationship on 30 days' prior written
+      notice if the other party materially breaches the MSA and fails to cure within
+      that notice period. Either party may terminate immediately on written notice if
+      the other party (a) becomes insolvent, (b) enters insolvency proceedings, or
+      (c) breaches the confidentiality or intellectual-property terms. On termination
+      you must, within 30 days, cease all use of the commercial software and certify
+      destruction or de-installation. Sections that by their nature survive
+      termination — including confidentiality, intellectual property, indemnity,
+      limitation of liability, and dispute resolution — survive.
+    </p>
+
+    <h2>13. Governing law and venue</h2>
+    <p>
+      These Terms and any non-contractual obligation arising out of or in connection
+      with them are governed by the laws of <strong>France</strong>, excluding its
+      conflict-of-laws rules and excluding the UN Convention on Contracts for the
+      International Sale of Goods. The parties submit to the exclusive jurisdiction
+      of the courts of <strong>Paris, France</strong>, subject to mandatory
+      consumer-protection rules in your country of residence where you are a consumer.
+    </p>
+
+    <h2>14. Changes to these Terms</h2>
+    <p>
+      We may revise these Terms from time to time. Material changes affecting
+      customers with an active commercial agreement will be notified by email at least
+      30 days before they take effect. Continued use of the Free Services after the
+      effective date constitutes acceptance for non-customers. For customers, the
+      version of these Terms in effect at the Order Form Effective Date controls,
+      except as otherwise required by law.
+    </p>
+
+    <h2>15. Miscellaneous</h2>
+    <ul>
+      <li><strong>Entire agreement.</strong> These Terms, together with the MSA / Order Form / DPA where applicable, constitute the entire agreement between the parties on the subject matter.</li>
+      <li><strong>Assignment.</strong> You may not assign without our prior written consent ; we may assign to an affiliate or in connection with a merger, acquisition, or sale of substantially all of our assets.</li>
+      <li><strong>Severability.</strong> If any provision is held unenforceable, the remaining provisions remain in full force.</li>
+      <li><strong>No waiver.</strong> Failure to enforce any right is not a waiver.</li>
+      <li><strong>Force majeure.</strong> Neither party is liable for delays caused by events outside its reasonable control, except for payment obligations.</li>
+      <li><strong>Notices.</strong> Notices to Aryamind SARL go to <a href={`mailto:${contactEmail}`}>{contactEmail}</a>. Notices to you go to the email on the Order Form or, for non-customers, the email you used to contact us.</li>
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .legal {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px;
+    font-size: 16px;
+    line-height: 1.65;
+    color: #18181b;
+  }
+  .legal h1 { font-size: 36px; margin-bottom: 8px; }
+  .legal h2 { font-size: 22px; margin-top: 36px; margin-bottom: 8px; }
+  .legal h3 { font-size: 17px; margin-top: 20px; margin-bottom: 6px; }
+  .legal .legal__meta { color: #52525b; font-size: 14px; margin-bottom: 24px; }
+  .legal a { color: #047857; text-decoration: underline; }
+</style>

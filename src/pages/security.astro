@@ -1,0 +1,208 @@
+---
+import Base from '../layouts/Base.astro';
+
+const lastUpdated = '2026-06-17';
+const securityEmail = 'security@aryamind.com';
+---
+<Base
+  lang="en"
+  pageId="security"
+  title="Security — CarveTrace"
+  description="CarveTrace security posture, cryptographic choices, vulnerability disclosure, and certifications roadmap. Self-hosted product, EU-domiciled vendor."
+>
+  <section class="legal">
+    <p class="eyebrow">Security</p>
+    <h1>Security at CarveTrace</h1>
+    <p class="legal__meta">
+      <strong>Updated:</strong> {lastUpdated}
+      <span class="legal__sep">·</span>
+      <strong>Security contact:</strong> <a href={`mailto:${securityEmail}`}>{securityEmail}</a>
+    </p>
+
+    <p class="legal__lead">
+      CarveTrace's job is to produce evidence that survives a regulator, an internal
+      auditor, or a court. That mission only works if the underlying cryptography,
+      the engineering practice, and the operational posture survive the same scrutiny.
+      This page is the honest summary of where we are today — what we have built, what
+      we have proven, and what is on the roadmap. We do not claim certifications we do
+      not hold.
+    </p>
+
+    <h2>Architecture posture in one sentence</h2>
+    <p>
+      <strong>CarveTrace's commercial software is self-hosted on the Customer's own
+      infrastructure.</strong> We do not host customer data. We do not have a
+      multi-tenant database holding your evidence. Your decisions, your subjects, and
+      your signing keys never leave your perimeter unless you choose to send them. The
+      independent verifier that runs at verify.carvetrace.com is a static page —
+      everything it does runs in the user's own browser.
+    </p>
+
+    <h2>Cryptographic choices</h2>
+    <table class="legal__table">
+      <thead><tr><th>Layer</th><th>Choice</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Event signatures</td>
+          <td>ECDSA over P-256 (secp256r1) with deterministic nonces (RFC 6979)</td>
+          <td>NIST + ANSSI-recommended ; broad HSM support ; deterministic signatures eliminate one of the historical ECDSA footguns.</td>
+        </tr>
+        <tr>
+          <td>Hashes</td>
+          <td>SHA-256</td>
+          <td>NIST FIPS 180-4 ; ubiquitous in EU regulator guidance.</td>
+        </tr>
+        <tr>
+          <td>Chain hash construction</td>
+          <td>Domain-separated, append-only, per-producer chain ; child events bind to parent by hash.</td>
+          <td>Resists rebuild attacks ; tampering anywhere in the history is detectable on full re-verify.</td>
+        </tr>
+        <tr>
+          <td>External time-stamping</td>
+          <td>RFC 3161 TSA tokens against eIDAS-qualified TSAs (cadence configurable per deployment).</td>
+          <td>Independent timestamp authority ; produces an attestation that the chain state existed at or before TSA-token issuance, independent of CarveTrace's own clocks.</td>
+        </tr>
+        <tr>
+          <td>Optional anchoring</td>
+          <td>OpenTimestamps / Bitcoin block-header inclusion.</td>
+          <td>Public, third-party-verifiable anchoring for evidence intended to survive vendor failure.</td>
+        </tr>
+        <tr>
+          <td>Producer key custody</td>
+          <td>Customer-managed ; PKCS#11 HSM signing supported.</td>
+          <td>Customer holds the secret. CarveTrace never sees it. Compromise impact is bounded by Customer's HSM policy.</td>
+        </tr>
+        <tr>
+          <td>Verifier provenance</td>
+          <td>Three independent implementations (Java, Python frozen at v0.2, WASM in Rust) ; cross-implementation harness in CI produces byte-identical verdicts on every release.</td>
+          <td>A bug in one implementation does not silently flip a verdict. The WASM verifier is the verifier of record for v0.3+.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Software supply chain</h2>
+    <ul>
+      <li>All production CarveTrace artifacts are built from tagged commits on protected branches.</li>
+      <li>Maven / npm / cargo dependency manifests are pinned ; lockfiles committed.</li>
+      <li>Continuous SCA against the dependency graph ; monthly review of advisories.</li>
+      <li>Maven release artifacts are signed (PGP) ; release-process detail is in the repository's <code>RELEASE_PROCESS.md</code> when applicable.</li>
+      <li>Third-party copyleft components used unmodified ride adjacent to the launcher (not shaded into the uber-jar) so that customers can replace them independently — see our <a href="https://github.com/aryamind-tech/carvetrace/blob/main/LICENSING.md" rel="noopener">LICENSING.md</a>.</li>
+    </ul>
+
+    <h2>Engineering hygiene</h2>
+    <ul>
+      <li>Every commit goes through automated tests : unit, integration, and the cross-implementation verifier-parity harness (Java ↔ WASM, Java ↔ Python where in scope).</li>
+      <li>Static analysis : spotless format enforcement, checkstyle, and language-specific linters as part of the verify-phase build gate.</li>
+      <li>Schema evolution discipline : the protocol layer is proto3 with reserved tag ranges ; on-chain event schemas have a stable cryptographic schema_hash that detects out-of-band schema drift between producer and verifier.</li>
+      <li>Test pins for representative attack scenarios — producer-identity rejection, oversight-binding hash mismatch, schema-hash drift, NaN confidence — are bundled with the verifier and run on every change.</li>
+    </ul>
+
+    <h2>Operational posture</h2>
+    <p>
+      Aryamind SARL is a small EU-domiciled company. Our internal operational posture
+      reflects that reality honestly :
+    </p>
+    <ul>
+      <li>EU-resident business email and primary infrastructure (OVHcloud, France).</li>
+      <li>Static-site hosting on Cloudflare Pages ; CSP-enforced zero-third-party-script policy on every page.</li>
+      <li>Mandatory MFA for all Aryamind personnel on all identity providers ; password-manager mandated.</li>
+      <li>Endpoint hardening (full-disk encryption, EDR, automated patching) on every Aryamind workstation.</li>
+      <li>Production access goes through audited break-glass paths with logged justifications, retained 12 months.</li>
+      <li>Annual third-party penetration test on the verifier surface and on the commercial-software release ; remediation tracked publicly in the relevant repository's <code>SECURITY.md</code>.</li>
+    </ul>
+
+    <h2>Compliance and certifications</h2>
+    <p>
+      We hold what we say we hold. Today, June 2026 :
+    </p>
+    <table class="legal__table">
+      <thead><tr><th>Framework</th><th>Status</th><th>Target</th></tr></thead>
+      <tbody>
+        <tr><td>GDPR alignment (controller + processor posture)</td><td>In place — see <a href="/legal/privacy/">Privacy Policy</a> and <a href="/legal/dpa/">DPA</a>.</td><td>Continuous.</td></tr>
+        <tr><td>ISO/IEC 27001</td><td>Gap-assessed ; controls implemented ; audit not yet undertaken.</td><td>Stage-1 audit Q4 2026 ; certificate Q1 2027.</td></tr>
+        <tr><td>SOC 2 Type I</td><td>Not started.</td><td>Q2 2027 — for US-buyer demand.</td></tr>
+        <tr><td>ISO/IEC 42001 (AI Management System)</td><td>Gap-assessed ; rides on the ISO 27001 ISMS once in place.</td><td>Following ISO 27001.</td></tr>
+        <tr><td>EU AI Act conformity (when in scope as a downstream supplier)</td><td>Aryamind SARL itself is not a provider of a high-risk AI system. CarveTrace is the evidence layer for Customers' high-risk AI systems.</td><td>Not directly applicable to Aryamind ; we provide the technical means for Customer's Article 12 + 14 compliance.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Known limitations and out-of-scope items</h2>
+    <p>
+      Some of these are temporary — the relevant TD entry in the repo tracks them.
+      Others reflect deliberate product scope.
+    </p>
+    <ul>
+      <li><strong>Single-tenant deployment model.</strong> CarveTrace is self-hosted per Customer perimeter. There is no shared multi-tenant database in our hands ; this is a feature for sovereignty, not a deficit.</li>
+      <li><strong>No hosted SaaS today.</strong> We do not offer a hosted SaaS plane that would require us to be a processor for ordinary product operation. This may change for a future managed-deployment offering — see DPA Section 3.3.</li>
+      <li><strong>Python verifier is frozen at v0.2 wire formats.</strong> The Java and WASM verifiers are the path forward for v0.3+ ; the Python verifier exists for the historical record and for legacy auditor environments.</li>
+      <li><strong>OpenTimestamps / Bitcoin anchoring is opt-in.</strong> The default cadence uses RFC 3161 TSA tokens ; OpenTimestamps adds an independent public anchor that is enabled per Customer deployment.</li>
+    </ul>
+
+    <h2>Vulnerability disclosure</h2>
+    <p>
+      Send security reports to <a href={`mailto:${securityEmail}`}>{securityEmail}</a>.
+      For sensitive disclosures, request our PGP key in your first message and we will
+      send it back from the same address. We commit to :
+    </p>
+    <ul>
+      <li>Acknowledge receipt within <strong>2 business days</strong>.</li>
+      <li>Provide an initial triage assessment within <strong>5 business days</strong>.</li>
+      <li>Agree a disclosure timeline with you ; default 90 days from triage to public disclosure, extended if reasonable mitigation requires it, shortened for actively-exploited issues.</li>
+      <li>Credit reporters who wish to be credited in the relevant repository's <code>SECURITY.md</code>.</li>
+    </ul>
+    <p>
+      We support coordinated disclosure. Please do not run automated scanners against
+      production endpoints (carvetrace.com, verify.carvetrace.com) ; the verifier is
+      a static page and offers no useful attack surface beyond what your browser
+      already exposes.
+    </p>
+
+    <h2>If you are a buyer doing a security review</h2>
+    <p>
+      The fastest path is to email <a href={`mailto:${securityEmail}`}>{securityEmail}</a>
+      with your security questionnaire (CAIQ, SIG, your bespoke template — any format).
+      We answer within 5 business days. For ISO 27001-style questions we include the
+      current gap-assessment status honestly ; we do not represent in-progress controls
+      as certified.
+    </p>
+  </section>
+</Base>
+
+<style>
+  .legal {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px;
+    font-size: 16px;
+    line-height: 1.65;
+    color: #18181b;
+  }
+  .legal h1 { font-size: 36px; margin-bottom: 8px; }
+  .legal h2 { font-size: 22px; margin-top: 36px; margin-bottom: 8px; }
+  .legal .legal__meta { color: #52525b; font-size: 14px; margin-bottom: 24px; }
+  .legal .legal__sep { margin: 0 6px; color: #a1a1aa; }
+  .legal .legal__lead {
+    font-size: 17px;
+    line-height: 1.6;
+    color: #27272a;
+    margin-bottom: 16px;
+  }
+  .legal .legal__table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 24px;
+    font-size: 14px;
+  }
+  .legal .legal__table th,
+  .legal .legal__table td {
+    border: 1px solid #e4e4e7;
+    padding: 8px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  .legal .legal__table th {
+    background: #f4f4f5;
+    font-weight: 600;
+  }
+  .legal a { color: #047857; text-decoration: underline; }
+</style>
