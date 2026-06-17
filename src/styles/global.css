@@ -139,7 +139,9 @@ p:last-child { margin-bottom: 0; }
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--brand-700);
+  /* WCAG AA 4.5:1 minimum on white for small text. --brand-700 (#15803d)
+     measured at ~3.8:1 ; --brand-900 (#14532d) lands at ~7.4:1. */
+  color: var(--brand-900);
   margin-bottom: 1rem;
 }
 
@@ -329,7 +331,10 @@ main > section + .panels {
   background: var(--surface-raised);
   padding: 2.5rem var(--page-padding);
   margin-top: 5rem;
-  color: var(--ink-tertiary);
+  /* Was --ink-tertiary (#a1a1aa, ~3.0:1) — failing WCAG AA for body text.
+     --ink-secondary (#52525b) lands at ~8.0:1. Separator dots remain
+     tertiary since they're decorative, not informational. */
+  color: var(--ink-secondary);
   font-size: 0.875rem;
 }
 .site-footer__inner {
@@ -356,4 +361,77 @@ main > section + .panels {
   .site-nav { gap: 1rem; font-size: 13px; }
   .hero__ctas { flex-direction: column; align-items: stretch; }
   .cta { justify-content: center; }
+}
+
+/* ----- Print stylesheet --------------------------------- */
+/* Goal : legal / security / docs pages produce a clean printer / save-as-
+   PDF output suitable for a procurement file. Hides site chrome, expands
+   tables, neutralizes hover/decorative effects. */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .site-header, .site-footer, .no-print, [data-print-trigger] {
+    display: none !important;
+  }
+  main {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 1cm !important;
+  }
+  a {
+    color: black !important;
+    text-decoration: underline !important;
+  }
+  /* Don't strip URLs on print — links to /verifier-integrity and similar
+     should remain machine-clickable in the saved PDF. */
+  table {
+    page-break-inside: auto;
+    border-collapse: collapse !important;
+  }
+  tr, blockquote, pre, figure, .legal__callout, .legal__table {
+    page-break-inside: avoid;
+  }
+  h1, h2, h3 {
+    page-break-after: avoid;
+    color: black !important;
+  }
+  h1 { font-size: 22pt !important; }
+  h2 { font-size: 14pt !important; margin-top: 18pt !important; }
+  h3 { font-size: 12pt !important; }
+  p, li { font-size: 10pt !important; line-height: 1.5 !important; }
+  /* Print backgrounds and borders on the cards / pricing tiers */
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  @page { margin: 1.5cm; }
+}
+
+/* ----- Print-trigger button (visible on screen, hidden on print) --- */
+.print-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 0 1rem 0;
+  padding: 0.5rem 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--ink-primary);
+  background: var(--surface-raised);
+  border: 1px solid var(--edge-default);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color 150ms ease, color 150ms ease;
+}
+.print-button:hover {
+  border-color: var(--brand-700);
+  color: var(--brand-900);
+}
+.print-button::before {
+  content: "↓";
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1;
 }

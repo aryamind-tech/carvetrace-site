@@ -15,9 +15,18 @@ import { routes } from '../i18n/routes';
       A walkthrough of what CarveTrace records, what its verifier says, and
       what happens when someone tries to change the record after the fact.
     </p>
+    <div class="hero__ctas">
+      <a class="cta cta--primary" href="https://verify.carvetrace.com" rel="noopener" target="_blank">Open the verifier</a>
+      <a class="cta cta--ghost" href="https://verify.carvetrace.com/sample-evidence-bundle.zip" rel="noopener" download>Grab the bundle (~530 KB)</a>
+      <a class="cta cta--ghost" href="#moment-1">Read the story →</a>
+    </div>
+    <p class="demo__skip">
+      <small>Impatient ? Drop the bundle into the verifier above — the
+      story below is for context.</small>
+    </p>
   </section>
 
-  <section>
+  <section id="moment-1">
     <p class="eyebrow">Moment 1 · The situation</p>
     <h2>A decision gets challenged</h2>
     <p>
@@ -98,6 +107,10 @@ import { routes } from '../i18n/routes';
 </Base>
 
 <style>
+  .demo__skip {
+    margin: 0.75rem 0 0 !important;
+    color: var(--ink-muted);
+  }
   .demo-bundle__actions {
     display: flex;
     gap: 0.75rem;

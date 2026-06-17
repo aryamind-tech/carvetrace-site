@@ -13,6 +13,7 @@ const contactEmail = 'legal@aryamind.com';
   <section class="legal">
     <p class="eyebrow">Legal</p>
     <h1>Terms of Service</h1>
+    <button class="print-button" data-print-trigger type="button">Save as PDF / print</button>
     <p class="legal__meta">
       <strong>Provider:</strong> Aryamind SARL, France.
       <br/>
@@ -211,6 +212,8 @@ const contactEmail = 'legal@aryamind.com';
       <li><strong>Notices.</strong> Notices to Aryamind SARL go to <a href={`mailto:${contactEmail}`}>{contactEmail}</a>. Notices to you go to the email on the Order Form or, for non-customers, the email you used to contact us.</li>
     </ul>
   </section>
+
+  <script is:inline src="/scripts/print-button.js"></script>
 </Base>
 
 <style>

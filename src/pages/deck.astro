@@ -198,7 +198,6 @@ carvetrace.com/why      (the one-pager)`,
     box-shadow: 0 4px 18px rgba(0,0,0,0.04);
     display: flex;
     flex-direction: column;
-    page-break-after: always;
   }
 
   .deck-slide__header {
@@ -290,6 +289,10 @@ carvetrace.com/why      (the one-pager)`,
       padding: 4rem 5rem 3rem;
       margin: 0;
     }
+    /* The last slide must not force a trailing page break — otherwise the
+       PDF gains an empty page 11 after slide 10. Print-test renders previously
+       counted 12 pages instead of the expected 10. */
+    .deck-slide:last-child { page-break-after: auto !important; }
     .deck-slide__body h2 { font-size: 28pt; }
     .deck-slide__body p { font-size: 14pt; }
     .deck-slide[data-slide="01"] {
