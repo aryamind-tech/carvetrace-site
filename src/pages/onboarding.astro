@@ -1,0 +1,193 @@
+---
+import Base from '../layouts/Base.astro';
+import { routes } from '../i18n/routes';
+---
+<Base
+  lang="en"
+  pageId="onboarding"
+  title="Onboarding — CarveTrace"
+  description="What happens after you sign : welcome doc, deployment checklist, first-90-days runbook, pilot-to-renewal cadence. Self-hosted, your infrastructure."
+>
+  <section class="hero">
+    <p class="eyebrow">Onboarding</p>
+    <h1>What happens after you sign</h1>
+    <p>
+      A self-hosted product needs a hand-off ritual that respects your time
+      and gets you to a verifiable bundle without delay. This page is the
+      contract we run with every customer.
+    </p>
+  </section>
+
+  <section class="onb-section">
+    <h2>Week 0 — paperwork landed, no surprises</h2>
+    <ul class="onb-list">
+      <li><strong>Order Form + MSA + DPA</strong> signed and counter-signed. We use the standard templates published at <a href="/legal/terms/">/legal/terms</a> and <a href="/legal/dpa/">/legal/dpa</a>. If your procurement team needs a markup, we negotiate in 10 business days or less.</li>
+      <li><strong>Engineering kickoff call (60 min)</strong> with your AI / data platform team. We walk : what to instrument, where the chain lives, how the signing key is managed, what the support-session protocol looks like, the first-30-days success criteria.</li>
+      <li><strong>Slack / Teams channel</strong> shared between Aryamind and your team for asynchronous questions during the pilot. Async-first ; no expectation of business-hours coverage on either side outside support windows.</li>
+    </ul>
+  </section>
+
+  <section class="onb-section">
+    <h2>Weeks 1–2 — instrumentation</h2>
+    <p>
+      We work alongside one of your engineers to drop the SDK into the AI
+      workflow you've scoped in the Order Form. The integration footprint :
+    </p>
+    <ul class="onb-list">
+      <li><strong>One SDK call at the inference site</strong> — typically 5–15 lines, depending on language and framework.</li>
+      <li><strong>One SDK call at the human-oversight site</strong> — wherever your reviewers approve, override, or escalate AI decisions. This is the Article 14 binding event.</li>
+      <li><strong>Producer key creation</strong> on your side : ECDSA P-256, stored in your secret store of choice (HSM, AWS KMS, GCP KMS, Vault). We provide the runbook ; you keep custody.</li>
+      <li><strong>RocksDB chain dir</strong> on a durable filesystem (typical : an EBS/PD-SSD volume mounted at <code>/var/lib/carvetrace/chain</code>). Self-host the operator UI by running <code>carvetrace serve</code> behind your reverse proxy.</li>
+      <li><strong>TSA cadence</strong> configured — typically hourly RFC 3161 anchors during the pilot. Production cadence is tuned to your retention + cost profile.</li>
+    </ul>
+    <p class="onb-checkpoint">
+      <strong>Checkpoint at end of week 2 :</strong> first signed AI inference event lands on the chain. We verify it together on a screen-share.
+    </p>
+  </section>
+
+  <section class="onb-section">
+    <h2>Weeks 3–7 — real chain, real evidence</h2>
+    <p>
+      Your AI workflow runs as it normally would. The SDK emits events. The
+      chain accumulates. At week 4, we generate the first evidence coverage
+      report against the real chain and walk the dossier with your AI Act
+      program owner.
+    </p>
+    <ul class="onb-list">
+      <li><strong>Weekly office hour (30 min)</strong> with the Aryamind engineering team — show up with whatever's blocking you, leave with it unblocked.</li>
+      <li><strong>Coverage report walkthrough</strong> at end of week 4 : we walk every dossier with you, point at the AI/human story per row, explain how an auditor would read it.</li>
+      <li><strong>Stress test</strong> at end of week 6 : we tamper a bundle and walk you through how the verifier catches it. Your internal audit team is invited.</li>
+    </ul>
+    <p class="onb-checkpoint">
+      <strong>Checkpoint at end of week 6 :</strong> a real evidence bundle covering a real production week is in your hands.
+    </p>
+  </section>
+
+  <section class="onb-section">
+    <h2>Week 8 — auditor sign-off</h2>
+    <p>
+      Hand the week-6 bundle to your internal auditor. They open
+      <a href="https://verify.carvetrace.com" rel="noopener">verify.carvetrace.com</a>
+      and verify it themselves — no CarveTrace login, no API key, nothing
+      from us. Their verdict matches the verdict the regulator's verifier
+      would produce.
+    </p>
+    <p>
+      If the auditor signs off, the pilot is successful. Pilot fee credits
+      back against your first annual subscription term. Welcome to
+      CarveTrace.
+    </p>
+  </section>
+
+  <section class="onb-section">
+    <h2>Beyond week 8 — ongoing cadence</h2>
+    <ul class="onb-list">
+      <li><strong>Quarterly evidence bundle</strong> — generated on a schedule that fits your audit calendar. Your operator UI ships a "Generate bundle" button ; we automate the cadence if you want.</li>
+      <li><strong>Monthly office hour</strong> — Aryamind product + engineering, 30 min, your team's questions.</li>
+      <li><strong>Two-week support response on email</strong> for Starter, one-business-day for Growth, on-call SLA for Enterprise. Detail in your Order Form.</li>
+      <li><strong>Major releases</strong> include a 60-day version-upgrade window with a migration guide and an upgrade-help office hour.</li>
+      <li><strong>Annual review</strong> at the end of each subscription term : what shipped, what's coming, what's evolving in your AI Act program. Renewal scope (Starter → Growth → Enterprise) sized to where you actually are.</li>
+    </ul>
+  </section>
+
+  <section class="onb-section onb-resources">
+    <h2>The runbooks</h2>
+    <p>
+      Everything below is in <code>/carvetrace/docs/</code> on GitHub. Indexed
+      from <a href={routes.docs.en}>/docs</a>.
+    </p>
+    <ul class="onb-list">
+      <li><a href="https://github.com/aryamind-tech/carvetrace/blob/main/docs/ai-evidence-guide.md" rel="noopener">AI evidence guide</a> — end-to-end : instrument, sign, verify.</li>
+      <li><a href="https://github.com/aryamind-tech/carvetrace/blob/main/docs/cloud-deployment-guide.md" rel="noopener">Cloud deployment guide</a> — AWS / GCP / Azure / OVHcloud patterns.</li>
+      <li><a href="https://github.com/aryamind-tech/carvetrace/blob/main/docs/auth-deployment-guide.md" rel="noopener">Auth deployment guide</a> — OIDC / SAML SSO, reverse-proxy auth, RBAC.</li>
+      <li><a href="https://github.com/aryamind-tech/carvetrace/blob/main/docs/tsa-cadence-configuration.md" rel="noopener">TSA cadence configuration</a> — tuning anchor frequency.</li>
+      <li><a href="https://github.com/aryamind-tech/carvetrace/blob/main/docs/qtsp-selection.md" rel="noopener">QTSP selection</a> — picking an eIDAS-qualified TSA.</li>
+      <li><a href="https://github.com/aryamind-tech/carvetrace/blob/main/docs/verifier-guide.md" rel="noopener">Verifier guide</a> — local, browser, CLI verification.</li>
+      <li><a href="https://github.com/aryamind-tech/carvetrace/blob/main/docs/compliance-officer-workflow.md" rel="noopener">Compliance officer workflow</a> — day-in-the-life for the CCO.</li>
+    </ul>
+  </section>
+
+  <section class="onb-cta">
+    <h2>Not signed yet ?</h2>
+    <p>
+      The pilot path is the same shape, compressed into 60 days. Talk to us
+      to scope it.
+    </p>
+    <div class="hero__ctas">
+      <a class="cta cta--primary cta--large" href={routes.contact.en}>Talk to us</a>
+      <a class="cta cta--ghost cta--large" href={routes.demo.en}>See the demo</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .onb-section { margin: 2.5rem 0; max-width: 56rem; }
+  .onb-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .onb-section p {
+    color: var(--ink-secondary);
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+  .onb-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .onb-list li {
+    padding-left: 1.25rem;
+    position: relative;
+    color: var(--ink-secondary);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin-bottom: 0.625rem;
+  }
+  .onb-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 2px;
+    background: var(--brand-600);
+    opacity: 0.85;
+  }
+  .onb-list li strong { color: var(--ink-default); }
+  .onb-list a { color: var(--brand-600); text-decoration: underline; }
+  .onb-checkpoint {
+    margin-top: 1rem !important;
+    padding: 0.75rem 1rem;
+    background: #ecfdf5;
+    border-left: 3px solid var(--brand-600);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    color: #14532d !important;
+  }
+  .onb-checkpoint strong { color: #14532d; }
+
+  .onb-resources code {
+    background: #f4f4f5;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.875rem;
+  }
+
+  .onb-cta {
+    margin: 4rem 0 2rem;
+    text-align: center;
+    padding: 2rem;
+    background: #fafafa;
+    border-radius: var(--radius-xl);
+  }
+  .onb-cta h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .onb-cta p {
+    color: var(--ink-secondary);
+    line-height: 1.65;
+    max-width: 36rem;
+    margin: 0 auto 1.5rem;
+  }
+  .cta--large { padding: 0.9rem 1.75rem; font-size: 1rem; }
+</style>

@@ -1,0 +1,263 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base
+  lang="en"
+  pageId="blog"
+  title="Article 14 human-oversight evidence : the gap most AI Act programs leave open"
+  description="Article 14 requires effective oversight by natural persons. Most organizations stop at 'we have humans in the loop.' That is not the evidence test."
+>
+  <article class="post">
+    <header class="post__header">
+      <p class="post__date">2026-06-17 · 10 min read</p>
+      <h1>Article 14 human-oversight evidence : the gap most AI Act programs leave open</h1>
+      <p class="post__lead">
+        Article 14 of the EU AI Act requires "effective oversight by natural
+        persons" of high-risk AI systems. Most organizations meeting the
+        August 2026 deadline have answered this with workflow choreography :
+        humans review AI outputs before they take effect. That is necessary
+        but not sufficient for the evidentiary record. The gap is in the
+        binding between the AI decision and the human intervention.
+      </p>
+    </header>
+
+    <h2>What Article 14 actually asks</h2>
+    <p>
+      Article 14 imposes obligations on providers (the system must be
+      designed to enable oversight) and on deployers (oversight must be
+      effective in practice). The five oversight measures listed in
+      Art. 14(4) include : ability to fully understand the system's
+      capacities and limitations, awareness of automation bias, ability
+      to correctly interpret outputs, ability to decide not to use the
+      output, and ability to intervene or interrupt the system.
+    </p>
+    <p>
+      None of these obligations explicitly says "you must produce a
+      cryptographic record". But all of them produce <em>events</em> —
+      a reviewer reading an output, a reviewer overriding it, a reviewer
+      escalating it, a reviewer interrupting the system. The question
+      Article 12 + Article 14 jointly ask is : where are those events,
+      and how do they evidence themselves ?
+    </p>
+
+    <h2>The four-fold gap most programs leave</h2>
+    <p>
+      In the AI Act conversations we've had since the regulation entered
+      force, four gaps come up almost every time :
+    </p>
+
+    <h3>Gap 1 — the oversight event is not on the same system as the inference</h3>
+    <p>
+      A typical setup : the AI inference is logged in Datadog / Splunk /
+      ELK. The human reviewer's decision is captured in a workflow tool
+      (Jira, Pega, ServiceNow, an internal case-management system). The
+      two systems are connected by a case ID or transaction ID in a
+      relational database somewhere.
+    </p>
+    <p>
+      An auditor pulling the Article 12 + 14 evidence has to take it on
+      faith that the case-ID join is correct. There is no cryptographic
+      record. If the case-ID column is overwritten — accidentally, or
+      maliciously — the link is gone and there is no way for an
+      independent third party to detect it.
+    </p>
+
+    <h3>Gap 2 — the reviewer's identity is a database row, not a signed event</h3>
+    <p>
+      "Reviewed by alice.recruiter@bigco.com" sitting in a workflow tool
+      database is not the same as "reviewed by a signing key that
+      cryptographically binds alice.recruiter to this specific oversight
+      action". Anyone with database access can change the reviewer field.
+      An auditor asking "how do you know alice actually reviewed this?"
+      gets the answer "we trust our IAM" — which the auditor has no way
+      to verify independently.
+    </p>
+
+    <h3>Gap 3 — the rationale is free text in a notes column</h3>
+    <p>
+      The human reviewer's rationale, in most systems, lives in a free-
+      text comment field. There's no integrity protection. A reviewer's
+      "I overrode because the AI was wrong about the candidate's seniority"
+      can be rewritten months later to "I overrode under duress" with no
+      trace, if a deployer's database is breached or improperly accessed.
+    </p>
+
+    <h3>Gap 4 — the temporal order is asserted, not proven</h3>
+    <p>
+      The defense to "you reconstructed this oversight rationale after the
+      fact when you saw the complaint coming" is timestamps. But database
+      timestamps are forgeable. The auditor can ask : "show me a
+      timestamping authority that confirms this oversight event existed by
+      this date." Most systems can't.
+    </p>
+
+    <h2>What a defensible Article 14 record looks like</h2>
+    <p>
+      The defensible version of each gap, in evidence terms :
+    </p>
+    <ul>
+      <li><strong>Closed Gap 1.</strong> Inference event and oversight event
+        are on the same cryptographic chain. The oversight event's payload
+        contains the inference event's hash as a typed field. The chain
+        walker can verify the link by hash equality.</li>
+      <li><strong>Closed Gap 2.</strong> The oversight event is signed by
+        the reviewer's key (or by the system on the reviewer's behalf,
+        with a session binding to the reviewer's federated identity).
+        Repudiation requires breaking the signature scheme, not editing a
+        database row.</li>
+      <li><strong>Closed Gap 3.</strong> The rationale is part of the
+        signed payload. Modifying the rationale invalidates the signature.
+        Any third party with the public key can detect tampering.</li>
+      <li><strong>Closed Gap 4.</strong> The chain's anchoring authority —
+        RFC 3161 TSA for the standard story, OpenTimestamps / Bitcoin for
+        belt-and-suspenders — provides an independently-verifiable
+        timestamp that proves the event existed before the anchor.</li>
+    </ul>
+
+    <h2>The single-signed-atom property</h2>
+    <p>
+      In CarveTrace this binding is what we call the
+      <em>single-signed-atom</em> property : every AI inference event the
+      SDK writes is bound — at write-time, by hash — to the human-oversight
+      event that reviewed it. The binding is not asserted in metadata or a
+      foreign-key column ; it is the equality of the inference event's
+      cryptographic hash and the
+      <code>HumanOversightEvent.inference_event_hash</code> field. The verifier
+      checks this equality by literal byte comparison.
+    </p>
+    <p>
+      The practical consequence : when a decision is challenged six months
+      later, you can prove which human reviewed which AI verdict, at which
+      timestamp, with which rationale — and prove they did so <em>at the
+      time the decision happened</em>, not reconstructed afterwards from
+      a workflow database. This is the property that most current AI
+      governance platforms (CredoAI, Holistic AI, ModelOp, Saidot,
+      OneTrust, IBM watsonx.governance) do not ship. They log decisions
+      ; they log oversight ; the binding between the two is a database
+      join in their backend.
+    </p>
+
+    <h2>What auditors will likely ask for</h2>
+    <p>
+      Based on national-authority guidance and AI Office preparatory
+      materials :
+    </p>
+    <ol>
+      <li><strong>A sample of oversight events</strong> matching specific
+        inferences they identify (the auditor picks, you don't).</li>
+      <li><strong>Independent verification of the bound pair</strong>
+        — they will not take "VERIFIED on our dashboard" as evidence.
+        Expect them to run their own verifier, or have a contracted
+        verifier do it.</li>
+      <li><strong>The rationale text</strong> with cryptographic integrity
+        — they will check that the displayed rationale matches the
+        signed payload's rationale.</li>
+      <li><strong>The reviewer's identity proof</strong> — they will
+        check that the signing key corresponds to a named natural
+        person via your IAM or HR records.</li>
+      <li><strong>The temporal anchor</strong> — they will check that
+        the chain anchor pre-dates the moment they are auditing.</li>
+    </ol>
+
+    <h2>What this means for your AI Act program</h2>
+    <p>
+      Many programs are over-investing in policy artifacts (control
+      libraries, policy packs, RFP response kits) and under-investing in
+      the cryptographic plumbing that turns those policies into evidence.
+      The auditor will not be impressed by a 60-page policy pack if the
+      Article 14 oversight events sit in a database column with no
+      integrity protection.
+    </p>
+    <p>
+      A reasonable test : look at one production AI workflow you intend
+      to evidence by August 2026, pick a real oversight decision from the
+      last 30 days, and ask your engineering team three questions :
+    </p>
+    <ol>
+      <li>Can you prove to a third party — without trusting your own
+        database — that the reviewer named in the record actually
+        recorded this oversight ?</li>
+      <li>Can you prove that the rationale text shown in the audit log
+        is the rationale text that was recorded at the time, not
+        rewritten later ?</li>
+      <li>Can you prove that the oversight intervention is linked to
+        this specific AI inference, and not to a different one ?</li>
+    </ol>
+    <p>
+      If the answers are anything other than "yes, here's the
+      cryptographic record", there's a gap to close before August.
+    </p>
+
+    <p class="post__cta">
+      The sample bundle at <a href="https://verify.carvetrace.com">verify.carvetrace.com</a>
+      includes a real Article 14 override — the AI said "poor fit" on a
+      CV ; a human reviewer overrode the decision with the rationale
+      "the AI scored 'poor fit' off the 'Analyst II' job title alone."
+      Drop the bundle, open the dossier, see the oversight event bound
+      by hash to the inference it reviewed. That is what closed-Gap-1
+      through closed-Gap-4 looks like.
+    </p>
+  </article>
+</Base>
+
+<style>
+  .post {
+    max-width: 44rem;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--ink-default);
+  }
+  .post__header { margin-bottom: 2rem; }
+  .post__date {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+    margin: 0 0 0.5rem 0;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .post h1 { font-size: 2rem; line-height: 1.25; margin: 0 0 1rem 0; }
+  .post__lead {
+    color: var(--ink-secondary);
+    font-size: 1.125rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+  .post h2 {
+    font-size: 1.375rem;
+    margin: 2.5rem 0 0.75rem 0;
+    color: var(--ink-default);
+  }
+  .post h3 {
+    font-size: 1.125rem;
+    margin: 1.75rem 0 0.5rem 0;
+    color: var(--ink-default);
+  }
+  .post p { color: var(--ink-secondary); margin-bottom: 1rem; }
+  .post ul, .post ol {
+    color: var(--ink-secondary);
+    margin: 0 0 1rem 0;
+    padding-left: 1.25rem;
+  }
+  .post li { margin-bottom: 0.5rem; }
+  .post a { color: var(--brand-600); text-decoration: underline; }
+  .post code {
+    background: #f4f4f5;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.875rem;
+  }
+  .post__cta {
+    margin-top: 2.5rem;
+    padding: 1.25rem 1.5rem;
+    background: #ecfdf5;
+    border-left: 3px solid var(--brand-600);
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    color: #14532d !important;
+  }
+  .post__cta a { color: #047857; font-weight: 600; }
+  .post strong, .post em { color: var(--ink-default); }
+</style>

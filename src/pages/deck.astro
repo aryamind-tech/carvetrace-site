@@ -1,0 +1,304 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Print-CSS pitch deck. One slide per page when printed.
+// On screen, slides stack vertically with a thin separator.
+// Founder use : open this page, Ctrl-P, save as PDF, attach to a follow-up email.
+
+interface Slide {
+  num: string;
+  title: string;
+  body: string;
+  footnote?: string;
+}
+
+const slides: Slide[] = [
+  {
+    num: '01',
+    title: 'CarveTrace',
+    body: `Cryptographic AI Act evidence — your auditor can re-verify without trusting us.`,
+    footnote: 'Aryamind SARL · carvetrace.com · 2026',
+  },
+  {
+    num: '02',
+    title: 'The deadline',
+    body: `On August 2, 2026, EU AI Act Article 12 (record-keeping) + Article 14 (human oversight) bind for every high-risk AI system.
+
+National regulators get investigative powers. Fines reach €15M / 3% global turnover. Up to €35M for the worst categories.
+
+Most enterprises have a governance program. Few have evidence a third party can verify.`,
+  },
+  {
+    num: '03',
+    title: 'The deeper deadline',
+    body: `December 9, 2026 — Product Liability Directive 2024/2853 extends strict liability and presumption of defect to AI software.
+
+When a claimant alleges harm, the burden of disclosure shifts to the producer.
+
+If your evidence requires you to be alive to defend it, your evidence is not evidence.`,
+  },
+  {
+    num: '04',
+    title: 'What every AI governance platform ships today',
+    body: `"Trust our database. We'll show your auditor a dashboard."
+
+CredoAI · Holistic AI · ModelOp · Saidot · OneTrust · IBM watsonx.governance · ServiceNow · Vanta · Drata.
+
+All of them : if the vendor disappears, the regulator subpoenas them, or their tenant database leaks — your evidence goes with it.`,
+  },
+  {
+    num: '05',
+    title: 'Two properties no competitor ships',
+    body: `1. Re-verifiable without trusting CarveTrace.
+WASM verifier, Apache 2.0. Your auditor opens verify.carvetrace.com, drops your evidence bundle, gets VERIFIED in seconds. No account.
+
+2. Article 12 ↔ Article 14 bound at write-time.
+Every AI inference is cryptographically bound to the human-oversight event that reviewed it. A single signed atom.`,
+  },
+  {
+    num: '06',
+    title: 'Show, don’t tell',
+    body: `A real CarveTrace bundle is at verify.carvetrace.com right now.
+
+Seven AI screening decisions. Five working days, three reviewers. Two overrides, two escalates, three approves — including one decision where the AI said "poor fit (0.34)" and a human overrode with the rationale "AI scored 'poor fit' off the 'Analyst II' job title alone ; actual responsibilities match a senior IC role."
+
+Click it. Drag the bundle. Read VERIFIED. Flip one byte. Watch FAILED. Same verifier your regulator will use. Same verdict you will see.`,
+  },
+  {
+    num: '07',
+    title: 'Pricing',
+    body: `Per high-risk AI system × decision volume — the unit the regulation regulates. Self-hosted across every tier. EUR, excluding VAT.
+
+Verifier        €0/yr       free, forever, no account
+Starter         €15K/yr     1 system, ≤500K decisions
+Growth          €45K/yr     5 systems, ≤5M decisions, SSO, DPA, EU residency
+Enterprise      from €90K   unlimited, ISO 42001 pack, named CSM, DORA fit
+
+2-yr commit : −10%.   3-yr commit : −15%.`,
+  },
+  {
+    num: '08',
+    title: 'What "high-risk AI system" means here',
+    body: `One production AI workflow you would list under Article 16 as a deployer or provider :
+
+· one résumé-screener
+· one credit-decisioning model
+· one biometric matcher
+· one tariff-eligibility classifier
+· one triage-prioritization model
+
+→ one signed CarveTrace chain
+→ one quarterly evidence bundle`,
+  },
+  {
+    num: '09',
+    title: '60-day pilot',
+    body: `Week 1 — SDK drops into your existing code. No model change. No data leaves your perimeter.
+
+Weeks 2–7 — Real chain emitting. One quarter's worth of evidence accumulates. Direct engineering access.
+
+Week 8 — Hand a bundle to your internal auditor. They verify it in their browser. They sign off.
+
+Modest pilot fee, credits back against your first annual subscription if you convert.`,
+  },
+  {
+    num: '10',
+    title: 'The ask',
+    body: `We are looking for 5 design-partner customers across EU banking, insurance, HR-tech, and public sector — each with one high-risk workflow live by Aug 2.
+
+If that's you :
+· Demo today, 30 minutes — at any open table, or virtually next week.
+· Pilot scope conversation this month.
+· Bundle in your auditor's hands by September.
+
+contact@carvetrace.com
+verify.carvetrace.com   (try it now)
+carvetrace.com/why      (the one-pager)`,
+  },
+];
+---
+<Base
+  lang="en"
+  pageId="deck"
+  title="CarveTrace pitch deck — 10 slides"
+  description="The founder's IAPP-floor pitch deck. Ten slides, two minutes per slide if you talk slowly. Print to PDF (Ctrl-P) for emailing."
+>
+  <section class="deck-intro no-print">
+    <p class="eyebrow">Pitch deck</p>
+    <h1>The CarveTrace pitch in ten slides</h1>
+    <p>
+      Designed for a 5–7 minute IAPP-floor pitch, expanding to 15 minutes with
+      the demo slide opened in the browser. Hit <kbd>Ctrl</kbd>+<kbd>P</kbd>
+      and save as PDF to email this deck ; the print stylesheet renders one
+      slide per page.
+    </p>
+    <p class="deck-intro__small">
+      <small>
+        Source : <a href="https://github.com/aryamind-tech/carvetrace/blob/main/sales/PITCH_DECK.md">sales/PITCH_DECK.md</a>
+        on GitHub also carries speaker notes for each slide.
+      </small>
+    </p>
+  </section>
+
+  <div class="deck">
+    {slides.map(s => (
+      <article class="deck-slide" data-slide={s.num}>
+        <header class="deck-slide__header">
+          <span class="deck-slide__brand">
+            <span class="brand-wordmark__carve">Carve</span><span class="brand-wordmark__trace">Trace</span>
+          </span>
+          <span class="deck-slide__num">{s.num} / 10</span>
+        </header>
+        <div class="deck-slide__body">
+          <h2>{s.title}</h2>
+          {s.body.split('\n\n').map(p => <p>{p}</p>)}
+          {s.footnote && <p class="deck-slide__footnote">{s.footnote}</p>}
+        </div>
+        <footer class="deck-slide__footer">
+          carvetrace.com · 2026
+        </footer>
+      </article>
+    ))}
+  </div>
+</Base>
+
+<style>
+  .deck-intro {
+    max-width: 48rem;
+    margin: 2rem auto 1rem;
+    padding: 0 1.5rem;
+  }
+  .deck-intro h1 { margin-bottom: 0.75rem; }
+  .deck-intro p { color: var(--ink-secondary); line-height: 1.6; }
+  .deck-intro__small { margin-top: 1rem; color: var(--ink-muted); }
+  .deck-intro__small a { color: var(--brand-600); text-decoration: underline; }
+  .deck-intro kbd {
+    background: #f4f4f5;
+    border: 1px solid var(--edge-default);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.8125rem;
+  }
+
+  .deck {
+    display: grid;
+    gap: 2rem;
+    padding: 2rem 1rem;
+    max-width: 56rem;
+    margin: 0 auto;
+  }
+
+  .deck-slide {
+    background: #ffffff;
+    border: 1px solid var(--edge-subtle);
+    border-radius: 12px;
+    padding: 3rem 3rem 2rem;
+    min-height: 24rem;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+    page-break-after: always;
+  }
+
+  .deck-slide__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1.75rem;
+    color: var(--ink-muted);
+    font-size: 0.8125rem;
+  }
+  .deck-slide__brand {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: var(--ink-default);
+  }
+  .deck-slide__num {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    letter-spacing: 0.05em;
+    color: var(--ink-muted);
+  }
+
+  .deck-slide__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .deck-slide__body h2 {
+    font-size: 1.875rem;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.2;
+    color: var(--ink-default);
+  }
+  .deck-slide__body p {
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--ink-secondary);
+    margin: 0 0 1rem 0;
+    white-space: pre-line;
+  }
+  .deck-slide__footnote {
+    font-size: 0.9375rem !important;
+    color: var(--ink-muted) !important;
+    margin-top: 1.5rem !important;
+  }
+  .deck-slide__footer {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--edge-subtle);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.6875rem;
+    color: var(--ink-muted);
+    letter-spacing: 0.03em;
+  }
+
+  /* Slide 1 — title slide gets a hero treatment. */
+  .deck-slide[data-slide="01"] {
+    background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
+    border-color: #86efac;
+  }
+  .deck-slide[data-slide="01"] .deck-slide__body { justify-content: center; }
+  .deck-slide[data-slide="01"] .deck-slide__body h2 { font-size: 3rem; line-height: 1.05; }
+  .deck-slide[data-slide="01"] .deck-slide__body p {
+    font-size: 1.25rem;
+    color: var(--ink-default);
+  }
+
+  /* Slide 10 — closing CTA. */
+  .deck-slide[data-slide="10"] .deck-slide__body p {
+    font-family: inherit;
+  }
+
+  @media print {
+    @page { size: A4 landscape; margin: 0; }
+    body { background: white !important; }
+    .no-print, .site-header, .site-footer { display: none !important; }
+    main { margin: 0 !important; padding: 0 !important; }
+    .deck {
+      gap: 0;
+      padding: 0;
+      max-width: none;
+    }
+    .deck-slide {
+      box-shadow: none;
+      border: none;
+      border-radius: 0;
+      min-height: 100vh;
+      page-break-after: always;
+      padding: 4rem 5rem 3rem;
+      margin: 0;
+    }
+    .deck-slide__body h2 { font-size: 28pt; }
+    .deck-slide__body p { font-size: 14pt; }
+    .deck-slide[data-slide="01"] {
+      background: white !important;
+      border: none !important;
+    }
+    .deck-slide[data-slide="01"] .deck-slide__body h2 { font-size: 44pt; }
+    .deck-slide[data-slide="01"] .deck-slide__body p { font-size: 18pt; }
+    /* Print backgrounds */
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  }
+</style>

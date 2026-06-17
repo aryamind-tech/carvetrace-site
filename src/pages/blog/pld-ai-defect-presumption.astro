@@ -1,0 +1,263 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base
+  lang="en"
+  pageId="blog"
+  title="PLD 2024/2853 and AI : the December 9, 2026 burden-shift nobody is talking about"
+  description="The Product Liability Directive 2024/2853 applies to AI software from December 9, 2026 and shifts the burden of disclosure to the producer. The evidentiary asymmetry it creates is the one that will move budgets in 2026."
+>
+  <article class="post">
+    <header class="post__header">
+      <p class="post__date">2026-06-17 · 11 min read</p>
+      <h1>PLD 2024/2853 and AI : the December 9, 2026 burden-shift nobody is talking about</h1>
+      <p class="post__lead">
+        The EU Product Liability Directive 2024/2853 entered into force in
+        December 2024 and applies from December 9, 2026. Most AI-Act
+        conversations focus on the August 2, 2026 high-risk obligations.
+        Fewer track the PLD, which is the regulation that will actually
+        move risk-management budgets in 2026 — because it introduces a
+        presumption of defect and a burden of disclosure that shifts to
+        the producer. For AI systems specifically, the evidentiary
+        asymmetry the PLD creates is the one your evidence layer has to
+        answer.
+      </p>
+    </header>
+
+    <h2>What the PLD does</h2>
+    <p>
+      The PLD modernizes the EU's 1985 Product Liability Directive
+      (85/374/EEC) for the AI era. Three changes matter most for AI :
+    </p>
+    <ol>
+      <li><strong>Software is a product.</strong> Article 4 of 2024/2853
+        defines "product" to explicitly include "software", removing the
+        long-standing argument that software wasn't covered by the
+        original PLD. AI systems are software ; they are products
+        under the PLD.</li>
+      <li><strong>Presumption of defect.</strong> Article 10 introduces a
+        presumption of defect in several circumstances, including where
+        the claimant has "manifestly excessive" difficulty proving
+        defectiveness because of technical or scientific complexity. AI
+        systems with non-deterministic outputs are paradigmatic of
+        "technical and scientific complexity."</li>
+      <li><strong>Burden of disclosure shifts to the producer.</strong>
+        Article 9 requires the producer (the manufacturer, importer,
+        authorized representative, or fulfilment service provider) to
+        disclose relevant evidence in their control when a claimant
+        presents facts and evidence sufficient to support the
+        plausibility of the claim. The presumption of defect biases
+        toward the claimant ; the disclosure obligation makes it
+        operational.</li>
+    </ol>
+
+    <h2>What "burden of disclosure" means for AI evidence</h2>
+    <p>
+      Under the prior 1985 Directive, a claimant alleging harm from a
+      defective product had to prove the defect, the harm, and the
+      causal link. In practice this meant claimants against software
+      vendors lost — there was no way for a claimant outside the vendor's
+      organization to prove a software defect.
+    </p>
+    <p>
+      Under the 2024 Directive, the claimant who can plausibly allege
+      AI-related harm triggers the producer's disclosure obligation. The
+      producer has to hand over the relevant evidence — typically logs,
+      model documentation, training-data references, oversight records.
+      If the producer refuses or cannot produce them, Article 10
+      presumes defect.
+    </p>
+    <p>
+      The strategic consequence : the producer's evidence layer is
+      directly load-bearing in a PLD claim. An evidence layer that
+      cannot produce a complete record of which AI decision was made,
+      when, with what input, with what oversight, is an evidence layer
+      that creates a presumption of defect against the producer.
+    </p>
+
+    <h2>The five evidentiary asymmetries the PLD creates</h2>
+
+    <h3>Asymmetry 1 — the claimant doesn't need to be a technical expert</h3>
+    <p>
+      The 1985 Directive effectively required claimants to retain
+      forensic engineers. Under 2024/2853, a claimant alleging an AI
+      decision caused harm (a hiring rejection, a credit denial, a
+      benefits termination) need only present plausible facts ; the
+      evidentiary fight then happens on the producer's side. This
+      lowers the cost of bringing a claim ; expect higher volume.
+    </p>
+
+    <h3>Asymmetry 2 — your evidence is now adversarial</h3>
+    <p>
+      The producer who chose to record AI decisions in a vendor-database-
+      backed system, and who must now hand those records over to a
+      claimant's legal team, is in a difficult position. They are
+      relying on a third-party vendor to produce evidence that the
+      producer is legally obligated to disclose. If the vendor is slow,
+      contests, or fails to produce, the producer can't satisfy
+      Article 9, and presumption of defect may apply.
+    </p>
+
+    <h3>Asymmetry 3 — the claimant can challenge integrity</h3>
+    <p>
+      A claimant's lawyer who knows the AI Act will ask the producer's
+      counsel : "how do we know these oversight events weren't created
+      after my client filed the complaint ?" If the producer's answer is
+      "we trust our IAM and our database timestamps", the claimant can
+      argue that the records are not contemporaneous, and the court may
+      treat the records skeptically.
+    </p>
+
+    <h3>Asymmetry 4 — the producer is on the hook even if the AI vendor isn't EU</h3>
+    <p>
+      The PLD's territorial scope follows the place of harm. A US-based
+      AI vendor whose model produced an output used by an EU deployer
+      who harmed an EU resident — the EU deployer is the producer in the
+      PLD chain, and the deployer's evidence layer is the one being
+      tested. The deployer cannot pass blame upstream to the US vendor's
+      logs the deployer never controlled.
+    </p>
+
+    <h3>Asymmetry 5 — settlement pressure favors the claimant</h3>
+    <p>
+      In civil law jurisdictions where the PLD applies, the cost of
+      defending a claim under presumption-of-defect is high enough that
+      settlement is often the rational choice for the producer. The
+      claimant's lawyer knows this. Expect settlement-demand letters
+      that quote the PLD presumption directly.
+    </p>
+
+    <h2>The producer's defense pattern under the PLD</h2>
+    <p>
+      The defense pattern that survives the PLD's disclosure and
+      presumption logic looks like this :
+    </p>
+    <ol>
+      <li><strong>Show, in writing, that the AI inference was made at a
+        specific time, with a specific input, by a specific model
+        version</strong> — bound by cryptographic signature, anchored to
+        a third-party timestamping authority.</li>
+      <li><strong>Show that the human oversight intervention is
+        cryptographically bound to that specific inference</strong> — not
+        joined by a database foreign key the claimant could allege was
+        edited.</li>
+      <li><strong>Show that the records have not been modified since
+        they were produced</strong> — by handing the claimant's expert a
+        verifier they can run independently.</li>
+      <li><strong>Show that the model version itself is identifiable by
+        hash</strong> — so the claimant cannot allege a different model
+        was used at the time.</li>
+      <li><strong>Show, if the case goes to a contested hearing, that
+        a regulator with the same evidence would reach the same
+        verdict.</strong> The verifier the producer uses must match the
+        verifier the regulator uses — which is why an open-source
+        verifier matters.</li>
+    </ol>
+    <p>
+      None of this defense works if the producer's evidence layer is a
+      proprietary vendor dashboard that cannot be inspected by the
+      claimant or the court. The defense works when the evidence is a
+      bundle the claimant's expert can verify independently.
+    </p>
+
+    <h2>What this means for AI Act program budgeting in 2026</h2>
+    <p>
+      The August 2, 2026 AI Act deadline is the budget driver for
+      compliance programs. The December 9, 2026 PLD deadline is the
+      budget driver for risk-management and legal programs — and in
+      most enterprises, those budgets are bigger.
+    </p>
+    <p>
+      A reasonable test for any AI Act evidence vendor your
+      organization is evaluating in 2026 :
+    </p>
+    <ul>
+      <li>Can the vendor's records be disclosed to a claimant or court
+        in a form an independent expert can verify ?</li>
+      <li>Does verification require the vendor's cooperation, API key,
+        or continued operation as a going concern ?</li>
+      <li>If the vendor goes bankrupt, is acquired, or rotates a
+        signing key in 2027, what happens to evidence covering
+        decisions made in 2026 ?</li>
+      <li>If a claimant alleges the records were modified after the
+        complaint was filed, what evidence can the producer present to
+        rebut that allegation ?</li>
+    </ul>
+    <p>
+      An AI evidence vendor that answers "trust our dashboard" to those
+      questions is not a vendor that survives PLD litigation. An AI
+      evidence vendor whose verifier runs in the claimant's expert's
+      browser, against an Apache-2.0 verification library the expert
+      can audit, on a bundle that's cryptographically anchored to an
+      eIDAS-qualified timestamping authority — that vendor's evidence
+      survives a contested hearing.
+    </p>
+
+    <p class="post__cta">
+      CarveTrace was built to survive this hearing. The verifier at
+      <a href="https://verify.carvetrace.com">verify.carvetrace.com</a>
+      runs in any browser, no account, no CarveTrace involvement.
+      The verification libraries are open-source. The bundles
+      anchor to RFC 3161 TSAs and optionally to Bitcoin via
+      OpenTimestamps. If you want to see what the defense pattern
+      looks like in practice, drop the sample CV-screening bundle
+      into the verifier and read the dossier on the AI override.
+      That is a contested-hearing-ready record.
+    </p>
+  </article>
+</Base>
+
+<style>
+  .post {
+    max-width: 44rem;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--ink-default);
+  }
+  .post__header { margin-bottom: 2rem; }
+  .post__date {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+    margin: 0 0 0.5rem 0;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .post h1 { font-size: 2rem; line-height: 1.25; margin: 0 0 1rem 0; }
+  .post__lead {
+    color: var(--ink-secondary);
+    font-size: 1.125rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+  .post h2 {
+    font-size: 1.375rem;
+    margin: 2.5rem 0 0.75rem 0;
+    color: var(--ink-default);
+  }
+  .post h3 {
+    font-size: 1.125rem;
+    margin: 1.75rem 0 0.5rem 0;
+    color: var(--ink-default);
+  }
+  .post p { color: var(--ink-secondary); margin-bottom: 1rem; }
+  .post ul, .post ol {
+    color: var(--ink-secondary);
+    margin: 0 0 1rem 0;
+    padding-left: 1.25rem;
+  }
+  .post li { margin-bottom: 0.5rem; }
+  .post a { color: var(--brand-600); text-decoration: underline; }
+  .post__cta {
+    margin-top: 2.5rem;
+    padding: 1.25rem 1.5rem;
+    background: #ecfdf5;
+    border-left: 3px solid var(--brand-600);
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    color: #14532d !important;
+  }
+  .post__cta a { color: #047857; font-weight: 600; }
+  .post strong, .post em { color: var(--ink-default); }
+</style>

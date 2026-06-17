@@ -1,0 +1,279 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base
+  lang="en"
+  pageId="blog"
+  title="EU AI Act Article 12 logging requirements — what regulators will actually look for"
+  description="A line-by-line read of Article 12 from a compliance-engineering perspective. What the text says, what the recitals add, and the audit pattern the AI Office is converging on."
+>
+  <article class="post">
+    <header class="post__header">
+      <p class="post__date">2026-06-17 · 12 min read</p>
+      <h1>EU AI Act Article 12 logging requirements — what regulators will actually look for</h1>
+      <p class="post__lead">
+        Most compliance teams have read Article 12 of the EU AI Act. Few have
+        read it through the lens of what an actual audit looks like. This
+        piece walks the four subsections one at a time, calls out the
+        engineering decisions each implies, and identifies the audit pattern
+        that the AI Office's guidance is converging on for the August 2026
+        enforcement window.
+      </p>
+    </header>
+
+    <h2>The text, in one sentence</h2>
+    <p>
+      Article 12 requires providers of high-risk AI systems to design those
+      systems to automatically record events ("logs") during operation,
+      retain them for a defined period, and make them available on request
+      to national competent authorities. Deployers' obligations under
+      Article 26 echo and extend these in practice : they too must keep the
+      logs once the system is in their hands.
+    </p>
+    <p>
+      What makes Article 12 difficult is not the obligation itself — most
+      production AI systems already log <em>something</em>. The difficulty
+      is that the logs have to support the rest of the AI Act : Article 14
+      human oversight, Annex IV technical documentation, Article 72
+      post-market monitoring. A log file that records nothing about the
+      human who reviewed an AI decision cannot evidence Article 14. A log
+      file that loses parent-event references after a retention rotation
+      cannot evidence the temporal integrity Annex IV expects.
+    </p>
+
+    <h2>12.1 — automatic recording capability</h2>
+    <p>
+      The first subsection requires the recording capability to be
+      <em>built into the system</em>. This is more pointed than it looks.
+      An ad-hoc instrumentation layer added by the deployer is not a
+      provider-side recording capability. The provider has to ship the
+      capability ; the deployer activates and operates it.
+    </p>
+    <p>
+      Engineering consequence : the recording capability needs to ride
+      with the model artifact and its surrounding inference code. SDKs
+      that the deployer integrates are how this normally lands.
+      <strong>The auditor will look for</strong> : a provider-side artifact
+      (SDK version, container image, configuration template) that the
+      deployer can point at and say "this is the recording capability the
+      provider delivered". An evidence pipeline cobbled together from
+      generic observability tooling is not the same thing.
+    </p>
+
+    <h2>12.2(a) — operator identification across the operational period</h2>
+    <p>
+      The system must record the identification of the natural persons
+      responsible for the verification of the AI output, throughout the
+      period of operation. Two things are easy to miss here :
+    </p>
+    <ul>
+      <li>"Throughout the period of operation" means the identification
+        has to be a <em>session-resolved</em> property, not a one-time
+        stamp at deployment.</li>
+      <li>"Verification of the AI output" overlaps with Article 14's
+        oversight role — but Article 12.2(a) is about the operator's
+        identity, not the oversight decision itself. The two evidence
+        streams need to cross-reference cleanly.</li>
+    </ul>
+    <p>
+      <strong>The auditor will look for</strong> : an operator-session
+      start event signed by the operator's key, an operator-session end
+      event closing it, and a chain of inference events in between that
+      reference the session by cryptographic identifier. A session log
+      that says "User-1234 started session at 09:00" without a
+      cryptographic binding is recording the claim, not the evidence.
+    </p>
+
+    <h2>12.2(b) — dataset reference for the training data used</h2>
+    <p>
+      Each inference made by the system has to be traceable back to the
+      dataset(s) used to train the model that produced the inference.
+      In practice this means each AI inference event needs a stable
+      reference to a "dataset reference event" emitted at model
+      registration time.
+    </p>
+    <p>
+      <strong>The auditor will look for</strong> : a dataset reference
+      event on the chain, signed, with a hash of the dataset card or
+      manifest. Every inference event from a given model version
+      references the dataset event by hash. The hash equality is what
+      makes the trace defensible.
+    </p>
+
+    <h2>12.2(c) — input data with match traceability</h2>
+    <p>
+      Each inference also has to be traceable to the specific input data
+      fed to the model. For non-biometric AI this is "input reference"
+      ; for biometric AI (the most heavily-regulated bucket), this also
+      includes the reference database used for matching and the matched
+      entries.
+    </p>
+    <p>
+      Engineering consequence : raw input data is often PII, often very
+      large, and almost never something to record verbatim on a chain.
+      The right pattern is to record a <em>cryptographic fingerprint</em>
+      of the input (SHA-256 of the canonical encoding) on chain, with
+      the raw input retained out-of-band in storage the deployer
+      controls.
+    </p>
+    <p>
+      <strong>The auditor will look for</strong> : an input fingerprint
+      field on every inference event, populated with a real hash. An
+      empty field, or a hash that doesn't change between inferences
+      that ought to have different inputs, is the kind of pattern an
+      auditor flags within seconds.
+    </p>
+
+    <h2>12.2(d) — human oversight events linked to inferences</h2>
+    <p>
+      The recording capability must capture the human oversight
+      interventions referred to in Article 14. The wording here is
+      precise : the oversight intervention is recorded against the
+      inference it concerns. Not "at some point on the same day", not
+      "with the same operator identifier", but linked to the specific
+      inference.
+    </p>
+    <p>
+      Engineering consequence : the link has to be cryptographic, or
+      auditors can't independently verify it. A foreign key in a
+      database is a claim ; a hash equality between the oversight event's
+      payload and the inference event's chain hash is verifiable
+      evidence.
+    </p>
+    <p>
+      <strong>The auditor will look for</strong> : a HumanOversight
+      event referencing the inference event's cryptographic hash. The
+      same hash should appear on the inference event itself. The
+      equality is the binding. This is the property CarveTrace
+      ships and that most AI governance platforms leave open.
+    </p>
+
+    <h2>12.3 — retention</h2>
+    <p>
+      Logs must be retained for "an appropriate period in light of the
+      intended purpose" of the AI system, with a 6-month minimum for
+      most high-risk categories and longer where other EU or national
+      law applies. The Capital Requirements Regulation, the GDPR, and
+      sector-specific rules (Solvency II, MiFID, MAR) routinely require
+      5+ years.
+    </p>
+    <p>
+      <strong>The auditor will look for</strong> : a retention policy
+      declaration on the chain stating the policy chosen, retention
+      enforcement events when records age out, and a retention proof
+      that demonstrates the enforcement happened as declared. If the
+      records simply "fall off" with no on-chain trace, the retention
+      story is unverifiable.
+    </p>
+
+    <h2>The audit pattern the AI Office is converging on</h2>
+    <p>
+      As of mid-2026, three patterns are emerging from the AI Office's
+      published guidance and the national supervisory authorities'
+      preparatory materials :
+    </p>
+    <ol>
+      <li><strong>Periodic evidence bundling.</strong> Quarterly is the
+        consensus cadence. The bundle is signed, timestamped, and
+        retained ; the auditor reviews the bundle, not the raw logs.</li>
+      <li><strong>Independent third-party verification.</strong> The
+        bundle has to be verifiable without the vendor's involvement.
+        A vendor-database-backed dashboard that says VERIFIED is
+        suspect.</li>
+      <li><strong>Privacy-by-design at the protocol layer.</strong>
+        Article 12 evidence can't itself create a GDPR breach. Hashes
+        and pseudonymized identifiers in the on-chain record ; raw
+        subject data only in the deployer's own system.</li>
+    </ol>
+
+    <h2>How CarveTrace addresses this</h2>
+    <p>
+      We built CarveTrace to be the recording capability Article 12
+      describes :
+    </p>
+    <ul>
+      <li>A provider-side SDK that ships with the model artifact ;
+        deployer-managed signing keys ; events on a per-producer chain.</li>
+      <li>Operator session events binding inferences to a session
+        cryptographic identifier — Article 12.2(a).</li>
+      <li>Dataset reference events on chain, hash-equality binding
+        inferences back to training data — Article 12.2(b).</li>
+      <li>Input fingerprint fields on every inference, raw inputs
+        retained off-chain — Article 12.2(c).</li>
+      <li>HumanOversight events bound by hash equality to the
+        inference they review — Article 12.2(d), and our central wedge.</li>
+      <li>RetentionPolicy declarations + enforcement + proof events
+        — Article 12.3.</li>
+      <li>WASM verifier the auditor runs in their own browser — no
+        CarveTrace involvement in verification.</li>
+    </ul>
+    <p>
+      The audit story we are aiming at : your auditor opens
+      <a href="https://verify.carvetrace.com">verify.carvetrace.com</a>,
+      drops your quarterly bundle, gets a VERIFIED verdict, and walks
+      every line of Article 12 against the proof in the bundle. No
+      dashboard. No vendor cooperation. No trust.
+    </p>
+
+    <p class="post__cta">
+      Want to see this on a real bundle ? Open
+      <a href="https://verify.carvetrace.com">verify.carvetrace.com</a>
+      — the sample CV-screening bundle is a real Article 12 + 14
+      recording for seven AI decisions over five working days.
+    </p>
+  </article>
+</Base>
+
+<style>
+  .post {
+    max-width: 44rem;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--ink-default);
+  }
+  .post__header { margin-bottom: 2rem; }
+  .post__date {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+    margin: 0 0 0.5rem 0;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .post h1 {
+    font-size: 2rem;
+    line-height: 1.25;
+    margin: 0 0 1rem 0;
+  }
+  .post__lead {
+    color: var(--ink-secondary);
+    font-size: 1.125rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+  .post h2 {
+    font-size: 1.375rem;
+    margin: 2.5rem 0 0.75rem 0;
+    color: var(--ink-default);
+  }
+  .post p { color: var(--ink-secondary); margin-bottom: 1rem; }
+  .post ul, .post ol {
+    color: var(--ink-secondary);
+    margin: 0 0 1rem 0;
+    padding-left: 1.25rem;
+  }
+  .post li { margin-bottom: 0.5rem; }
+  .post a { color: var(--brand-600); text-decoration: underline; }
+  .post__cta {
+    margin-top: 2.5rem;
+    padding: 1.25rem 1.5rem;
+    background: #ecfdf5;
+    border-left: 3px solid var(--brand-600);
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    color: #14532d !important;
+  }
+  .post__cta a { color: #047857; font-weight: 600; }
+  .post strong { color: var(--ink-default); }
+</style>

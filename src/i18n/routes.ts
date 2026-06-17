@@ -16,6 +16,9 @@ export type PageId =
   | 'pricing'
   | 'contact'
   | 'docs'
+  | 'deck'
+  | 'blog'
+  | 'onboarding'
   // Legal / trust surface — EN-only for now. Procurement-grade English is the
   // accepted standard for B2B legal in EU deals ; FR translations layer in later.
   | 'privacy'
@@ -31,6 +34,9 @@ export const routes: Record<PageId, Record<Locale, string>> = {
   pricing:        { en: '/pricing/',        fr: '/fr/tarifs/' },
   contact:        { en: '/contact/',        fr: '/fr/contact/' },
   docs:           { en: '/docs/',           fr: '/docs/' },
+  deck:           { en: '/deck/',           fr: '/deck/' },
+  blog:           { en: '/blog/',           fr: '/blog/' },
+  onboarding:     { en: '/onboarding/',     fr: '/onboarding/' },
   privacy:        { en: '/legal/privacy/',  fr: '/legal/privacy/' },
   terms:          { en: '/legal/terms/',    fr: '/legal/terms/' },
   dpa:            { en: '/legal/dpa/',      fr: '/legal/dpa/' },
@@ -44,5 +50,6 @@ export function altLocaleHref(currentPageId: PageId, currentLocale: Locale): str
 
 /** Page IDs that have an EN-only canonical surface and should hide the lang switch. */
 export const enOnlyPages: ReadonlySet<PageId> = new Set([
-  'why', 'docs', 'privacy', 'terms', 'dpa', 'security',
+  'why', 'docs', 'deck', 'blog', 'onboarding',
+  'privacy', 'terms', 'dpa', 'security',
 ]);

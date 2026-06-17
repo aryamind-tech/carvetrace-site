@@ -22,6 +22,9 @@ export const ui = {
     'footer.privacy':  'Privacy',
     'footer.terms':    'Terms',
     'footer.dpa':      'DPA',
+    'footer.blog':     'Blog',
+    'footer.deck':     'Pitch deck',
+    'footer.onboarding': 'Onboarding',
   },
   fr: {
     'nav.why':        'Pourquoi',
@@ -41,6 +44,9 @@ export const ui = {
     'footer.privacy':  'Confidentialité',
     'footer.terms':    'Conditions',
     'footer.dpa':      'DPA',
+    'footer.blog':     'Blog',
+    'footer.deck':     'Deck',
+    'footer.onboarding': 'Onboarding',
   },
 } as const satisfies Record<Locale, Record<string, string>>;
 

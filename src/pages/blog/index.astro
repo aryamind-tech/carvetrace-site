@@ -1,0 +1,103 @@
+---
+import Base from '../../layouts/Base.astro';
+
+interface Post {
+  slug: string;
+  date: string;
+  title: string;
+  blurb: string;
+}
+
+const posts: Post[] = [
+  {
+    slug: 'article-12-logging-requirements',
+    date: '2026-06-17',
+    title: 'EU AI Act Article 12 logging requirements — what regulators will actually look for',
+    blurb: 'A line-by-line read of Article 12 from a compliance-engineering perspective. What the text says, what the recitals add, what the GPAI Code of Practice clarifies, and the audit pattern the AI Office is converging on.',
+  },
+  {
+    slug: 'article-14-human-oversight-evidence',
+    date: '2026-06-17',
+    title: 'Article 14 human-oversight evidence : the gap most AI Act programs leave open',
+    blurb: 'Article 14 talks about "effective oversight by natural persons." Most organizations stop at "we have humans in the loop." That is not the evidence test. Here is what makes a defensible Article 14 record.',
+  },
+  {
+    slug: 'pld-ai-defect-presumption',
+    date: '2026-06-17',
+    title: 'PLD 2024/2853 and AI : the December 9, 2026 burden-shift nobody is talking about',
+    blurb: 'The Product Liability Directive 2024/2853 applies to AI software from December 9, 2026 and shifts the burden of disclosure to the producer. The evidentiary asymmetry it creates is the one that will move budgets in 2026.',
+  },
+];
+---
+<Base
+  lang="en"
+  pageId="blog"
+  title="Blog — CarveTrace"
+  description="Technical and regulatory reads on EU AI Act evidence, cryptographic re-verifiability, and the engineering of compliance that survives a regulator subpoena."
+>
+  <section class="hero">
+    <p class="eyebrow">Blog</p>
+    <h1>Reads</h1>
+    <p>
+      Technical and regulatory pieces on EU AI Act evidence, Article 12 +
+      14 compliance engineering, and the questions that come up when a
+      cryptographically-bound audit trail is actually used.
+    </p>
+  </section>
+
+  <div class="post-list">
+    {posts.map(p => (
+      <article class="post-card">
+        <p class="post-card__date">{p.date}</p>
+        <h2><a href={`/blog/${p.slug}/`}>{p.title}</a></h2>
+        <p class="post-card__blurb">{p.blurb}</p>
+        <a class="post-card__more" href={`/blog/${p.slug}/`}>Read →</a>
+      </article>
+    ))}
+  </div>
+</Base>
+
+<style>
+  .post-list {
+    max-width: 56rem;
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .post-card {
+    padding: 1.5rem 1.75rem;
+    background: #fff;
+    border: 1px solid var(--edge-subtle);
+    border-radius: var(--radius-xl);
+    transition: border-color 150ms ease;
+  }
+  .post-card:hover { border-color: var(--brand-600); }
+  .post-card__date {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .post-card h2 {
+    font-size: 1.25rem;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.35;
+  }
+  .post-card h2 a { color: var(--ink-default); text-decoration: none; }
+  .post-card h2 a:hover { color: var(--brand-600); }
+  .post-card__blurb {
+    color: var(--ink-secondary);
+    line-height: 1.6;
+    margin: 0 0 0.75rem 0;
+    font-size: 0.9375rem;
+  }
+  .post-card__more {
+    color: var(--brand-600);
+    font-size: 0.875rem;
+    text-decoration: none;
+  }
+  .post-card__more:hover { text-decoration: underline; }
+</style>
