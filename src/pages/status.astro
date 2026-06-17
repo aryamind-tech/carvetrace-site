@@ -1,0 +1,332 @@
+---
+import Base from '../layouts/Base.astro';
+import { routes } from '../i18n/routes';
+
+// Status of every component is operator-curated and committed to source. Every
+// merge to main re-deploys this page within ~5 minutes. The component definitions
+// below carry both the human-curated state and (for same-origin endpoints) an
+// optional liveness ping the visitor's browser runs against the URL.
+
+type ComponentState = 'operational' | 'degraded' | 'down' | 'planned-window';
+interface Component {
+  name: string;
+  description: string;
+  endpoint: string;
+  publicUrl: string;
+  state: ComponentState;
+  sameOriginPing?: string;   // path to ping from this page, if same-origin
+  group: 'public' | 'product';
+  lastChanged?: string;       // ISO date of last state change, if any
+  note?: string;              // free-text current note, optional
+}
+
+const lastUpdated = '2026-06-17';
+
+const components: Component[] = [
+  // Public-facing surface — what a prospect or auditor touches without an account.
+  {
+    name: 'Marketing site',
+    description: 'carvetrace.com — product, pricing, demo, docs, legal.',
+    endpoint: 'https://carvetrace.com',
+    publicUrl: 'https://carvetrace.com',
+    state: 'operational',
+    sameOriginPing: '/robots.txt',
+    group: 'public',
+  },
+  {
+    name: 'Independent verifier',
+    description: 'verify.carvetrace.com — WASM verifier any auditor uses without a CarveTrace account.',
+    endpoint: 'https://verify.carvetrace.com',
+    publicUrl: 'https://verify.carvetrace.com',
+    state: 'operational',
+    group: 'public',
+  },
+  {
+    name: 'Sample evidence bundle',
+    description: 'The valid + tampered AI Act recruitment bundles linked from /demo and the verifier.',
+    endpoint: 'verify.carvetrace.com/sample-evidence-bundle.zip',
+    publicUrl: 'https://verify.carvetrace.com/sample-evidence-bundle.zip',
+    state: 'operational',
+    group: 'public',
+  },
+  // Product surface — what customers depend on for their own operations.
+  // CarveTrace is self-hosted ; the product surface here is limited to what
+  // we publish for customer consumption (release artifacts + canonical docs).
+  {
+    name: 'Source mirror (GitHub)',
+    description: 'github.com/aryamind-tech — open-source verifier components + commercial release artifacts.',
+    endpoint: 'github.com/aryamind-tech',
+    publicUrl: 'https://github.com/aryamind-tech',
+    state: 'operational',
+    group: 'product',
+  },
+  {
+    name: 'Documentation',
+    description: 'The /docs index + the canonical Markdown sources on GitHub.',
+    endpoint: 'carvetrace.com/docs',
+    publicUrl: 'https://carvetrace.com/docs/',
+    state: 'operational',
+    sameOriginPing: '/docs/',
+    group: 'public',
+  },
+];
+
+const stateLabel: Record<ComponentState, string> = {
+  operational: 'Operational',
+  degraded: 'Degraded',
+  down: 'Unreachable',
+  'planned-window': 'Planned window',
+};
+---
+<Base
+  lang="en"
+  pageId="status"
+  title="Status — CarveTrace"
+  description="Live status of CarveTrace's public surface : marketing site, independent verifier, sample bundles, source mirror, documentation. Operator-curated, deployed every change."
+>
+  <section class="hero">
+    <p class="eyebrow">Status</p>
+    <h1>Public surface status</h1>
+    <p>
+      CarveTrace's commercial software is self-hosted on every customer's own
+      infrastructure ; there is no shared runtime for us to monitor on your
+      behalf. This page tracks the public surface we operate — the marketing
+      site, the independent verifier, the open-source mirrors, and the sample
+      bundles.
+    </p>
+    <p class="status-page__lead">
+      Operator-curated. Every change to the state below ships as a code change
+      and re-deploys this page within ~5 minutes. <strong>Last updated :</strong> {lastUpdated}.
+    </p>
+  </section>
+
+  <section class="status-section">
+    <h2>Public surface</h2>
+    <div class="status-grid">
+      {components.filter(c => c.group === 'public').map(c => (
+        <article class="status-card" data-state={c.state} data-ping={c.sameOriginPing ?? ''}>
+          <div class="status-card__header">
+            <h3>{c.name}</h3>
+            <span class={`status-card__badge status-card__badge--${c.state}`}>{stateLabel[c.state]}</span>
+          </div>
+          <p class="status-card__endpoint">
+            <a href={c.publicUrl} rel="noopener">{c.endpoint}</a>
+          </p>
+          <p class="status-card__desc">{c.description}</p>
+          {c.note && <p class="status-card__note">{c.note}</p>}
+          {c.sameOriginPing && (
+            <p class="status-card__latency">
+              <span class="status-card__latency-label">your-browser latency</span>
+              <span class="status-card__latency-value">—</span>
+            </p>
+          )}
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="status-section">
+    <h2>Product surface</h2>
+    <div class="status-grid">
+      {components.filter(c => c.group === 'product').map(c => (
+        <article class="status-card" data-state={c.state} data-ping={c.sameOriginPing ?? ''}>
+          <div class="status-card__header">
+            <h3>{c.name}</h3>
+            <span class={`status-card__badge status-card__badge--${c.state}`}>{stateLabel[c.state]}</span>
+          </div>
+          <p class="status-card__endpoint">
+            <a href={c.publicUrl} rel="noopener">{c.endpoint}</a>
+          </p>
+          <p class="status-card__desc">{c.description}</p>
+          {c.note && <p class="status-card__note">{c.note}</p>}
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="status-section">
+    <h2>What we do NOT monitor here</h2>
+    <ul class="status-list">
+      <li><strong>Your CarveTrace deployment.</strong> Self-hosted on your infrastructure ; you monitor it under your own runbooks. Customer-side monitoring guidance ships in the <a href="/onboarding/">Onboarding</a> runbook.</li>
+      <li><strong>Cloudflare's edge.</strong> Our hosting provider's own status is at <a href="https://www.cloudflarestatus.com/" rel="noopener">cloudflarestatus.com</a>. If both our surface and theirs are down, the upstream is theirs.</li>
+      <li><strong>RFC 3161 TSA providers + Bitcoin OpenTimestamps calendars.</strong> Customer-configured per deployment. Health-check guidance is in <a href="https://github.com/aryamind-tech/carvetrace/blob/main/docs/tsa-anchoring-guide.md" rel="noopener">tsa-anchoring-guide.md</a>.</li>
+    </ul>
+  </section>
+
+  <section class="status-section">
+    <h2>Incident communication</h2>
+    <p>
+      If we detect an incident on the public surface we update the state
+      above within 30 minutes and post a corresponding entry in the
+      ChangeLog section below. For customers with an active commercial
+      agreement we additionally email the technical contact on the Order
+      Form within 60 minutes. Severity-1 + severity-2 incidents trigger
+      both ; severity-3 (e.g. a documentation broken-link) is logged
+      below without a customer-side email.
+    </p>
+    <p>
+      Detail on the severity ladder is on the
+      <a href="/security/">Security page</a>. <strong>Severity-1</strong> = total
+      public-surface outage &gt; 15 min. <strong>Severity-2</strong> = degraded
+      verifier UX &gt; 1 h. <strong>Severity-3</strong> = a public-facing
+      defect with no functional impact (broken link, stale dep advisory).
+    </p>
+  </section>
+
+  <section class="status-section">
+    <h2>ChangeLog — last 30 days</h2>
+    <p>
+      We publish material changes to the public surface here. Routine
+      content updates (blog posts, doc edits) are not logged ; production
+      deploys that take a component offline for more than 60 seconds are.
+    </p>
+    <ul class="status-list">
+      <li><strong>2026-06-17.</strong> Session 4 of the commercialization push : status page (this page), incident runbook published in repo, ISO 27001 readiness checklist filled. No public-surface outages.</li>
+      <li><strong>2026-06-17.</strong> /deck, /onboarding, /blog (3 posts) shipped. Footer extended. No outages.</li>
+      <li><strong>2026-06-17.</strong> Pricing populated (Verifier €0 / Starter €15K / Growth €45K / Enterprise €90K+), /why page shipped, /docs index shipped, /contact rewritten with structured intake, /demo wired to real AI Act bundles. No outages.</li>
+      <li><strong>2026-06-17.</strong> Privacy / Terms / DPA / Security pages shipped at /legal/. No outages.</li>
+      <li><strong>2026-05-26.</strong> Verifier-of-record consolidation : TD-WASM-VERDICT-LABEL closed, 7 producer-identity rejection sites refactored, 6 SERVICE_MODE TSA-hardening commits brought to master. No outages.</li>
+      <li><strong>2026-05-21.</strong> verify.carvetrace.com custom-domain bind to Cloudflare Pages. Verifier-of-record (WASM) becomes production-canonical.</li>
+    </ul>
+  </section>
+
+  <section class="status-cta">
+    <p>
+      Questions about the status of a specific component, or want to be
+      notified by email when this page changes ?
+    </p>
+    <a class="cta cta--primary" href={routes.contact.en}>contact@carvetrace.com</a>
+  </section>
+
+  <script is:inline src="/scripts/status-checks.js"></script>
+</Base>
+
+<style>
+  .status-page__lead {
+    margin-top: 0.75rem !important;
+    color: var(--ink-default) !important;
+    padding: 0.75rem 1rem;
+    background: #ecfdf5;
+    border-left: 3px solid var(--brand-600);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  }
+
+  .status-section { margin: 2.5rem 0; max-width: 56rem; }
+  .status-section h2 { font-size: 1.25rem; margin-bottom: 1rem; }
+
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    gap: 0.75rem;
+  }
+  .status-card {
+    padding: 1rem 1.25rem;
+    background: #fff;
+    border: 1px solid var(--edge-subtle);
+    border-radius: var(--radius-lg);
+  }
+  .status-card[data-state="operational"] { border-left: 3px solid #16a34a; }
+  .status-card[data-state="degraded"]    { border-left: 3px solid #d97706; }
+  .status-card[data-state="down"]        { border-left: 3px solid #b91c1c; }
+  .status-card[data-state="planned-window"] { border-left: 3px solid #6d28d9; }
+
+  .status-card__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+  .status-card h3 {
+    font-size: 0.9375rem;
+    margin: 0;
+    color: var(--ink-default);
+  }
+  .status-card__endpoint {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.75rem;
+    margin: 0 0 0.4rem 0;
+    word-break: break-all;
+  }
+  .status-card__endpoint a { color: var(--ink-muted); text-decoration: none; }
+  .status-card__endpoint a:hover { color: var(--brand-600); text-decoration: underline; }
+  .status-card__desc {
+    color: var(--ink-secondary);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    margin: 0 0 0.6rem 0 !important;
+  }
+  .status-card__note {
+    color: #92400e !important;
+    background: #fef3c7;
+    padding: 0.4rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8125rem !important;
+    line-height: 1.5 !important;
+    margin: 0 0 0.5rem 0 !important;
+  }
+  .status-card__latency {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.6875rem;
+    color: var(--ink-muted);
+    margin: 0 !important;
+    letter-spacing: 0.03em;
+  }
+  .status-card__latency-label { text-transform: uppercase; }
+  .status-card__latency-value { color: var(--ink-default); font-weight: 600; margin-left: 0.4rem; }
+
+  .status-card__badge {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .status-card__badge--operational     { background: #bbf7d0; color: #14532d; }
+  .status-card__badge--degraded        { background: #fef3c7; color: #92400e; }
+  .status-card__badge--down            { background: #fecaca; color: #991b1b; }
+  .status-card__badge--planned-window  { background: #ddd6fe; color: #5b21b6; }
+
+  .status-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: var(--ink-secondary);
+  }
+  .status-list li {
+    padding-left: 1.25rem;
+    position: relative;
+    line-height: 1.6;
+    font-size: 0.9375rem;
+    margin-bottom: 0.5rem;
+  }
+  .status-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 2px;
+    background: var(--brand-600);
+    opacity: 0.85;
+  }
+  .status-list li strong { color: var(--ink-default); }
+  .status-list a { color: var(--brand-600); text-decoration: underline; }
+
+  .status-cta {
+    margin: 3rem 0 1rem;
+    padding: 1.5rem 1.75rem;
+    background: #fafafa;
+    border-radius: var(--radius-xl);
+    max-width: 56rem;
+  }
+  .status-cta p {
+    color: var(--ink-secondary);
+    margin: 0 0 1rem 0;
+    line-height: 1.6;
+  }
+</style>

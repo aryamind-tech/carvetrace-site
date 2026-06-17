@@ -25,6 +25,8 @@ export const ui = {
     'footer.blog':     'Blog',
     'footer.deck':     'Pitch deck',
     'footer.onboarding': 'Onboarding',
+    'footer.status':   'Status',
+    'footer.trust':    'Trust center',
   },
   fr: {
     'nav.why':        'Pourquoi',
@@ -47,6 +49,8 @@ export const ui = {
     'footer.blog':     'Blog',
     'footer.deck':     'Deck',
     'footer.onboarding': 'Onboarding',
+    'footer.status':   'Statut',
+    'footer.trust':    'Trust center',
   },
 } as const satisfies Record<Locale, Record<string, string>>;
 
