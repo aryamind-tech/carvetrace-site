@@ -1,0 +1,325 @@
+---
+import Base from '../layouts/Base.astro';
+import { routes } from '../i18n/routes';
+
+// Operator-curated SHA-256 hashes of the assets currently shipping on
+// verify.carvetrace.com. When a release of carvetrace-verify-wasm is cut,
+// the hashes below are updated alongside the deploy commit on this repo —
+// the diff is the proof of intent.
+//
+// Update procedure :
+//   curl -s https://verify.carvetrace.com/PATH | sha256sum
+// for each row, paste the result here, commit.
+
+interface Asset {
+  path: string;
+  description: string;
+  sha256: string;
+  bytes: number;
+}
+
+const lastVerified = '2026-06-17';
+
+const assets: Asset[] = [
+  {
+    path: '/',
+    description: 'Drop-zone HTML page',
+    sha256: 'd58894859da9ce65408e5856eaed6cf3f76c49dfa9e775fae2165870ff3ba309',
+    bytes: 9286,
+  },
+  {
+    path: '/main.js',
+    description: 'JS glue wiring the file input into the WASM verifier',
+    sha256: '275f8e1ed61c846eddff48e58be78f299847732753631b8d5ed8efa51ce1965c',
+    bytes: 11083,
+  },
+  {
+    path: '/style.css',
+    description: 'Stylesheet',
+    sha256: 'ca2c54a92abde79f7ec47491ad70e186b4f28a3d3ec9e9521025b1fcf7184588',
+    bytes: 21113,
+  },
+  {
+    path: '/pkg/carvetrace_verify_wasm.js',
+    description: 'wasm-bindgen JS bindings',
+    sha256: '4db0e3dc0ec07aff28148e2953e5828f3def75183f9d4dc0127cfd178f0808d6',
+    bytes: 21044,
+  },
+  {
+    path: '/pkg/carvetrace_verify_wasm_bg.wasm',
+    description: 'The Rust verifier compiled to WebAssembly — the load-bearing binary',
+    sha256: 'd6052bd5ee9dd4a1efb79356f0338832d6f50be378a48bb7856d6998dee17a3a',
+    bytes: 491776,
+  },
+];
+---
+<Base
+  lang="en"
+  pageId="verifier-integrity"
+  title="Verifier integrity — CarveTrace"
+  description="The published SHA-256 hashes of every load-bearing asset shipping on verify.carvetrace.com. If the file you load doesn't match this manifest, do not trust it."
+>
+  <section class="hero">
+    <p class="eyebrow">Verifier integrity</p>
+    <h1>Verify the verifier</h1>
+    <p>
+      The verifier at <a href="https://verify.carvetrace.com" rel="noopener">verify.carvetrace.com</a>
+      is the load-bearing trust handle of CarveTrace. Its credibility depends
+      on you being able to confirm that the file your browser actually
+      executes is the file we intended to ship. This page is the manifest
+      against which you do that.
+    </p>
+    <p class="vi__caveat">
+      <strong>Last operator-verified : {lastVerified}.</strong> The hashes
+      below are operator-curated and committed to source ; every deploy of
+      the verifier accompanies a commit on this page. If the deploy commit
+      and this page disagree, something is wrong — file a security report
+      to <a href="mailto:security@aryamind.com">security@aryamind.com</a>.
+    </p>
+  </section>
+
+  <section class="vi-section">
+    <h2>Asset manifest</h2>
+    <p>
+      Each row is one asset the verifier loads. The SHA-256 is the hex digest
+      of the raw bytes served from <code>verify.carvetrace.com</code> as of
+      the date above.
+    </p>
+    <div class="vi-table-wrap">
+      <table class="vi-table">
+        <thead>
+          <tr>
+            <th>Path</th>
+            <th>Description</th>
+            <th>Bytes</th>
+            <th>SHA-256</th>
+          </tr>
+        </thead>
+        <tbody>
+          {assets.map(a => (
+            <tr>
+              <td><code>{a.path}</code></td>
+              <td>{a.description}</td>
+              <td class="vi-table__num">{a.bytes.toLocaleString()}</td>
+              <td class="vi-table__hash"><code>{a.sha256}</code></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="vi-section">
+    <h2>How to verify</h2>
+    <p>
+      You verify two things : (a) that the assets your browser executes
+      match the hashes above, and (b) that the hashes above match the
+      source code of the verifier itself. Both checks are open to anyone.
+    </p>
+
+    <h3>(a) Match the live assets to the manifest</h3>
+    <p>
+      Open a terminal and run :
+    </p>
+    <pre class="vi-cmd"><code>for path in \
+  / /main.js /style.css \
+  /pkg/carvetrace_verify_wasm.js \
+  /pkg/carvetrace_verify_wasm_bg.wasm
+do
+  curl -s "https://verify.carvetrace.com$path" | sha256sum
+done</code></pre>
+    <p>
+      Each line should match a SHA-256 row above. If a line does not match,
+      treat it as a security event — file a report and do not rely on the
+      live verifier until it's resolved.
+    </p>
+
+    <h3>(b) Build the verifier yourself and compare</h3>
+    <p>
+      The verifier source code is open under Apache 2.0 at
+      <a href="https://github.com/aryamind-tech/carvetrace-verify-wasm" rel="noopener">github.com/aryamind-tech/carvetrace-verify-wasm</a>.
+      Build it locally :
+    </p>
+    <pre class="vi-cmd"><code>git clone https://github.com/aryamind-tech/carvetrace-verify-wasm
+cd carvetrace-verify-wasm
+# Required : Rust 1.79+ with wasm32-unknown-unknown target, wasm-pack, binaryen.
+wasm-pack build --release --target web --out-dir web/pkg
+# wasm-opt -Oz the bundle as the deploy pipeline does (see DEPLOYMENT.md).
+wasm-opt -Oz web/pkg/carvetrace_verify_wasm_bg.wasm \
+  -o web/pkg/carvetrace_verify_wasm_bg.wasm
+# Now compare :
+sha256sum web/pkg/carvetrace_verify_wasm_bg.wasm</code></pre>
+    <p>
+      The hash should match the WASM row above. If it doesn't, your build
+      tooling differs from the deploy pipeline ; check the wasm-pack and
+      wasm-opt versions against the
+      <a href="https://github.com/aryamind-tech/carvetrace-verify-wasm/blob/master/.github/workflows/deploy-verify-site.yml" rel="noopener">deploy workflow</a>.
+    </p>
+  </section>
+
+  <section class="vi-section">
+    <h2>What this protects against</h2>
+    <ul class="vi-list">
+      <li>
+        <strong>Adversary serves a tampered verifier from the same URL.</strong>
+        Your check (a) catches it : the served hash diverges from this
+        manifest.
+      </li>
+      <li>
+        <strong>Hidden modification at build time.</strong> Your check (b)
+        catches it : you build from source and compare.
+      </li>
+      <li>
+        <strong>Cloudflare account compromise.</strong> If an attacker
+        re-deploys malicious assets through CarveTrace's CF account, this
+        manifest doesn't change (we sign the deploy commit on the
+        marketing-site repo). Diverging assets → security report.
+      </li>
+      <li>
+        <strong>This manifest itself being tampered with.</strong> This
+        page is statically built from
+        <a href="https://github.com/aryamind-tech/carvetrace-site/blob/main/src/pages/verifier-integrity.astro" rel="noopener">aryamind-tech/carvetrace-site</a>.
+        If we replaced the hashes here to cover an attack on the verifier,
+        the deploy commit on carvetrace-site would show that change — and
+        you can build the marketing site yourself and compare.
+      </li>
+    </ul>
+  </section>
+
+  <section class="vi-section">
+    <h2>Release history</h2>
+    <p>
+      Material hash changes are logged below ; routine updates are not
+      individually listed (each commit on carvetrace-verify-wasm or
+      carvetrace-site is the canonical log).
+    </p>
+    <ul class="vi-list">
+      <li>
+        <strong>2026-06-17</strong> — Manifest initial publication.
+        Verifier WASM at <code>d6052bd5…</code>, 491,776 bytes.
+        Corresponds to verify-wasm <code>main</code> branch as of 2026-06-04.
+      </li>
+      <li>
+        <strong>2026-05-26</strong> — Verifier verdict-label refactor
+        (TD-WASM-VERDICT-LABEL closed, 7 producer-identity rejection sites
+        refactored from build_as_error → fail+build). Visual no-op for the
+        manifest format but the binary changed.
+      </li>
+      <li>
+        <strong>2026-05-21</strong> — verify.carvetrace.com custom-domain
+        bind to Cloudflare Pages. Verifier-of-record (WASM) became
+        production-canonical.
+      </li>
+    </ul>
+  </section>
+
+  <section class="vi-cta">
+    <p>
+      Anything suspicious ? <a href="mailto:security@aryamind.com">security@aryamind.com</a>
+      acknowledges within 2 business days per our
+      <a href={routes.security.en}>Security page</a>.
+    </p>
+  </section>
+</Base>
+
+<style>
+  .vi__caveat {
+    background: #ecfdf5;
+    border-left: 3px solid var(--brand-600);
+    padding: 0.75rem 1rem;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin-top: 1rem !important;
+    color: #14532d !important;
+  }
+  .vi__caveat strong { color: #14532d; }
+  .vi__caveat a { color: #047857; font-weight: 600; }
+
+  .vi-section { margin: 2.5rem 0; max-width: 64rem; }
+  .vi-section h2 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+  .vi-section h3 { font-size: 1rem; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+  .vi-section > p {
+    color: var(--ink-secondary);
+    line-height: 1.65;
+    margin-bottom: 0.75rem;
+  }
+  .vi-section code {
+    background: #f4f4f5;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.8125rem;
+  }
+
+  .vi-table-wrap { overflow-x: auto; margin: 0.75rem 0; }
+  .vi-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8125rem;
+    min-width: 48rem;
+  }
+  .vi-table th, .vi-table td {
+    border: 1px solid var(--edge-subtle);
+    padding: 0.5rem 0.75rem;
+    vertical-align: top;
+    text-align: left;
+  }
+  .vi-table thead th {
+    background: #f4f4f5;
+    font-weight: 600;
+  }
+  .vi-table__num { font-variant-numeric: tabular-nums; text-align: right; }
+  .vi-table__hash { word-break: break-all; }
+  .vi-table__hash code {
+    font-size: 0.6875rem;
+    line-height: 1.4;
+  }
+
+  .vi-cmd {
+    background: #18181b;
+    color: #fafafa;
+    padding: 0.875rem 1rem;
+    border-radius: var(--radius-md);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    overflow-x: auto;
+    margin: 0.5rem 0 1rem 0;
+  }
+  .vi-cmd code { background: none; padding: 0; color: inherit; font-size: inherit; }
+
+  .vi-list { list-style: none; padding: 0; margin: 0; }
+  .vi-list li {
+    padding-left: 1.25rem;
+    position: relative;
+    color: var(--ink-secondary);
+    line-height: 1.6;
+    font-size: 0.9375rem;
+    margin-bottom: 0.5rem;
+  }
+  .vi-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 2px;
+    background: var(--brand-600);
+    opacity: 0.85;
+  }
+  .vi-list li strong { color: var(--ink-default); }
+
+  .vi-cta {
+    margin: 3rem 0 1rem;
+    padding: 1.25rem 1.5rem;
+    background: #fafafa;
+    border-radius: var(--radius-lg);
+    max-width: 64rem;
+  }
+  .vi-cta p {
+    margin: 0;
+    color: var(--ink-secondary);
+    line-height: 1.6;
+  }
+  .vi-cta a { color: var(--brand-600); text-decoration: underline; }
+</style>

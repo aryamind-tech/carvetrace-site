@@ -138,6 +138,16 @@ const securityEmail = 'security@aryamind.com';
       <li><strong>OpenTimestamps / Bitcoin anchoring is opt-in.</strong> The default cadence uses RFC 3161 TSA tokens ; OpenTimestamps adds an independent public anchor that is enabled per Customer deployment.</li>
     </ul>
 
+    <h2>Verify the verifier yourself</h2>
+    <p>
+      The verifier at <a href="https://verify.carvetrace.com">verify.carvetrace.com</a>
+      is the load-bearing trust handle of CarveTrace. We publish the
+      SHA-256 hashes of every asset shipping at that URL — and the recipe
+      to rebuild the WASM binary from source and confirm parity — on
+      <a href="/verifier-integrity/">/verifier-integrity</a>. If you don't
+      check, no-one else is going to do it for you.
+    </p>
+
     <h2>Vulnerability disclosure</h2>
     <p>
       Send security reports to <a href={`mailto:${securityEmail}`}>{securityEmail}</a>.
