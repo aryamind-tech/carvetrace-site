@@ -22,6 +22,7 @@ export type PageId =
   | 'status'
   | 'trust'
   | 'verifier-integrity'
+  | 'press'
   // Legal / trust surface — EN-only for now. Procurement-grade English is the
   // accepted standard for B2B legal in EU deals ; FR translations layer in later.
   | 'privacy'
@@ -43,6 +44,7 @@ export const routes: Record<PageId, Record<Locale, string>> = {
   status:               { en: '/status/',         fr: '/status/' },
   trust:                { en: '/trust/',          fr: '/trust/' },
   'verifier-integrity': { en: '/verifier-integrity/', fr: '/verifier-integrity/' },
+  press:                { en: '/press/',              fr: '/press/' },
   privacy:        { en: '/legal/privacy/',  fr: '/legal/privacy/' },
   terms:          { en: '/legal/terms/',    fr: '/legal/terms/' },
   dpa:            { en: '/legal/dpa/',      fr: '/legal/dpa/' },
@@ -56,6 +58,6 @@ export function altLocaleHref(currentPageId: PageId, currentLocale: Locale): str
 
 /** Page IDs that have an EN-only canonical surface and should hide the lang switch. */
 export const enOnlyPages: ReadonlySet<PageId> = new Set([
-  'why', 'docs', 'deck', 'blog', 'onboarding', 'status', 'trust', 'verifier-integrity',
+  'why', 'docs', 'deck', 'blog', 'onboarding', 'status', 'trust', 'verifier-integrity', 'press',
   'privacy', 'terms', 'dpa', 'security',
 ]);

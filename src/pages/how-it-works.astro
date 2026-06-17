@@ -6,67 +6,180 @@ import { routes } from '../i18n/routes';
   lang="en"
   pageId="how-it-works"
   title="How CarveTrace works"
-  description="Capture every AI decision with no model changes. Seal it cryptographically. Hand auditors and regulators a bundle they can verify themselves."
+  description="Five steps from an AI decision in your code to an evidence bundle your auditor verifies in their browser. SDK + signed chain + RFC 3161 timestamps + open-source verifier."
 >
   <section class="hero">
     <p class="eyebrow">The lifecycle</p>
-    <h1>How an AI decision becomes evidence</h1>
+    <h1>How an AI decision becomes evidence — five steps</h1>
     <p>
-      Four steps, from the moment your model returns a decision to the moment
-      an auditor independently confirms what happened.
+      From the moment your model returns a decision to the moment an
+      auditor's verifier card lights up VERIFIED. Five steps, each
+      cryptographically bound to the previous one, each verifiable
+      independently by a third party.
     </p>
+    <div class="hero__ctas">
+      <a class="cta cta--primary" href="https://verify.carvetrace.com" rel="noopener">Open the verifier</a>
+      <a class="cta cta--ghost" href={routes.demo.en}>See the demo</a>
+    </div>
   </section>
 
-  <section>
+  <section class="hiw-step">
     <p class="eyebrow">Step 1 · Capture</p>
-    <h2>Your AI system runs — unchanged</h2>
+    <h2>The SDK drops into your AI workflow</h2>
     <p>
-      CarveTrace captures events through an SDK that drops into your existing
-      code. The model itself does not change. Nothing leaves your network:
-      events are buffered and signed inside your perimeter, by your keys, on
-      your hardware.
+      The CarveTrace SDK is a thin call your AI workflow makes at the
+      inference site — typically 5 to 15 lines of code in Java or Python,
+      no model change. The SDK signs the inference event with your
+      <em>producer signing key</em>, which lives on your infrastructure :
+      HSM, KMS, Vault, your choice. Aryamind never sees the key.
+    </p>
+    <p>
+      The SDK records what the EU AI Act Article 12 requires : the input
+      reference (a SHA-256 fingerprint, not the raw subject data), the
+      model version hash, the AI's decision and confidence, an HLC
+      timestamp, the operator session identity, plus the
+      <em>InferTrust-parity fingerprints</em> (input blob hash, governing
+      policy hash) when relevant. None of these fields require you to
+      log raw PII at the protocol layer.
     </p>
   </section>
 
-  <section>
-    <p class="eyebrow">Step 2 · Seal</p>
-    <h2>Events get sealed, locally and for good</h2>
+  <section class="hiw-step">
+    <p class="eyebrow">Step 2 · Bind</p>
+    <h2>The human-oversight event binds to the inference at write-time</h2>
     <p>
-      Every event is added to a cryptographic chain — each entry binds the one
-      before it, so altering an old record breaks every record that came
-      after. At regular intervals, the chain is timestamped by an independent
-      RFC 3161 authority, anchoring "this happened by this date" to a third
-      party you didn't pay.
+      Whenever a human reviewer approves, overrides, escalates, or
+      otherwise intervenes on an AI decision, the SDK records the
+      <em>HumanOversightEvent</em> with the inference event's
+      cryptographic hash as a typed field — the
+      <code>inference_event_hash</code>. The binding is verified by hash
+      equality, not by a foreign-key join in some downstream database.
+    </p>
+    <p>
+      This is the <strong>single-signed-atom</strong> property : Article 12
+      record and Article 14 oversight as one cryptographically-bound pair.
+      The auditor's verifier checks the binding by byte comparison ; no
+      vendor-database is in the loop. Monitaur logs decisions ; TrueScreen
+      certifies data. Neither binds inference ↔ oversight at write-time
+      as a single atom. CarveTrace does.
     </p>
   </section>
 
-  <section>
-    <p class="eyebrow">Step 3 · Verify</p>
-    <h2>Anyone can verify what you sealed</h2>
+  <section class="hiw-step">
+    <p class="eyebrow">Step 3 · Anchor</p>
+    <h2>The chain is timestamped by an independent authority</h2>
     <p>
-      When you need to demonstrate compliance — or defend a decision — you
-      export an evidence bundle. It opens in an open-source verifier that runs
-      entirely in a browser. No upload to our servers. No login. Your auditor
-      sees the same verdict your regulator would.
+      Every event you sign rides on a per-producer
+      <em>append-only chain</em> — each event references the prior event's
+      hash, so altering an old record breaks every record that came after.
+      At a customer-chosen cadence (typically hourly during pilots,
+      configurable in production), the chain head is anchored by an
+      eIDAS-qualified <em>RFC 3161 Time-Stamping Authority</em> of your
+      choice. The TSA token is independent of CarveTrace and of you.
+    </p>
+    <p>
+      For high-stakes anchoring you can layer in OpenTimestamps +
+      Bitcoin : the chain head is hashed into a public Bitcoin block.
+      Independence from any single authority is the goal.
     </p>
   </section>
 
-  <section>
-    <p class="eyebrow">Step 4 · Defend</p>
-    <h2>When the audit comes, hand them a readable report</h2>
+  <section class="hiw-step">
+    <p class="eyebrow">Step 4 · Bundle</p>
+    <h2>Evidence rolls up into a self-contained bundle</h2>
     <p>
-      The bundle is not just cryptographic signatures — it produces a
-      human-readable report mapping every piece of evidence to its AI Act
-      Article 12 obligation. Your auditor reads the report. Your regulator
-      reads the report. You do not have to translate cryptography into
-      compliance language; CarveTrace already did.
+      Quarterly (or on demand), CarveTrace exports an
+      <em>evidence bundle</em> — a single zip file containing every
+      sampled event, the chain anchors, the human-readable report (PDF +
+      Markdown), the schema definitions, the verifier sources, the
+      verification recipe, and your producer's public key. The bundle is
+      signed end-to-end ; the manifest carries SHA-256s of every file.
+    </p>
+    <p>
+      You hand the bundle to your auditor. The bundle is everything they
+      need ; no API calls back to CarveTrace, no API key for a vendor
+      console, no dependency on whether Aryamind is still in business.
     </p>
   </section>
 
-  <section>
+  <section class="hiw-step">
+    <p class="eyebrow">Step 5 · Verify</p>
+    <h2>Anyone with the bundle can verify, in their browser</h2>
+    <p>
+      Your auditor opens <a href="https://verify.carvetrace.com" rel="noopener">verify.carvetrace.com</a>
+      — or self-hosts the open-source verifier — and drops the bundle.
+      The verifier runs entirely in their browser : no upload, no account.
+      The verdict appears in seconds. If a single byte was changed
+      anywhere in the bundle, the verdict is FAILED. If everything checks
+      out, VERIFIED.
+    </p>
+    <p>
+      The verifier itself is auditable : it is Apache 2.0 (Rust + WASM)
+      and the SHA-256 of every asset shipping at verify.carvetrace.com is
+      published on <a href={routes['verifier-integrity'].en}>/verifier-integrity</a>
+      with the recipe for the auditor to rebuild from source and confirm
+      parity. Your auditor's auditor can verify too.
+    </p>
+  </section>
+
+  <section class="hiw-bottom">
+    <h2>The shape of the proof your auditor reads</h2>
+    <p>
+      The rendered report inside the bundle is per-decision, not bulk-
+      aggregated. Each decision gets a <em>dossier</em> : the AI verdict,
+      the human reviewer's verbatim rationale, the cryptographic binding
+      side-by-side, the timestamps from the independent TSA, the
+      InferTrust-parity fingerprints, and a re-derivation recipe.
+      Exception cases — overrides, escalations — get a visual badge so
+      the auditor's eye lands on them first.
+    </p>
+    <p>
+      The /demo page walks one of these dossiers end-to-end against a
+      real AI Act recruitment-scenario bundle. The same shape your
+      auditor will see for your production workflow.
+    </p>
     <div class="hero__ctas">
       <a class="cta cta--primary" href={routes.demo.en}>See the demo</a>
+      <a class="cta cta--ghost" href={routes.pricing.en}>See pricing</a>
       <a class="cta cta--ghost" href={routes.contact.en}>Request a pilot</a>
     </div>
   </section>
 </Base>
+
+<style>
+  .hiw-step { margin: 2.5rem 0; max-width: 56rem; }
+  .hiw-step h2 {
+    font-size: 1.375rem;
+    margin: 0.25rem 0 0.75rem 0;
+  }
+  .hiw-step p {
+    color: var(--ink-secondary);
+    line-height: 1.7;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  .hiw-step p strong, .hiw-step p em { color: var(--ink-default); }
+  .hiw-step code {
+    background: #f4f4f5;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.875rem;
+  }
+  .hiw-step a { color: var(--brand-600); text-decoration: underline; }
+
+  .hiw-bottom {
+    margin: 3rem 0 1rem;
+    padding: 1.75rem;
+    background: #fafafa;
+    border-radius: var(--radius-xl);
+    max-width: 56rem;
+  }
+  .hiw-bottom h2 { font-size: 1.25rem; margin-top: 0; }
+  .hiw-bottom p {
+    color: var(--ink-secondary);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+  .hiw-bottom em { color: var(--ink-default); }
+</style>

@@ -1,0 +1,233 @@
+---
+import Base from '../layouts/Base.astro';
+import { routes } from '../i18n/routes';
+
+const pressEmail = 'press@aryamind.com';
+const fallbackEmail = 'contact@carvetrace.com';
+---
+<Base
+  lang="en"
+  pageId="press"
+  title="Press kit — CarveTrace / Aryamind SARL"
+  description="For journalists, analysts, and industry researchers. Company facts, boilerplate, brand assets, and key dates for the 2026 EU AI Act enforcement window."
+>
+  <section class="hero">
+    <p class="eyebrow">Press</p>
+    <h1>Press kit</h1>
+    <p>
+      Everything a journalist, analyst, or industry researcher needs to write
+      accurately about CarveTrace and Aryamind SARL. Reuse without prior
+      approval ; the site content (excluding logos + branding) is licensed
+      CC-BY-4.0. Higher-resolution assets or specific quotes : email
+      <a href={`mailto:${pressEmail}`}>{pressEmail}</a> (also
+      <a href={`mailto:${fallbackEmail}`}>{fallbackEmail}</a> if you don't
+      get a fast reply).
+    </p>
+  </section>
+
+  <section class="press-section">
+    <h2>Boilerplate (use verbatim)</h2>
+    <p>
+      <strong>About CarveTrace.</strong> CarveTrace is the only EU AI Act
+      evidence layer whose verdict is re-verifiable by a third party
+      without trusting the vendor. Every AI decision and the human-oversight
+      event that reviewed it are bound at write-time as a single signed
+      atom. The verifier is open-source (Apache 2.0) and runs in any
+      modern browser — at <a href="https://verify.carvetrace.com">verify.carvetrace.com</a>
+      — with no account required. The producer-side SDKs are self-hosted
+      across every tier ; Aryamind never touches customer data.
+    </p>
+    <p>
+      <strong>About Aryamind SARL.</strong> Aryamind is a French SARL based
+      in France, founded in 2025. CarveTrace is its product line. Aryamind
+      is privately funded, EU-domiciled, and serves customers across EU and
+      EEA enterprises with AI Act Article 12 + 14 compliance obligations
+      under the 2 August 2026 high-risk deadline and the 9 December 2026
+      Product Liability Directive applicability.
+    </p>
+  </section>
+
+  <section class="press-section">
+    <h2>Key facts</h2>
+    <table class="press-table">
+      <tbody>
+        <tr><th>Company</th><td>Aryamind SARL</td></tr>
+        <tr><th>Product</th><td>CarveTrace (v0.4 in production as of June 2026)</td></tr>
+        <tr><th>Country of incorporation</th><td>France</td></tr>
+        <tr><th>Founded</th><td>2025</td></tr>
+        <tr><th>Funding</th><td>Privately funded</td></tr>
+        <tr><th>Headcount</th><td>Founder-only as of June 2026</td></tr>
+        <tr><th>Customer footprint</th><td>EU and EEA enterprises with AI Act high-risk AI systems ; in design-partner phase ahead of August 2026 enforcement</td></tr>
+        <tr><th>Open-source</th><td>Verifier libraries + protocol definitions are Apache 2.0 ; producer-side SDKs are proprietary commercial</td></tr>
+        <tr><th>Pricing</th><td>Verifier free / Starter €15K/yr / Growth €45K/yr / Enterprise from €90K, per high-risk AI system × decision volume (<a href={routes.pricing.en}>full pricing</a>)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="press-section">
+    <h2>What makes the product newsworthy</h2>
+    <ul class="press-list">
+      <li><strong>Cryptographic re-verifiability.</strong> No other AI Governance Platform (CredoAI, OneTrust, IBM watsonx.governance, Holistic AI, ModelOp, Saidot, Monitaur, TrueScreen, etc.) ships a verifier that an auditor's auditor can run in their browser without trusting the vendor. CarveTrace does ; the verifier is open-source.</li>
+      <li><strong>Article 12 ↔ Article 14 binding at write-time.</strong> Every AI inference is cryptographically bound to the human-oversight event that reviewed it as a single signed atom. Monitaur logs decisions ; TrueScreen certifies data with eIDAS qualified timestamps. Neither binds inference ↔ oversight as one atom.</li>
+      <li><strong>EU-domiciled + self-hosted.</strong> Aryamind SARL is a French company. CarveTrace is self-hosted on the customer's infrastructure across every tier. No US-vendor transfer-impact issues ; no shared SaaS plane ; customer's signing keys never leave customer custody.</li>
+      <li><strong>Honest pricing.</strong> Prices on the page : €0 / €15K / €45K / from €90K. Per high-risk AI system × decision volume — the unit the EU AI Act regulates. No "contact sales" wall ; no per-seat trap.</li>
+      <li><strong>Designed for the PLD.</strong> The Product Liability Directive 2024/2853 applies to AI from 9 December 2026. The Directive shifts the burden of disclosure to the producer. An evidence layer that can't be verified by a claimant's expert independently is one that doesn't survive contested litigation. CarveTrace was built for this.</li>
+    </ul>
+  </section>
+
+  <section class="press-section">
+    <h2>Founder bio</h2>
+    <p>
+      <strong>Othman Chahboune</strong> — Founder, Aryamind SARL. Engineer
+      and operator based in France. Previously built cryptographic data
+      systems at scale ; founded Aryamind in 2025 to bring third-party-
+      re-verifiable evidence to AI compliance. CarveTrace's commitment to
+      ship a verifier that survives the vendor is a direct reaction to a
+      pattern of vendor-database-locked compliance products that have
+      historically failed customers when the vendor was acquired,
+      went out of business, or rotated keys.
+    </p>
+  </section>
+
+  <section class="press-section">
+    <h2>Logos + brand assets</h2>
+    <p>
+      The CarveTrace wordmark and monogram are trademarks of Aryamind SARL.
+      Use them only to identify or reference CarveTrace itself — not to
+      imply endorsement of your own product, service, or content. Permitted
+      uses do not require prior written authorization. For media coverage,
+      below are direct links to the assets shipped on this site :
+    </p>
+    <ul class="press-list">
+      <li><a href="/favicon.svg" rel="noopener">Monogram (SVG, 1× scalable)</a> — the C-shaped favicon ; sized for browser-tab use, also works at button-icon scale.</li>
+      <li>Wordmark : <em>Carve</em><strong>Trace</strong> rendered in Inter SemiBold + Inter Regular at any size. No bitmap version is shipped because the wordmark is text — render it in your typesetter at any DPI.</li>
+      <li>Brand palette : emerald primary <code>#15803d</code> + zinc neutral <code>#18181b</code> + ink-secondary <code>#52525b</code> + edge <code>#e4e4e7</code>. Background white.</li>
+      <li>Type : Inter (sans, body + headings) + JetBrains Mono (monospace, hash chips + code blocks).</li>
+    </ul>
+    <p>
+      Need a higher-resolution wordmark export (PNG / PDF) ? Email
+      <a href={`mailto:${pressEmail}`}>{pressEmail}</a> with the use case
+      and target resolution. Turnaround : 1 business day.
+    </p>
+  </section>
+
+  <section class="press-section">
+    <h2>Sample screenshots</h2>
+    <p>
+      Permitted for editorial use with attribution to "CarveTrace" or
+      "verify.carvetrace.com" where relevant :
+    </p>
+    <ul class="press-list">
+      <li><strong>Verifier landing page.</strong> Open <a href="https://verify.carvetrace.com">verify.carvetrace.com</a> in any modern browser ; full-page screenshot is the canonical asset.</li>
+      <li><strong>Verifier VERIFIED state.</strong> Drop the <a href="https://verify.carvetrace.com/sample-evidence-bundle.zip">valid sample bundle</a> onto the verifier, screenshot the VERIFIED card.</li>
+      <li><strong>Verifier FAILED state.</strong> Drop the <a href="https://verify.carvetrace.com/sample-evidence-bundle-tampered.zip">tampered sample bundle</a> ; screenshot the FAILED card.</li>
+      <li><strong>Coverage report dossier excerpt.</strong> Generate a report bundle per the <a href="/demo/">demo</a> guide ; screenshot the cand-delta override dossier (the AI Act recruitment-scenario story).</li>
+    </ul>
+  </section>
+
+  <section class="press-section">
+    <h2>Key dates referenced in CarveTrace coverage</h2>
+    <table class="press-table">
+      <tbody>
+        <tr><th>2 August 2026</th><td>EU AI Act high-risk obligations bind (Article 12 + Article 14)</td></tr>
+        <tr><th>9 December 2026</th><td>Product Liability Directive 2024/2853 applies to AI software</td></tr>
+        <tr><th>2 August 2027</th><td>EU AI Act full applicability (including embedded-in-regulated-product systems)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="press-section">
+    <h2>Useful links for further research</h2>
+    <ul class="press-list">
+      <li><a href={routes.why.en}>/why</a> — comparison of CarveTrace vs CredoAI / OneTrust / IBM watsonx.governance / Holistic AI / ModelOp / Saidot / TrueScreen / build-it-yourself, on 8 dimensions.</li>
+      <li><a href={routes.docs.en}>/docs</a> — 30+ technical and regulatory guides, versioned with the code.</li>
+      <li><a href={routes.blog.en}>/blog</a> — long-read analyses of Article 12, Article 14, and the PLD's burden-shift mechanic.</li>
+      <li><a href={routes.trust.en}>/trust</a> — security posture, certifications roadmap, vendor-questionnaire pre-answers.</li>
+      <li><a href="/verifier-integrity/">/verifier-integrity</a> — published SHA-256 manifest of every asset on verify.carvetrace.com ; auditors can rebuild from source and compare.</li>
+      <li><a href={routes.deck.en}>/deck</a> — 10-slide pitch deck for context on the product narrative.</li>
+    </ul>
+  </section>
+
+  <section class="press-section press-contact">
+    <h2>Press contact</h2>
+    <p>
+      <strong>Email :</strong> <a href={`mailto:${pressEmail}`}>{pressEmail}</a> (also <a href={`mailto:${fallbackEmail}`}>{fallbackEmail}</a> as fallback).
+      <br/>
+      <strong>Response window :</strong> 1 business day during EU business hours (CET, Mon–Fri 09:00–18:00).
+      <br/>
+      <strong>Interview language :</strong> EN or FR.
+    </p>
+  </section>
+</Base>
+
+<style>
+  .press-section { margin: 2.5rem 0; max-width: 56rem; }
+  .press-section h2 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+  .press-section > p {
+    color: var(--ink-secondary);
+    line-height: 1.65;
+    margin-bottom: 0.75rem;
+  }
+  .press-section code {
+    background: #f4f4f5;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.8125rem;
+  }
+
+  .press-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+    margin: 0.5rem 0 0.5rem;
+  }
+  .press-table th, .press-table td {
+    border: 1px solid var(--edge-subtle);
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  .press-table th {
+    background: #f4f4f5;
+    font-weight: 600;
+    width: 32%;
+  }
+
+  .press-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .press-list li {
+    padding-left: 1.25rem;
+    position: relative;
+    color: var(--ink-secondary);
+    line-height: 1.6;
+    font-size: 0.9375rem;
+    margin-bottom: 0.5rem;
+  }
+  .press-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 2px;
+    background: var(--brand-600);
+    opacity: 0.85;
+  }
+  .press-list strong { color: var(--ink-default); }
+  .press-list a { color: var(--brand-600); text-decoration: underline; }
+
+  .press-section p strong { color: var(--ink-default); }
+  .press-section p a { color: var(--brand-600); text-decoration: underline; }
+
+  .press-contact {
+    padding: 1.5rem 1.75rem;
+    background: #fafafa;
+    border-radius: var(--radius-xl);
+  }
+  .press-contact p { margin-bottom: 0; line-height: 1.7; }
+</style>
